@@ -1,0 +1,10 @@
+{
+  "component": "bounded bare scalar graph kernel from owner research software",
+  "source_sha256": "c2299338a3b837c6191a27c2a792d38147a1a2761a728238aa1d939a8689025c",
+  "public_changes": "formatting and removal of one unused itertools.product import",
+  "scope": "one/two loops, up to five vertices, fixed external labels",
+  "excluded": "full active development tree, numerical jobs, counterterm-action implementation, private research notes and correspondence",
+  "public_sha256": "5594b2fcab88654db539f9ba94e48a70de7d46a9384173bc8c9bb7bd516b1d67",
+  "ast_equivalent_to_selected_source": false,
+  "function_and_class_ast_preserved": true
+}
