@@ -2,7 +2,8 @@
 
 [English](README.md) · [原理与源码对应](docs/theory-zh.md) · [质量／动能项演示](docs/L2E3G4-zh.md)
 
-本仓库对应爱丁堡大学 MPhys 理论物理项目 *Renormalization in phi-cubed theory*。
+本仓库提供六维标量 φ³ 理论重整化的研究软件，涵盖可复现的图生成、反项构造与精确验证。
+
 **0.2.0** 引入当前 Phi3Lab 计算核心：生成泛函计数、图同构、精确有理系数、BPH 递归减除、
 反项作用量独立生成和逐格验证，同时保留已有数值核，补入数学研究源码与可编辑 LaTeX 推导。
 

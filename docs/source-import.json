@@ -1259,8 +1259,10 @@
       "path": "src/phi3lab/reporting.py",
       "origin": "Phi3Lab 4.4 Stage4 / phi3lab/reporting.py",
       "source_sha256": "a55aa89726445b3b9cbcc9f11981025941837cba85c70f1e2e8a81d36411fed8",
-      "import_sha256": "a55aa89726445b3b9cbcc9f11981025941837cba85c70f1e2e8a81d36411fed8",
-      "changes": []
+      "import_sha256": "d4b289d82ac36b74cf9ae101d8083a3d4ce82af8b263ac0d842ac22ec42d36f0",
+      "changes": [
+        "Public presentation: use a neutral software label without degree/program affiliation; mathematical content unchanged."
+      ]
     },
     {
       "path": "src/phi3lab/routing.py",
@@ -4063,8 +4065,10 @@
       "path": "docs/derivations/workbench/automatic-analysis-project/main.tex",
       "origin": "Phi3Lab 4.4 Stage4 / automatic-analysis-project/main.tex",
       "source_sha256": "abdcd2e02f63b26eb0a1d7a2a6f1b20a078ef43084f841f9a277da0427910478",
-      "import_sha256": "abdcd2e02f63b26eb0a1d7a2a6f1b20a078ef43084f841f9a277da0427910478",
-      "changes": []
+      "import_sha256": "906ed6d917823225f9d5258324c30f5f496810cdf56b45bfb9262bb7ff1a20a8",
+      "changes": [
+        "Public presentation: use a neutral software label without degree/program affiliation; mathematical content unchanged."
+      ]
     },
     {
       "path": "docs/derivations/workbench/automatic-analysis-project/precision-repair.tex",
@@ -4098,8 +4102,10 @@
       "path": "docs/derivations/workbench/full-analysis-project/main.tex",
       "origin": "Phi3Lab 4.4 Stage4 / full-analysis-project/main.tex",
       "source_sha256": "8ca6d108bef839f1509a0c46401ab36616a07d0757e053b6e20153844839949f",
-      "import_sha256": "8ca6d108bef839f1509a0c46401ab36616a07d0757e053b6e20153844839949f",
-      "changes": []
+      "import_sha256": "91d18da7b644a8bef2e34841d5f26c9f7c7393443d526eeef381742d649855a8",
+      "changes": [
+        "Public presentation: use a neutral software label without degree/program affiliation; mathematical content unchanged."
+      ]
     },
     {
       "path": "docs/derivations/workbench/full-analysis-project/nested-bubble.tex",
@@ -4168,8 +4174,10 @@
       "path": "docs/derivations/workbench/extreme-analysis-project/main.tex",
       "origin": "Phi3Lab 4.4 Stage4 / extreme-analysis-project/main.tex",
       "source_sha256": "bcd369bbe8bd388a31104f042aeaf9d6b38d89fecf6e5eb992ee53f119851dba",
-      "import_sha256": "bcd369bbe8bd388a31104f042aeaf9d6b38d89fecf6e5eb992ee53f119851dba",
-      "changes": []
+      "import_sha256": "abee1f14c1895922c9605dda12c660d91195c928834d38d2a06df96d594cd60a",
+      "changes": [
+        "Public presentation: use a neutral software label without degree/program affiliation; mathematical content unchanged."
+      ]
     },
     {
       "path": "docs/derivations/workbench/extreme-analysis-project/triangle-exact-A.tex",

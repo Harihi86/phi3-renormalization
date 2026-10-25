@@ -2,8 +2,8 @@
 
 [中文说明](README_ZH.md) · [Theory and source map](docs/theory.md) · [Worked example](docs/L2E3G4.md)
 
-Computational tools associated with the MPhys Theoretical Physics project
-*Renormalization in phi-cubed theory*, University of Edinburgh.
+Research software for renormalization in six-dimensional scalar φ³ theory,
+with reproducible graph generation, counterterm construction and exact verification.
 
 **0.2.0** imports the current Phi3Lab computational core: generating-functional
 counting, graph isomorphisms, exact rational weights, recursive BPH subtraction,
