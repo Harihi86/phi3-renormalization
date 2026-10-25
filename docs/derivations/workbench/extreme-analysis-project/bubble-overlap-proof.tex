@@ -1,0 +1,255 @@
+\section{Extreme-scale coordinates for bubble and overlap integrals}
+
+These transformations keep the finite recursive BPH kernels already proved
+above, including the bubble's finite $-r/6$ term. They do not substitute a
+massless finite part or an MS amplitude. Analytic tail estimates below
+control only discarded infinite intervals, separately from quadrature error.
+
+\subsection{A logarithmic radial coordinate for bubble insertions}
+
+Scale loop momentum by $M=m^2$ and use dimensionless $r=k^2/M$. Put
+\[
+ x=\log(1+r),\quad w=e^{-x},\quad t=1-w,\quad
+ \beta(x)=\frac{B_R(r;1)}{1+r}.
+\]
+The Jacobian is $dr=(1+r)dx$, and $r/(1+r)=t$. The bubble is evaluated
+from its same finite closed form or its convergent small-$r$ series. A
+large-$x$ form which does not construct $r$ is
+\[
+ \beta(x)=\frac{(t+4w)^{3/2}}{3\sqrt t}
+ \left\{\frac x2+\log\frac{\sqrt t+\sqrt{t+4w}}2\right\}
+                  -\frac{4w}{3}-\frac{4t}{9}.
+\]
+In particular $\beta(x)=x/6-4/9+O((x+1)e^{-x})$.
+
+For the two-point graph let $L=\log(s/M)$ and $q=e^{L-x}$. In terms of
+the angular variables $d$ and $\mu=w$ of the preceding bubble chapter,
+define
+\[
+ N=\frac{(1+2w)d^2+6wd+3w}{(1+d)^2}.
+\]
+Exact substitution into its finite radial formula gives
+\[
+ \frac{J_{\mathrm{b},2}}s
+ =\frac16\int_0^\infty t^2\beta(x)
+                  \frac dq\frac{d}{d+w}N\,dx.
+\]
+This is the formula implemented in the logarithmic route. Ratios rather
+than $q$ itself are used when $L-x>0$: with $i_q=e^{x-L}$,
+\[
+ d/q=\tfrac12\{1-i_q+\sqrt{(1-i_q)^2+4wi_q}\},\quad
+ (1+d)^{-1}=\frac{i_q}{d/q+i_q},\quad
+ \frac{d}{d+w}=\frac{d/q}{d/q+wi_q}.
+\]
+For $q\le1$, rationalizing the root gives
+$d/q=2w/[\sqrt{(1-q)^2+4wq}+1-q]$. Continuous endpoint limits are used.
+No ratio $s/M$ need be formed.
+
+For the three-point insertion let $S=\max(a,b,c)$, $L=\log(S/M)$ and
+$(\widehat a,\widehat b,\widehat c)=(a,b,c)/S$. At a Feynman fraction
+$u$, put $E=u\widehat a+(1-u)\widehat b$,
+$\tau=u(1-u)\widehat c/E$ when $E>0$, and $q=e^{L-x}E$. The exact
+angular difference is represented by
+\[
+ \mathcal E=1-\frac4{(1+q+\sqrt{(1-q)^2+4wq+4tq\tau})^2},\qquad
+ J_{\mathrm{b},3}=-\frac12\int_0^\infty t^2\beta(x)
+                                \int_0^1\mathcal E\,du\,dx.
+\]
+The $E=0$ case takes its physical continuous value. Rationalized increments
+are used for $q\le1$ and inverse-$q$ expressions for $q>1$. These are
+algebraic rewrites of the exact six-dimensional angular average.
+
+The positive panels have width at most four and are split at the physical
+layer $x=L$. For $L\ge0$ truncate at $X=L+48$. The established bounds
+$F_2\le s^2/(r+M)^3$ and
+$0\le R^{-2}-4/(A+W)^2\le2S/R^3$, together with
+$B_R(r)\le(r/6)\log(1+r/M)$, give
+\[
+ \left|\operatorname{tail}\frac{J_{\mathrm{b},2}}s\right|
+ \le\frac{X+1}{12}e^{-48},\qquad
+ |\operatorname{tail}J_{\mathrm{b},3}|
+ \le\frac{X+1}{6}e^{-48}.
+\]
+These estimates remain meaningful when $S/M$ exceeds binary64 range,
+because only $L$ is used.
+
+As an independent two-point asymptotic check, set
+\[
+ g(x)=\frac16t^2(1+2w)\beta(x),\qquad
+ C_2=\int_0^\infty\{g(x)-x/36+2/27\}dx+\frac{29}{144}.
+\]
+The integrand is regular at zero and exponentially decreasing at infinity.
+The transition kernel at fixed $x-L$ is $(1-e^{x-L})^3$ for $x<L$ and
+zero for $x>L$. Its correction moments are $-11/6$ and $-85/36$.
+Separating the integrable remainder of $g$, or splitting at $x=L/2$,
+therefore gives
+\[
+ \frac{J_{\mathrm{b},2}}s=\frac{L^2}{72}-\frac L8+C_2+o(1),\qquad
+ C_2\simeq0.3445763818589743673553120.
+\]
+The linear and constant transition contributions are respectively
+\[
+ (1/36)(-11/6),\qquad
+ (-2/27)(-11/6)-(1/36)(-85/36)=29/144.
+\]
+The production calculation integrates the complete massive kernel, rather
+than replacing it by this asymptotic check.
+
+\subsection{Exact logarithmic separation for the overlapping graph}
+
+Let $\sigma=s/M$, $L=\log\sigma$. On the original resolved square take
+$0<x,w<1$, $u,v\in(0,1)$, and define
+\begin{gather*}
+ r=1-w,\quad c=1+xr,\quad a=u(1-u),\quad b=v(1-v),\\
+ T=a+\frac{r(u-v)^2}{c},\quad
+ d_f=r(3+3xr+x^2r^2),\quad i_m=\frac{w}{x+w},\\
+ z=\sigma b i_m,\qquad
+ \alpha=\frac{\sigma xTi_m}{1+z}.
+\end{gather*}
+Write $f(z)=(1+z^{-1})\log(1+z)-1=z h(z)$, with its continuous zero
+value. The bare-minus-first-counterterm contribution to $J/s$ is exactly
+\[
+ \int_{[0,1]^4}\frac{2w}{c^3}
+ \left[T\{\log(1+z)+f(\alpha)\}-d_f b f(z)\right]dx\,dw\,du\,dv.
+\]
+The old two sectors are just the two orderings of $(x,w)$ and their
+Jacobian; this formula does not change the recursive subtraction.
+The common large logarithm has an exactly integrable coefficient. Since
+$\int a=\int b=\int(u-v)^2=1/6$, it equals
+\[
+ \frac13\int_0^1\int_0^1\frac{w}{c^3}
+           \{1+r/c-r(c^2+c+1)\}\,dx\,dw=\frac1{36}.
+\]
+For example integrate $c=1+xr$ first, then the remaining elementary
+rational and logarithmic terms. Subtracting $L$ in both logarithmic
+factors pointwise and adding $L/36$ analytically prevents an inaccurate
+discrete coefficient from being amplified by an enormous $L$.
+
+The remaining negative counterterm, after the trivial second phase
+integration, is
+\[
+ -\int_0^1a\,du\int_0^1\int_0^1
+       \frac{2w}{(x+w-xw)^3}
+       f\left(\frac{\sigma a xw}{x+w}\right)dx\,dw.
+\]
+Set $\zeta=1/x+1/w\ge2$. Integrating the other reciprocal variable
+gives weight $\zeta(\zeta-2)/(\zeta-1)^3$. Then $v=1/\zeta$ yields
+\[
+ -\int_0^1a\,du\int_0^{1/2}
+       \left\{\frac1v+g(v)\right\}f(\sigma av)dv,
+ \quad
+ g(v)=\frac1{1-v}+\frac1{(1-v)^2}-\frac1{(1-v)^3}.
+\]
+The exact primitive of $f(z)/z$ is
+$F(z)=-\operatorname{Li}_2(-z)-f(z)$. Define finite corrections
+\begin{align*}
+ \delta f(z)&=f(z)-\log z+1,\\
+ \delta F(z)&=F(z)-\{\tfrac12\log^2z-\log z+1+\pi^2/6\}.
+\end{align*}
+The counterterm is exactly
+\begin{align*}
+ &-\frac{L^2}{12}+\frac{19L}{36}+\frac{\pi^2}{72}-\frac{137}{108}\\
+ &\quad-\int_0^1a\,\delta F(\sigma a/2)du
+       -\int_0^1a\,du\int_0^{1/2}g(v)\delta f(\sigma av)dv.
+\end{align*}
+Both finite correction integrals are retained at every scale. The constants
+follow, in particular, from
+\begin{gather*}
+ \int a=\tfrac16,\quad \int a\log a=-\tfrac5{18},\quad
+ \int a\log^2a=\tfrac{28}{27}-\tfrac{\pi^2}{18},\\
+ \int_0^{1/2}g(v)dv=\log2-\tfrac12,\qquad
+ \int_0^{1/2}g(v)\log v\,dv=\tfrac12-\tfrac{\pi^2}{12}
+                                             -\tfrac12\log^22.
+\end{gather*}
+Thus the full leading logarithms are
+$J/s=-L^2/12+5L/9+O(1)$, but the algorithm does not replace the finite
+massive answer by an asymptotic constant.
+
+For stable evaluation of the last correction put $v=e^{-t}/2$ and panelize
+$t\ge0$. At $T=L+48$, $z=\sigma av\le e^{-48}/8$. Since $|g|\le2$
+and $f(z)\le z/2$, its discarded tail obeys
+\[
+ |\operatorname{tail}|
+ \le\frac{e^{-L-96}}{240}
+ +e^{-L-48}\left\{\frac{50+\log2}{6}+\frac5{18}\right\}
+ <9e^{-L-48}\qquad(L\ge0).
+\]
+This is even smaller than a conservative $160e^{-L-48}$ enclosure.
+It controls the truncated log-$v$ interval only; phase quadrature and panel
+quadrature still require independent refinement. Common Schwinger-regulator
+equivalence and the original twelve-dimensional $L^1$ proofs remain those
+of the preceding chapters, because every transformation here starts from
+their already established finite recursive BPH integrals.
+
+\subsection{A controlled scale-free overlap reference}
+
+An independent reference can integrate the finite constant after taking the
+large-scale limit, while bounding the omitted finite-mass terms analytically.
+Set $\alpha_\infty=xT/b$, $\ell=\log(bi_m)$ and define the scale-free
+four-dimensional constant
+\[
+ C_\infty=\frac{\pi^2}{72}-\frac{137}{108}
+ +\int_{[0,1]^4}\frac{2w}{c^3}
+       \{T[\ell+f(\alpha_\infty)]-d_f b(\ell-1)\}
+                                        dx\,dw\,du\,dv.
+\]
+Its logarithmic endpoint terms are integrable. This reference uses a
+scale-free constant, whereas the production calculation retains both finite
+counterterm corrections and the finite-$z$ raw expression.
+
+For $y>0$, $0\le y f'(y)=1-\log(1+y)/y\le1$. Since
+$\alpha=\alpha_\infty z/(1+z)$, this proves
+\[
+ 0\le\log(1+1/z)+f(\alpha)-f(\alpha_\infty)
+                                  \le\log(1+1/z).
+\]
+Thus the absolute difference of the raw density and its limiting
+logarithmic polynomial is bounded by
+\[
+ \frac{2w}{c^3}\{T\log(1+1/z)+d_f b\,\delta f(z)\}.
+\]
+For $0<\theta<1$ one has
+\[
+ \log(1+1/z)\le z^{-\theta}/\theta,\qquad
+ \delta f(z)\le
+       \left(\frac1\theta+\frac1{1-\theta}\right)z^{-\theta}.
+\]
+Take $\theta=1/4$. The elementary bounds $T\le5/4$, $d_f\le7$,
+$2w/c^3\le2w$, and
+$z^{-1/4}\le\sigma^{-1/4}(2/(bw))^{1/4}$ give an integrated raw error
+at most $K_{\rm raw}\sigma^{-1/4}$, where
+\[
+ K_{\rm raw}=
+ \frac{2^{5/4}}{7/4}
+ \left\{5B(3/4,3/4)+\frac{112}{3}B(7/4,7/4)\right\}<32.
+\]
+Indeed $B(3/4,3/4)\le4\sqrt2/3$ by splitting at $1/2$, and
+$B(7/4,7/4)\le1/(2\sqrt2)$ by the maximum of $v(1-v)$.
+Hence $K_{\rm raw}\le(64/7)2^{7/4}<32$, without a numerical special-function
+enclosure.
+
+For the complete, untruncated counterterm correction, take $\theta=3/4$.
+The dilogarithm inversion identity gives
+\[
+ |\delta F(z)|\le\frac{64}{9}z^{-3/4},\qquad
+ \delta f(z)\le\frac{16}{3}z^{-3/4}.
+\]
+Using $|g(v)|\le2$ on $[0,1/2]$ and integrating $a^{1/4}$ yields the
+bound $K_{\rm ct}\sigma^{-3/4}$, with
+\[
+ K_{\rm ct}=\frac{256}{9}2^{3/4}B(5/4,5/4)<32.
+\]
+For example Jensen's inequality gives
+$B(5/4,5/4)\le6^{-1/4}$, and
+$(256/9)(4/3)^{1/4}<32$.
+Consequently, for every $\sigma\ge1$,
+\[
+ \left|\frac{J_{\mathrm{ov}}}{s}
+       -\left(-\frac{L^2}{12}+\frac{5L}{9}+C_\infty\right)\right|
+ \le32\sigma^{-1/4}+32\sigma^{-3/4}.
+\]
+At $\sigma=10^{308}$ the bound is less than $3.201\times10^{-76}$.
+This controls the whole integrated scale remainder. Numerical quadrature of
+$C_\infty$ still has its own refinement evidence and is not made rigorous
+by this scale estimate. It can, however, provide a materially different
+reference for the production finite-mass formula at extreme ratios.

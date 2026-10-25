@@ -1,0 +1,185 @@
+\section{Scheme, normalization, and the complete two-loop atlas}
+\label{sec:scheme}
+
+We work with one real scalar field in massive Euclidean $\phi^3$ theory in
+six dimensions. Every internal line has the same mass squared $M=m^2>0$,
+and
+\[
+ D(r)=\frac{1}{r^2+M},\qquad
+ \int_k=\int_{\mathbb R^6}\frac{d^6k}{\pi^3},\qquad
+ \langle r\rangle=\sqrt{r^2+m^2}.
+\]
+Unless a weight is explicitly attached, $J_R(G)=\int_k\int_q RI_G$
+denotes an unweighted scalar graph integral. It excludes the fixed-external-label
+symmetry weight $1/S_G$, coupling factors, and conventions for the signs of
+effective-action vertices. Replacing each normalized loop measure by
+$d^6k/(2\pi)^6$ multiplies a two-loop result by $(4\pi)^{-6}$.
+The graph atlas consists of connected amputated 1PI multigraphs, with fixed
+external labels and with tadpoles retained.
+
+\subsection{Recursive BPH and the Taylor conditions}
+
+For a graph with $E$ external legs, cubic valence implies the superficial
+degree
+\[
+ \omega(G)=6L-2I=6-2E.
+\]
+The operator $t_G^{\omega(G)}$ takes the Taylor polynomial, through total
+degree $\omega(G)$, in independent physical external momentum components
+at zero, holding loop variables fixed. A subgraph Taylor operator similarly
+acts on all of that subgraph's independent external momenta, including
+momenta which are loop variables of the surrounding graph.
+
+In the Bogoliubov recursion, write
+\begin{align*}
+ C(\gamma)&=-t_\gamma^{\omega(\gamma)}\overline R I_\gamma,\\
+ \overline R I_G&=I_G+
+ \sum_{\substack{\mathcal S\ne\varnothing\\
+                 \mathcal S\text{ a disjoint proper spinney}}}
+ I_{G/\mathcal S}\prod_{\gamma\in\mathcal S} C(\gamma),\\
+ RI_G&=(1-t_G^{\omega(G)})\overline R I_G.
+\end{align*}
+Contractions and local polynomial insertions are understood in the second
+line. Counterterms of nested subgraphs are themselves recursively prepared;
+overlapping proper subgraphs cannot occur together in one disjoint spinney.
+In particular, the two overlapping triangles of the two-point diamond give
+two single-subgraph terms, with no product of their counterterms.
+For the present atlas the overall Taylor orders are $4,2,0$ for $E=1,2,3$;
+the proper bubble and triangle orders are respectively $2$ and $0$.
+
+The terminology is BPH throughout. A primary account of the recursive
+framework is A.~D.~Kennedy, \emph{A Simple Proof of the BPH Theorem}
+(1996), \texttt{arXiv:hep-th/9612113}, especially its discussion of Henge
+and Bogoliubov recursion in Section~3.2. A forest expansion is a useful
+finite combinatorial comparison. The graph-specific parameter formulas,
+explicit constants, and momentum decompositions below are derived here;
+they are not attributed to Kennedy's paper. Nor does this finite atlas
+constitute a new proof of an arbitrary-loop BPH theorem.
+
+\subsection{Common regulator and the meaning of an ordinary finite integral}
+
+Use, on every original edge, the same Schwinger lower cutoff
+\[
+ D_\eta(r)=\int_\eta^\infty
+             e^{-\alpha(r^2+M)}\,d\alpha,\qquad \eta>0.
+\]
+Taylor subtraction is performed on these regulated propagators, before
+Gaussian integration. Each counterterm retains the original edge labels and
+the common domain $\alpha_e\ge\eta$. Thus every regulated term is integrable;
+Fubini and differentiation may be used there. If
+$\alpha_e=\rho x_e$, $\sum_e x_e=1$, the common radial lower limit is
+\[
+ T(x)=\frac{\eta}{\min_e x_e}.
+\]
+It is independent of external momenta. One must not replace a regulated
+combination by separate unregulated integrals of its divergent terms.
+
+For any unit direction, the absolute derivative bounds
+\[
+ |\partial^nD_\eta(r)|\le c_n\langle r\rangle^{-2-n},\qquad
+ (c_0,c_1,c_2,c_3)=(1,2,10,72)
+\]
+are uniform in $\eta\ge0$. To see this, differentiate the exponential;
+each term is bounded by a positive Schwinger moment. The integral from
+$\eta$ to infinity is at most the corresponding integral from zero to
+infinity. For example, the second derivative is bounded by
+$2\langle r\rangle^{-4}+8r^2\langle r\rangle^{-6}$, and the third by
+$24|r|\langle r\rangle^{-6}+48|r|^3\langle r\rangle^{-8}$.
+The shift comparison
+\[
+ \langle r+a\rangle\ge
+ \frac{\langle r\rangle}{1+|a|/m}
+\]
+follows from the triangle inequality applied to $(r,m)$.
+These facts also bound propagator differences by the mean value formula.
+They supply regulator-independent momentum majorants in the chapters below.
+
+There are two distinct steps in each equivalence proof. A momentum-space
+$L^1$ majorant proves $\int RI_\eta\to\int RI$ for the original ordinary
+integral. A separate parameter-space majorant proves that the same regulated
+left side converges to the displayed finite parameter formula. Identifying
+these limits is legitimate; inferring original momentum $L^1$ solely from a
+post-Gaussian parameter norm would not be.
+
+\subsection{One-point graph and the finite linear condition}
+
+For the sole two-loop one-point graph, momentum conservation fixes its only
+physical external momentum to zero. There is no independent external
+variable left in the prepared integrand. Consequently the overall Taylor
+operator is the identity, even though its nominal order is four:
+\[
+ t_G^4\overline R I_{G,\eta}=\overline R I_{G,\eta},\qquad
+ RI_{G,\eta}=0,
+ \qquad J_R(\mathrm{L2E1G1})=0.
+\]
+This holds before any divergent term is integrated. The prepared graph may
+contain nontrivial proper-subgraph counterterms, but the identity applies
+to their complete sum. In this full zero-momentum Taylor scheme the local
+linear counterterm has coefficient
+$-\overline R J_{G,\eta}(0)$, with the sign translated according to the
+chosen action convention. Its finite part fixes the graphwise renormalized
+one-point amplitude to zero. The bare tadpole is not asserted to vanish.
+This is a renormalization condition on the linear term; it is not an
+independent proof of a physical vacuum expectation value condition.
+
+\subsection{All ten fixed-label graphs and their scalar kernels}
+
+Let $s=p^2$ in a two-point graph and let
+$s_i=p_i^2$, $p_1+p_2+p_3=0$, in a three-point graph. Denote the diamond
+kernel by $J_{\mathrm{ov}}(s)$, the primitive kernel by
+$J_{\mathrm{pr}}(s_1,s_2,s_3)$, and the standard triangle-insertion kernel
+by $J_{\mathrm{tr}}(s_1,s_2,s_3)$, where its first argument is the leg
+attached to the subdivergent triangle. For a bubble insertion write
+$J_{\mathrm{b},2}(s)$ or $J_{\mathrm{b},3}(a,b,c)$; in the latter,
+$a,b$ are adjacent to the insertion and $c$ is opposite it.
+All entries below use the same $M$.
+
+\begin{center}
+\small
+\begin{tabular}{llll}
+Graph & scalar kernel & proper subtraction & $S_G$\\ \hline
+L2E1G1 & $0$ & bubble and triangles & $4$\\
+L2E2G1 & $J_{\mathrm{ov}}(s)$ & two overlapping triangles & $2$\\
+L2E2G2 & $J_{\mathrm{b},2}(s)$ & one bubble & $2$\\
+L2E3G1 & $J_{\mathrm{pr}}(s_1,s_2,s_3)$ & none & $2$\\
+L2E3G2 & $J_{\mathrm{tr}}(s_1,s_2,s_3)$ & triangle on leg $1$ & $1$\\
+L2E3G3 & $J_{\mathrm{tr}}(s_2,s_1,s_3)$ & triangle on leg $2$ & $1$\\
+L2E3G4 & $J_{\mathrm{b},3}(s_1,s_2,s_3)$ & bubble opposite leg $3$ & $2$\\
+L2E3G5 & $J_{\mathrm{tr}}(s_3,s_1,s_2)$ & triangle on leg $3$ & $1$\\
+L2E3G6 & $J_{\mathrm{b},3}(s_1,s_3,s_2)$ & bubble opposite leg $2$ & $2$\\
+L2E3G7 & $J_{\mathrm{b},3}(s_2,s_3,s_1)$ & bubble opposite leg $1$ & $2$
+\end{tabular}
+\end{center}
+These mappings use the actual fixed external labels. A symmetric momentum
+point cannot test them: adjacent-leg exchange is a symmetry of the standard
+insertion kernels, whereas exchange with their distinguished leg generally
+changes the answer. The primitive kernel is symmetric under all three
+external-leg permutations.
+
+\subsection{Physical input domain and the scope of the bounds}
+
+The mathematical three-point domain is
+\[
+ s_i\ge0,\qquad
+ G=4s_1s_2-(s_3-s_1-s_2)^2\ge0.
+\]
+It is invariant under all leg permutations, and includes degenerate and
+zero momenta. In the software, converted binary64 values are checked using
+exact rational arithmetic. A negative requested $G$ is tolerated only when
+its defect is at most $10^{-14}$ times the smallest of the three Cauchy
+product scales $4ab+(c-a-b)^2$. The largest invariant is then moved inward
+by binary64 steps until the effective triple has exact $G\ge0$. Requested
+and effective inputs are recorded separately; all kernels and bounds use
+the effective physical triple. In particular a zero leg requires equality
+of the other two inputs, and an absolute error tolerance cannot hide an
+inconsistent tiny leg. This numerical boundary convention does not weaken
+the exact mathematical hypothesis above.
+
+All compact-uniform statements mean that physical external momenta have a
+fixed upper bound and $m\ge m_0>0$. The stronger global logarithmic scale
+bounds are stated separately. Analytic amplitude bounds, original momentum
+$L^1$ bounds, and quadrature refinement differences are different objects;
+none is silently substituted for another. The scope is these ten massive
+Euclidean graphs in the declared finite scheme, not a massless limit,
+Minkowski continuation, general finite-scheme conversion, or an arbitrary-loop
+induction theorem.

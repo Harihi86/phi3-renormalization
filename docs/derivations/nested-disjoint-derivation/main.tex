@@ -1,0 +1,50 @@
+\documentclass[11pt]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,hyperref}
+\title{Nested vertex and disjoint primitive: exact reduction and an integrable rotation control}
+\author{Phi3Lab development record}\date{25 October 2026}
+\begin{document}\maketitle
+\noindent This derivation applies to G56, G57, G201, G210, G215, G71 and G252. It is not a numerical quadrature error certificate. The mass is one; each six-dimensional loop has measure $d^6q/\pi^3$. Couplings and graph symmetry factors are excluded.
+\paragraph{Retaining the parent subtraction.}
+Two primitive loops are integrated analytically after their local subtractions. With $H_o$ the three outer propagators and $H_i$ the three parent propagators, the full integrand is
+\[
+(1-T^0_{\rm phys})H_o O\left[H_iT_i-K_0(k)\right],\qquad
+K_0(k)=-\frac{E(k^2)}{2(1+k^2)^3},\quad E(s)=\int_0^1\log(1+sx(1-x))\,dx.
+\]
+Here $T_i=-L(a,b,c)$ is the complete primitive triangle and $O$ is either another triangle or $J(s)=B(s)/(1+s)$. In the bubble case exactly one matching host denominator enters $J$; the independent reference keeps all original host denominators and $B$.
+The parent's subtraction sets its boundary momenta to zero but retains $k$. The physical subtraction sets only $p_1,p_2$ to zero and retains $q,k$. The parent branches must stay combined.
+\paragraph{Original integrability.}
+All $2^{12}-1=4095$ nonempty internal-edge subsets of each original graph are enumerated independently. For every connected 1PI loop subgraph,
+\[
+\ell=I-V+1,\qquad n=3V-2I,\qquad \omega=6\ell-2I=6-2n.
+\]
+All proper subgraphs with $\omega\ge0$ and their Taylor degrees match the original recursive program. There are eight forests per graph. Gaussian, positive-polynomial and Schur constructions agree exactly on all 56 states. These massive Euclidean graphs with zero-momentum, inner-first BPH subtractions satisfy the hypotheses of the massive BPH convergence theorem. The theorem is an input; the scripts check its graph-specific hypotheses, not a new proof of that theorem. Integration of the subtracted primitive loops preserves absolute integrability.
+\paragraph{Damped quadratic control.}
+Let $C$ denote the coefficient of $\lambda^2$ in the full parent-subtracted product under $p\mapsto\lambda p$. Subtract $\chi C$ and return its exact rotational mean, with the predeclared invariant
+\[
+\chi(q,k)=\left[1+\left(\frac{q^2+k^2}{64}\right)^4\right]^{-3}.
+\]
+This changes neither local nor overall Taylor subtraction. Put $R=1+q^2+k^2$, $L=\log(3R)$. The three Taylor coefficients of one baseline-normalized propagator have bounds $(1,3\sqrt R,9R)$. For six propagators these become $(1,18\sqrt R,189R)$. Each primitive factor is bounded by $(64L,64\sqrt R L,64RL)$. Since $|K_0|\le L$,
+\[
+|C|\le (933888+4096)RL^2=937984RL^2<2^{20}RL^2.
+\]
+This bound is used only for the damped control. It does not separate the undamped divergent parent branches.
+Writing $T=q^2+k^2$, $x=q^2/T$ and integrating $x$ gives the radial measure $T^5dT/120$. For $T\ge64$ the control is dominated by
+\[
+\frac{2^{21}64^{12}}{120}\,T^{-6}\log^2(6T),\qquad
+\int_a^\infty\frac{\log^2(6T)}{T^6}\,dT
+=\frac1{a^5}\left(\frac{\log^2(6a)}5+\frac{2\log(6a)}{25}+\frac2{125}\right).
+\]
+The compact region is finite. Thus both the added control and its rotation average are absolutely integrable.
+\paragraph{Independent rotation check.}
+The loop Gram matrix is retained:
+\[
+\left\langle(q\cdot p_a)(k\cdot p_b)\right\rangle
+=\frac{(q\cdot k)(p_a\cdot p_b)}6.
+\]
+Native code uses this covariance. The independent reference uses formal Taylor convolution and 24 explicitly constructed six-dimensional frames. Three unimodular charts cover the $q,k,q+k$ soft regions. An optional inner-loop reflection leaves physical momenta untouched.
+\paragraph{Reproducibility.}
+The exact proof is in \texttt{verify\_nested\_disjoint\_control\_v1.py}; its durable receipt records 56 forest states and 28665 subsets. Native tests, diagnostics, production, independent replay and accounting have separate exit records. No precision acceptance follows from this derivation alone.
+\paragraph{Mathematical reference.}
+H. van Hees, \emph{Introduction to Relativistic Quantum Field Theory}, sections 5.7--5.9, equations (5.215)--(5.222):\newline\url{https://itp.uni-frankfurt.de/~hees/publ/lect.pdf}.
+\end{document}

@@ -1,0 +1,119 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\usepackage[colorlinks=true]{hyperref}
+\title{Full-domain variance transports for massive $\phi^3$ forests}
+\author{Phi3Lab development record}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+All maps below preserve the original forest integrals. They change coordinates,
+retain every Jacobian, and introduce no tail cutoff or local counterterm.
+Each native implementation is checked against an independently evaluated
+original-route reference. The mathematical identities do not themselves
+constitute numerical precision acceptance.
+
+\section{The equal-radius region of G371}
+For two host momenta, let $t=q^2$, $v=r^2$, $T=t+v$ and $a=t/T$.
+The complete angular quadratic moment has the massive discriminant
+\[
+ R^2=(1+t+v)^2-4tv=1+2T+T^2(2a-1)^2.
+\]
+At large $T$, its variation is concentrated near $a=1/2$.
+Define
+\[
+ c(T)=\frac{\sqrt{1+2T}}{T},\qquad
+ Y(T)=\operatorname{arsinh}\frac1{c(T)},\qquad
+ \eta=(2u-1)Y(T),\qquad
+ a=\frac{1+c(T)\sinh\eta}{2}.
+\]
+For every $T>0$, this maps $0<u<1$ bijectively onto $0<a<1$:
+\[
+ a(0)=0,\quad a(1)=1,\quad
+ \frac{\partial a}{\partial u}=c(T)Y(T)\cosh\eta>0,\quad
+ R=\sqrt{1+2T}\cosh\eta .
+\]
+The shape of the known discriminant determines the transport; no fitted
+sample-dependent density enters this formula.
+
+Two scale charts are fixed before diagnostics:
+\[
+ T=\left(\frac{s}{1-s}\right)^2,\qquad
+ T=\left(\frac{s}{1-s}\right)^4.
+\]
+The second uses the existing first chart through
+\[
+ s_{\rm old}=\frac{s^2}{s^2+(1-s)^2},\qquad
+ \frac{ds_{\rm old}}{ds}
+ =\frac{2s(1-s)}{[s^2+(1-s)^2]^2}.
+\]
+Although $a$ depends on the scale, the joint Jacobian is triangular:
+\[
+ \det\frac{\partial(s_{\rm old},a)}{\partial(s,u)}
+ =\frac{ds_{\rm old}}{ds}\frac{\partial a}{\partial u}.
+\]
+The native density multiplies the original complete six-dimensional kernel
+by precisely this factor. All four forests and the proved angular control
+remain unchanged.
+
+\section{The parent variance in G203 and G64}
+The original parent parameters $x,y$ have measure $(1-x)\,dx\,dy$.
+For these two original routings, their baseline variance is
+\[
+ V_0=t\,\xi(1-\xi),\qquad \xi=(1-x)y.
+\]
+Parameterizing $\xi$ directly separates the quantity that determines the
+matched host radius. Set
+\[
+ x=(1-\xi)w,\qquad y=\frac{\xi}{1-x},
+ \qquad 0<\xi,w<1.
+\]
+The inverse is $\xi=(1-x)y$, $w=x/(1-\xi)$; both directions stay in the
+open square. Direct differentiation gives
+\[
+ \det\frac{\partial(x,y)}{\partial(\xi,w)}
+ =-\frac{1-\xi}{1-x},
+ \qquad (1-x)\,dx\,dy=(1-\xi)\,d\xi\,dw
+\]
+for the positive integration measure.
+
+Write $f(u)=u^2/[u^2+(1-u)^2]$.
+Both predeclared charts take $\xi=f(u)$; they take $w=v$ or $w=f(v)$.
+The existing kernel uses $x=f(x_0)$, so the inverse coordinate is
+\[
+ x_0=\frac{\sqrt x}{\sqrt x+\sqrt{1-x}},\qquad
+ f'(x_0)=\frac{2x_0(1-x_0)}{[x_0^2+(1-x_0)^2]^2}.
+\]
+Thus the complete parameter multiplier used by the wrapper is
+\[
+ J_{\rm par}
+ =\frac{f'(u)w'(v)(1-\xi)}{(1-x)f'(x_0)}.
+\]
+It cancels the original $(1-x)f'(x_0)$ parameter factor exactly,
+while retaining all endpoint derivatives.
+
+The existing matched radial map is then applied:
+\[
+ h=\frac1{\sqrt{\xi(1-\xi)}},\qquad
+ s_{\rm old}=\frac{hs}{1-s+hs},\qquad
+ \frac{\partial s_{\rm old}}{\partial s}
+ =\frac{h}{(1-s+hs)^2}.
+\]
+The full map again has triangular block structure, so the radial and
+parameter multipliers multiply. Both local two-point $T^2$ subtractions,
+vertex $T^0$ subtractions, the duplicate propagator and the quadratic and
+quartic zero-integral angular controls are retained.
+
+\section{Reproduction and interpretation}
+The exact proofs rebuild four original forests for G371 and sixteen for
+G203/G64. They verify the measures, domains, inverse maps and positive
+Jacobians. Positive bijections preserve the previously proved absolute
+integrability by change of variables. Native ball arithmetic is then checked
+at interior and extreme endpoint points against independent high-precision
+references and direct auxiliary quadratures.
+
+Diagnostics use the unchanged fixed allocation and selection rule.
+Production uses new independent seeds, followed by complete stored-request
+replay and exact rational statistics. Existing failed methods stay failed;
+a successful proof or compilation alone adds no accepted graph.
+\end{document}

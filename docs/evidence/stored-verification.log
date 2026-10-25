@@ -1,0 +1,10 @@
+{
+  "exact": true,
+  "all_equal": true,
+  "rows": 7,
+  "columns": 11,
+  "checked_cells": 77,
+  "nonzero_cells": 23,
+  "symbolic_monomials": 32,
+  "numeric_tolerance_used": false
+}

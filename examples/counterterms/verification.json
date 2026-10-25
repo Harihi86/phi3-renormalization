@@ -1,0 +1,970 @@
+{
+  "exact": true,
+  "all_equal": true,
+  "rows": 7,
+  "columns": 11,
+  "checked_cells": 77,
+  "nonzero_cells": 23,
+  "symbolic_monomials": 32,
+  "cells": [
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "bare",
+      "A": {
+        "I:g_19ae79513253927e2e93": "-1/2"
+      },
+      "B": {
+        "I:g_19ae79513253927e2e93": "-1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 1
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "g_121eebdd89b83a05fe6b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "g_4daf3347894b31bb3e0c",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "g_712f23021c0c6d9b7329",
+      "A": {
+        "C2m:g_1dff6bb988675d8e42ac:g_712f23021c0c6d9b7329:m_a28ac659b8066d820838": "1/2"
+      },
+      "B": {
+        "C2m:g_1dff6bb988675d8e42ac:g_712f23021c0c6d9b7329:m_a28ac659b8066d820838": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 2
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "g_79ab5684fd05f399fe08",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "g_7b862e14eeb566037f7f",
+      "A": {
+        "C2z:g_1dff6bb988675d8e42ac:g_7b862e14eeb566037f7f:m_a28ac659b8066d820838": "1/2"
+      },
+      "B": {
+        "C2z:g_1dff6bb988675d8e42ac:g_7b862e14eeb566037f7f:m_a28ac659b8066d820838": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 2
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "g_850c9014b8e63b3ce947",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "g_ac636c50507adefe91fc",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "g_aff391875eca80323444",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "g_e187eeb740c563b5f48b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_19ae79513253927e2e93",
+      "column": "C3L2",
+      "A": {
+        "T0[C2m:g_1dff6bb988675d8e42ac:g_712f23021c0c6d9b7329:m_a28ac659b8066d820838]": "-1/2",
+        "T0[C2z:g_1dff6bb988675d8e42ac:g_7b862e14eeb566037f7f:m_a28ac659b8066d820838]": "-1/2",
+        "T0[I:g_19ae79513253927e2e93]": "1/2"
+      },
+      "B": {
+        "T0[C2m:g_1dff6bb988675d8e42ac:g_712f23021c0c6d9b7329:m_a28ac659b8066d820838]": "-1/2",
+        "T0[C2z:g_1dff6bb988675d8e42ac:g_7b862e14eeb566037f7f:m_a28ac659b8066d820838]": "-1/2",
+        "T0[I:g_19ae79513253927e2e93]": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 3,
+      "B_term_count": 5
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "bare",
+      "A": {
+        "I:g_27e65b8ce67b5c257caa": "-1/2"
+      },
+      "B": {
+        "I:g_27e65b8ce67b5c257caa": "-1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 1
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "g_121eebdd89b83a05fe6b",
+      "A": {
+        "C2m:g_1dff6bb988675d8e42ac:g_121eebdd89b83a05fe6b:m_76f627a5c824323f6145": "1/2"
+      },
+      "B": {
+        "C2m:g_1dff6bb988675d8e42ac:g_121eebdd89b83a05fe6b:m_76f627a5c824323f6145": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 2
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "g_4daf3347894b31bb3e0c",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "g_712f23021c0c6d9b7329",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "g_79ab5684fd05f399fe08",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "g_7b862e14eeb566037f7f",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "g_850c9014b8e63b3ce947",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "g_ac636c50507adefe91fc",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "g_aff391875eca80323444",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "g_e187eeb740c563b5f48b",
+      "A": {
+        "C2z:g_1dff6bb988675d8e42ac:g_e187eeb740c563b5f48b:m_76f627a5c824323f6145": "1/2"
+      },
+      "B": {
+        "C2z:g_1dff6bb988675d8e42ac:g_e187eeb740c563b5f48b:m_76f627a5c824323f6145": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 2
+    },
+    {
+      "row": "g_27e65b8ce67b5c257caa",
+      "column": "C3L2",
+      "A": {
+        "T0[C2m:g_1dff6bb988675d8e42ac:g_121eebdd89b83a05fe6b:m_76f627a5c824323f6145]": "-1/2",
+        "T0[C2z:g_1dff6bb988675d8e42ac:g_e187eeb740c563b5f48b:m_76f627a5c824323f6145]": "-1/2",
+        "T0[I:g_27e65b8ce67b5c257caa]": "1/2"
+      },
+      "B": {
+        "T0[C2m:g_1dff6bb988675d8e42ac:g_121eebdd89b83a05fe6b:m_76f627a5c824323f6145]": "-1/2",
+        "T0[C2z:g_1dff6bb988675d8e42ac:g_e187eeb740c563b5f48b:m_76f627a5c824323f6145]": "-1/2",
+        "T0[I:g_27e65b8ce67b5c257caa]": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 3,
+      "B_term_count": 5
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "bare",
+      "A": {
+        "I:g_3f5a5bf664748bc6179f": "-1"
+      },
+      "B": {
+        "I:g_3f5a5bf664748bc6179f": "-1"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 1
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "g_121eebdd89b83a05fe6b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "g_4daf3347894b31bb3e0c",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "g_712f23021c0c6d9b7329",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "g_79ab5684fd05f399fe08",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "g_7b862e14eeb566037f7f",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "g_850c9014b8e63b3ce947",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "g_ac636c50507adefe91fc",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "g_aff391875eca80323444",
+      "A": {
+        "C3:g_4433fb42986a6c9a518f:g_aff391875eca80323444:m_3605721b25d2e292ca15": "1"
+      },
+      "B": {
+        "C3:g_4433fb42986a6c9a518f:g_aff391875eca80323444:m_3605721b25d2e292ca15": "1"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 6
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "g_e187eeb740c563b5f48b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_3f5a5bf664748bc6179f",
+      "column": "C3L2",
+      "A": {
+        "T0[C3:g_4433fb42986a6c9a518f:g_aff391875eca80323444:m_3605721b25d2e292ca15]": "-1",
+        "T0[I:g_3f5a5bf664748bc6179f]": "1"
+      },
+      "B": {
+        "T0[C3:g_4433fb42986a6c9a518f:g_aff391875eca80323444:m_3605721b25d2e292ca15]": "-1",
+        "T0[I:g_3f5a5bf664748bc6179f]": "1"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 2,
+      "B_term_count": 7
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "bare",
+      "A": {
+        "I:g_534f54b462c84f05ba10": "-1/2"
+      },
+      "B": {
+        "I:g_534f54b462c84f05ba10": "-1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 1
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "g_121eebdd89b83a05fe6b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "g_4daf3347894b31bb3e0c",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "g_712f23021c0c6d9b7329",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "g_79ab5684fd05f399fe08",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "g_7b862e14eeb566037f7f",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "g_850c9014b8e63b3ce947",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "g_ac636c50507adefe91fc",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "g_aff391875eca80323444",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "g_e187eeb740c563b5f48b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_534f54b462c84f05ba10",
+      "column": "C3L2",
+      "A": {
+        "T0[I:g_534f54b462c84f05ba10]": "1/2"
+      },
+      "B": {
+        "T0[I:g_534f54b462c84f05ba10]": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 1
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "bare",
+      "A": {
+        "I:g_60e847ffa9f40ff8e2db": "-1"
+      },
+      "B": {
+        "I:g_60e847ffa9f40ff8e2db": "-1"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 1
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "g_121eebdd89b83a05fe6b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "g_4daf3347894b31bb3e0c",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "g_712f23021c0c6d9b7329",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "g_79ab5684fd05f399fe08",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "g_7b862e14eeb566037f7f",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "g_850c9014b8e63b3ce947",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "g_ac636c50507adefe91fc",
+      "A": {
+        "C3:g_4433fb42986a6c9a518f:g_ac636c50507adefe91fc:m_68770fdc87fe8b8d770c": "1"
+      },
+      "B": {
+        "C3:g_4433fb42986a6c9a518f:g_ac636c50507adefe91fc:m_68770fdc87fe8b8d770c": "1"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 6
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "g_aff391875eca80323444",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "g_e187eeb740c563b5f48b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_60e847ffa9f40ff8e2db",
+      "column": "C3L2",
+      "A": {
+        "T0[C3:g_4433fb42986a6c9a518f:g_ac636c50507adefe91fc:m_68770fdc87fe8b8d770c]": "-1",
+        "T0[I:g_60e847ffa9f40ff8e2db]": "1"
+      },
+      "B": {
+        "T0[C3:g_4433fb42986a6c9a518f:g_ac636c50507adefe91fc:m_68770fdc87fe8b8d770c]": "-1",
+        "T0[I:g_60e847ffa9f40ff8e2db]": "1"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 2,
+      "B_term_count": 7
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "bare",
+      "A": {
+        "I:g_bfa682cc2b63e541a384": "-1"
+      },
+      "B": {
+        "I:g_bfa682cc2b63e541a384": "-1"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 1
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "g_121eebdd89b83a05fe6b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "g_4daf3347894b31bb3e0c",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "g_712f23021c0c6d9b7329",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "g_79ab5684fd05f399fe08",
+      "A": {
+        "C3:g_4433fb42986a6c9a518f:g_79ab5684fd05f399fe08:m_9a64734e7c39cdb01e08": "1"
+      },
+      "B": {
+        "C3:g_4433fb42986a6c9a518f:g_79ab5684fd05f399fe08:m_9a64734e7c39cdb01e08": "1"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 6
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "g_7b862e14eeb566037f7f",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "g_850c9014b8e63b3ce947",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "g_ac636c50507adefe91fc",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "g_aff391875eca80323444",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "g_e187eeb740c563b5f48b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_bfa682cc2b63e541a384",
+      "column": "C3L2",
+      "A": {
+        "T0[C3:g_4433fb42986a6c9a518f:g_79ab5684fd05f399fe08:m_9a64734e7c39cdb01e08]": "-1",
+        "T0[I:g_bfa682cc2b63e541a384]": "1"
+      },
+      "B": {
+        "T0[C3:g_4433fb42986a6c9a518f:g_79ab5684fd05f399fe08:m_9a64734e7c39cdb01e08]": "-1",
+        "T0[I:g_bfa682cc2b63e541a384]": "1"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 2,
+      "B_term_count": 7
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "bare",
+      "A": {
+        "I:g_d51e19439eb235ebf83d": "-1/2"
+      },
+      "B": {
+        "I:g_d51e19439eb235ebf83d": "-1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 1
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "g_121eebdd89b83a05fe6b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "g_4daf3347894b31bb3e0c",
+      "A": {
+        "C2z:g_1dff6bb988675d8e42ac:g_4daf3347894b31bb3e0c:m_ad685fa2629017cb251c": "1/2"
+      },
+      "B": {
+        "C2z:g_1dff6bb988675d8e42ac:g_4daf3347894b31bb3e0c:m_ad685fa2629017cb251c": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 2
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "g_712f23021c0c6d9b7329",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "g_79ab5684fd05f399fe08",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "g_7b862e14eeb566037f7f",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "g_850c9014b8e63b3ce947",
+      "A": {
+        "C2m:g_1dff6bb988675d8e42ac:g_850c9014b8e63b3ce947:m_ad685fa2629017cb251c": "1/2"
+      },
+      "B": {
+        "C2m:g_1dff6bb988675d8e42ac:g_850c9014b8e63b3ce947:m_ad685fa2629017cb251c": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 1,
+      "B_term_count": 2
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "g_ac636c50507adefe91fc",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "g_aff391875eca80323444",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "g_e187eeb740c563b5f48b",
+      "A": {},
+      "B": {},
+      "equal": true,
+      "zero": true,
+      "zero_reason": "no embedding and no action gluing yields this labelled parent/typed host",
+      "A_term_count": 0,
+      "B_term_count": 0
+    },
+    {
+      "row": "g_d51e19439eb235ebf83d",
+      "column": "C3L2",
+      "A": {
+        "T0[C2m:g_1dff6bb988675d8e42ac:g_850c9014b8e63b3ce947:m_ad685fa2629017cb251c]": "-1/2",
+        "T0[C2z:g_1dff6bb988675d8e42ac:g_4daf3347894b31bb3e0c:m_ad685fa2629017cb251c]": "-1/2",
+        "T0[I:g_d51e19439eb235ebf83d]": "1/2"
+      },
+      "B": {
+        "T0[C2m:g_1dff6bb988675d8e42ac:g_850c9014b8e63b3ce947:m_ad685fa2629017cb251c]": "-1/2",
+        "T0[C2z:g_1dff6bb988675d8e42ac:g_4daf3347894b31bb3e0c:m_ad685fa2629017cb251c]": "-1/2",
+        "T0[I:g_d51e19439eb235ebf83d]": "1/2"
+      },
+      "equal": true,
+      "zero": false,
+      "zero_reason": null,
+      "A_term_count": 3,
+      "B_term_count": 5
+    }
+  ],
+  "differences": [],
+  "numeric_tolerance_used": false
+}

@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,hyperref}
+\title{Two primitive children inside a three-loop vertex\\Exact forest reduction and an integrable control}
+\author{Phi3Lab continuation}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent Mass is one; each loop measure is $d^6q/\pi^3$. Coupling and graph symmetry weights are excluded.
+\begin{center}\begin{tabular}{ll}\toprule
+Primitive children & Four-loop graph identifiers\\\midrule
+Two bubbles & G39, G63, G202, G394\\
+Bubble and triangle & G62, G96, G208, G375, G376\\
+Two triangles & G275\\\bottomrule
+\end{tabular}\end{center}
+\section*{The complete parent subtraction}
+Let $\Delta(s)=(1+s)^{-1}$ and define
+\begin{align}
+ E(s)&=\int_0^1\log(1+s x(1-x))\,dx,\\
+ B(s)&=\int_0^1[(1+s x(1-x))\log(1+s x(1-x))-s x(1-x)]\,dx,\\
+ J(s)&=\Delta(s)B(s),\\
+ L(a,b,c)&=\int_{\substack{x,y,z\geq0\\x+y+z=1}}
+       \log(1+xy\,a+xz\,b+yz\,c)\,dx\,dy.
+\end{align}
+Each primitive factor $O_i$ is $J$ for a bubble or $-L$ for a triangle.
+A bubble absorbs one distinct matching parent host denominator. With three outer
+propagators $H_o$ and three remaining inner propagators $H_i$, the full reduced kernel is
+\begin{equation}
+ (1-T^0_p)H_o(q,p)\left[H_i(q,k,p)O_1(q,k,p)O_2(q,k,p)-K_0(k)\right],
+\end{equation}
+where
+\begin{equation}
+ K_0(k)=\Delta(k^2)^3\prod_{i=1}^2
+ \begin{cases}J(k^2),&i\text{ is a bubble},\\-E(k^2)/2,&i\text{ is a triangle}.\end{cases}
+\end{equation}
+Parent $T^0$ retains the inner integration momentum $k$. Overall $T_p^0$
+sets only $p_1,p_2$ to zero and retains both $q,k$. The two parent branches
+remain combined before integration. The independent reference retains all original
+host denominators and $B$, without the propagator absorption.
+
+Each graph has eight forests. The exact reduction checks all 80 original Gaussian,
+positive-polynomial and Schur-complement $U,F$ identities, including signs,
+inner-first Taylor order and changes of loop variables with determinant $\pm1$.
+
+\section*{Integrability and the rotation control}
+Enumerating all $2^{12}-1=4095$ nonempty edge subsets per graph checks every proper
+1PI part. The degree is $\omega=6L-2E=6-2n$, with $L=E-V+1$ and $n=3V-2E$.
+The massive Euclidean BPH convergence theorem is a mathematical input, not a theorem
+reproved by this computation; see the \href{https://itp.uni-frankfurt.de/~hees/publ/lect.pdf}
+{van Hees lecture notes}, sections 5.7--5.9, especially (5.215)--(5.222).
+
+Let $C$ be the coefficient of $\lambda^2$ under $p\mapsto\lambda p$ in the complete
+kernel, including its parent counterterm. Use the invariant, predetermined damping
+\begin{equation}
+ \chi(q,k)=\left(1+\left(\frac{q^2+k^2}{64}\right)^4\right)^{-3}.
+\end{equation}
+Subtract $\chi C$ and return its exact rotational mean. For $R=1+q^2+k^2$
+and $\ell=\log(3R)$, verified route bounds give host Taylor bounds
+$(1,3\sqrt R,9R)$, and six hosts give $(1,18\sqrt R,189R)$.
+Conservative primitive bounds are $(64\ell,64\sqrt R\,\ell,64R\ell)$.
+Thus the full two-primitive branch contributes at most $933888R\ell^2$.
+The parent branch has $|K_0|\leq4096\ell^2$ and only three outer hosts, giving
+$221184R\ell^2$. Therefore
+\begin{equation}
+ |C|\leq1155072R\ell^2<2^{21}R\ell^2.
+\end{equation}
+Writing $T=q^2+k^2$, integrating the radial fraction $x=q^2/T$ gives
+$T^5dT/120$. For $T\geq64$ a tail majorant is
+\begin{equation}
+ \frac{2^{22}64^{12}}{120}\frac{\log^2(6T)}{T^6}.
+\end{equation}
+Its exact tail integral without the prefactor is
+\begin{equation}
+ \int_A^\infty \frac{\log^2(6T)}{T^6}\,dT
+ = A^{-5}\left[\frac{\log^2(6A)}5+
+ \frac{2\log(6A)}{25}+\frac2{125}\right].
+\end{equation}
+Positive mass controls the compact region. This proves integrability of the added
+control; it does not assert integrability of individual undamped parent branches.
+
+The native mean uses
+$\langle(q\cdot p_a)(k\cdot p_b)\rangle=(q\cdot k)(p_a\cdot p_b)/6$.
+An independent reference uses 24 explicit frames and formal Taylor convolution.
+Three unimodular charts cover the $q,k,q+k$ soft regions.
+
+\section*{Evidence boundary}
+Structural and integrability proofs do not certify a numerical integral value.
+Native interval tests, independently computed references, fixed diagnostics,
+fresh production, stored-data replay and outcome accounting have separate actual
+exit receipts. Empirical statistical acceptance is distinct from rigorous
+quadrature error bounds. No threshold relaxation is allowed.
+\end{document}

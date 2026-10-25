@@ -1,0 +1,6 @@
+{
+  "command": "python -m pytest -q",
+  "scope": "Existing public tests and imported exact closure/series tests",
+  "exit_code": 0,
+  "mac_compute_resumed": false
+}

@@ -1,0 +1,31 @@
+\documentclass[UTF8,a4paper,11pt,fontset=fandol]{ctexart}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable,xcolor,xurl,hyperref}
+\hypersetup{colorlinks=true,linkcolor=teal,urlcolor=teal,pdftitle={Phi3Lab4.0: Graph-driven recursive BPH integrals through four loops}}
+\setlength{\parskip}{.4em}\setlength{\emergencystretch}{3em}
+\title{从图自动构造 BPH 有限积分\\\large 一至四圈图集、Gaussian Taylor 代数与独立验证}
+\author{Phi3Lab 4.0\quad MPhys 软件研究协作记录}
+\date{2026 年 10 月 19 日}
+\begin{document}\pagestyle{plain}\maketitle
+\begin{abstract}
+本稿记录软件自动化程度的实质扩展：由生成图的边、顶点和外腿标签，自动识别 UV 子图并展开 Bogoliubov 递归，选择相容整数动量路由，构造多变量 Taylor 系数，再完成 Gaussian 圈积分及整体 Schwinger 尺度积分。新入口不调用既有逐拓扑积分公式。一至四圈共698张图均已编译；全部图及精确权重与官方 feyngen 互校。两圈结果与既有独立推导的有限积分比较，三、四圈选定实例实际求积。primitive 图的 Hepp 子集证书提供参数空间和原动量绝对收敛界，递归余项证书、实际数值和求积误差分别标明。本项目尚未核验的 Z 部分不作前提。
+\end{abstract}
+\paragraph{使用顺序}
+先沿第二节的递归与 Gaussian 构造推导一圈例子，再检查自动生成的两圈重叠图矩阵；之后用 primitive 的三、四圈实例理解解析证书，最后阅读实际积分及复跑记录。图集、表达式、积分结果及严格误差证明属于不同层次，本文分别记录。
+\setcounter{tocdepth}{1}
+\tableofcontents\clearpage
+\section{范围、图集与生成算法}
+六维、有共同正质量平方 $M>0$ 的实标量 $\phi^3$ 理论；固定外腿标签、截肢、连通且1PI。保留平行边和允许的自环。每圈测度为 $d^6k/\pi^3$，耦合及图权重单列。两圈高精度专用路线保留为独立基准，新引擎的生产计算不导入那些拓扑核。
+\begin{center}\begin{tabular}{lrrr}\toprule
+圈数 & 一点图 & 二点图 & 三点图\\\midrule
+1&1&1&1\\2&1&2&7\\3&3&10&56\\4&12&64&540\\\bottomrule
+\end{tabular}\end{center}
+总数698。高圈枚举用度约束的邻接矩阵逐行生成、未处理等色顶点的轨道剪枝及精确染色细化与个体化标号；平行边阶乘和自环翻转计入完整对称因子。官方 feyngen 的逐图、精确权重字典用于独立比较，而非只比较图数。
+\input{compiler}
+\input{primitive-bounds}
+\clearpage\input{precision-repair}
+\input{sampling}
+\input{grouped-sampling}
+\clearpage\input{four-loop-independent}
+\clearpage\input{verification}
+\end{document}

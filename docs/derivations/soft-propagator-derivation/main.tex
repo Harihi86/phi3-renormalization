@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,geometry}
+\geometry{margin=24mm}
+\newcommand{\E}{\mathbb E}
+\newcommand{\dd}{\,\mathrm d}
+\title{G371: a rotation control with the shifted soft propagator retained}
+\author{Phi3Lab development record}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent This is an exact change of the integration density. It is not a new counterterm or a precision certificate. All four forests of the original graph, its local Taylor orders, and its overall zeroth-order subtraction remain unchanged. The mass is normalized to one and the external Gram matrix is
+\[
+ p_1^2=p_2^2=1,\qquad p_1\cdot p_2=-\tfrac12,\qquad P=p_1+p_2,\quad P^2=1.
+\]
+The original-program SHA256 is
+\begin{center}\ttfamily\small
+55c06ff5efb4fc30320d30378e00f9e94482\\
+b2ad57de4a9023f14e192ea7730a.
+\end{center}
+
+\section*{An exact denominator in the control}
+Set \(S=q+r\), \(t=q^2\), \(v=r^2\), \(h=q\cdot r\),
+\(w=S^2=t+v+2h\), \(X=1+w\), and \(\ell=2S\cdot P\).
+Separate the two cross propagators from the other four host propagators and the two complete triangle factors. Relative to the four unshifted host denominators, their product has the physical external-momentum expansion
+\[
+ F(\lambda)=F_0+\lambda F_1+\lambda^2F_2+\cdots,\qquad
+ Y(\lambda)=X+\lambda\ell+\lambda^2.
+\]
+The sign average of the complete subtracted numerator is
+\[
+ D=\frac12\sum_{\sigma=\pm1}\frac{F(\sigma)}{X Y(\sigma)}
+       -\frac{F_0}{X^2}.
+\]
+Use the control
+\[
+ A=\frac12\sum_{\sigma=\pm1}
+ \frac{F_0+\sigma F_1+F_2}{X Y(\sigma)}-\frac{F_0}{X^2}.
+\]
+Then replace \(D\) by \(D-A+\E_{\rm rot} A\), at fixed \(t,v,h\).
+The cross denominator \(Y(\sigma)\) is never Taylor expanded. This matters when
+\(q,r\) are large and \(S\) is small. The remaining point residual is
+\[
+ D-A=\frac12\sum_{\sigma=\pm1}
+ \frac{F(\sigma)-F_0-\sigma F_1-F_2}{X Y(\sigma)}.
+\]
+The four baseline host denominators contribute the common factor
+\(D_4=(1+t)^2(1+v)^2\).
+
+\section*{Weighted rotation moments}
+For \(\mu=\widehat S\cdot P\), the normalized six-dimensional measure is
+\[
+ \dd\nu(\mu)=\frac8{3\pi}(1-\mu^2)^{3/2}\dd\mu,\qquad -1<\mu<1.
+\]
+Put \(a=w+2\), \(b=2\sqrt w\), \(R=\sqrt{w^2+4}\), and \(s=a+R\).
+The needed moments are
+\begin{align*}
+ M&=\E\frac1{a+b\mu}=\frac{4(a+2R)}{3s^2},\\
+ M_1&=\E\frac{\mu}{a+b\mu}=-\frac{b(a+3R)}{3s^3},\\
+ M_2&=\E\frac{\mu^2}{a+b\mu}=\frac{a(a+3R)}{3s^3}.
+\end{align*}
+They satisfy \(aM+bM_1=1\), \(aM_1+bM_2=0\), and have limits
+\((M,M_1,M_2)=(1/2,0,1/12)\) at \(w=0\).
+
+Decompose
+\[
+ q=\alpha S+k,\quad r=\beta S-k,\quad
+ \alpha=\frac{t+h}{w},\quad \beta=\frac{v+h}{w},\quad
+ k\cdot S=0,\quad k^2=\rho^2=\frac{tv-h^2}{w}.
+\]
+At fixed \(S\), \(k\) is uniform in its five-dimensional perpendicular space.
+Write \(q_0=q,q_1=r\), \(c_0=t+h,c_1=v+h\), and \(\epsilon_0=1,\epsilon_1=-1\).
+For \(G_{ab}=p_a\cdot p_b\), define
+\[
+ V_{ab}=\frac{M_2}{4}+
+       \left(G_{ab}-\frac14\right)\frac{M-M_2}{5}.
+\]
+The first and second weighted projection moments are
+\begin{align*}
+ \E\frac{q_i\cdot p_a}{Y(1)}
+   &=-\frac{c_i(a+3R)}{3s^3},\\
+ \E\frac{(q_i\cdot p_a)(q_j\cdot p_b)}{Y(1)}
+   &=\frac{c_i c_j}{w}V_{ab}
+    +\frac{\epsilon_i\epsilon_j(tv-h^2)}{5w}
+       \left(G_{ab}M-V_{ab}\right).
+\end{align*}
+If \(\overline F_1,\overline F_2\) denote the corresponding weighted linear
+and quadratic averages, then
+\[
+ \E_{\rm rot}A
+ =F_0\frac{XM-1}{X^2}
+  +\frac{\overline F_1+\overline F_2}{X}.
+\]
+The \(w=0\) boundary is treated by limits; sampled coordinates lie in the
+strict Gram domain. No Gram clipping is used.
+
+\section*{Intrinsic angles and normalized return density}
+An explicit frame is
+\begin{align*}
+ e&=(\sqrt z\cos\theta,\sqrt z\sin\theta,\sqrt{1-z},0),\\
+ n_1&=(-\sin\theta,\cos\theta,0,0),\\
+ n_2&=(\sqrt{1-z}\cos\theta,\sqrt{1-z}\sin\theta,-\sqrt z,0),\\
+ n_3&=(0,0,0,1),\\
+ n&=\sqrt Z(\cos\phi\,n_1+\sin\phi\,n_2)+\sqrt{1-Z}\,n_3,\\
+ q&=\sqrt t\,e,\qquad r=\sqrt v(\cos\psi\,e+\sin\psi\,n).
+\end{align*}
+Here \(\theta,\phi\) each cover \(2\pi\), and \(\psi=\pi u\).
+The overall-rotation factor in unit-cube coordinates is
+\(O=3(1-z)\sqrt{1-Z}\), whose integral over \(z,Z,\theta/(2\pi),\phi/(2\pi)\)
+is one. The intrinsic-angle factor is \(I_\psi=(8/3)\sin^4(\pi u)\).
+Thus the returned density is
+\[
+ {\cal J}_{\rm rad} I_\psi
+ \left[ O\,\frac{D-A}{D_4}+\frac{\E_{\rm rot}A}{D_4}\right].
+\]
+For \(t=[s_0/(1-s_0)]^2,v=[s_1/(1-s_1)]^2\),
+\[
+ {\cal J}_{\rm rad}=\frac{t^3v^3}{s_0(1-s_0)s_1(1-s_1)}.
+\]
+For \(T=[s_0/(1-s_0)]^2,t=T s_1,v=T(1-s_1)\),
+\[
+ {\cal J}_{\rm rad}=\frac{T^6s_1^2(1-s_1)^2}{2s_0(1-s_0)}.
+\]
+Both contain the original \(t^2v^2\dd t\dd v/4\) measure.
+The three unimodular charts \((u,v),(u,v-u),(v-u,u)\) retain their
+rotation-invariant weights \(D_{\rm excluded}^3/
+(D_q^3+D_r^3+D_{q+r}^3)\). Their sum is one; no extra factor \(1/3\) is inserted.
+
+\section*{Absolute integrability and independent checking}
+With \(M_0=256\log(2+\max(t,v,w))\) and
+\(D_{\min}=1+\min(t,v,w)\), the frozen route proof gives
+\[
+ |F_0|\le M_0^2,\quad
+ |F_1|\le 81\cdot18\,M_0^2D_{\min}^{-1/2},\quad
+ |F_2|\le81\cdot206\,M_0^2D_{\min}^{-1}.
+\]
+The even difference, odd part, and even part of \(X/Y\) are bounded by
+\(57/X,18/\sqrt X,3\), respectively. Consequently the control's relative
+numerator is bounded by \(76359M_0^2/D_{\min}\). The complete residual plus
+returned mean is bounded in absolute integral by
+\[
+ (729\cdot808/2+2\cdot76359)\frac{M_0^2}{D_{\min}}
+ =447234\frac{M_0^2}{D_{\min}},
+\]
+below the previously proved integrable bound
+\(883548M_0^2/D_{\min}\), with the same baseline host denominators.
+
+The native implementation uses the explicit covariance above. An independent
+reference extracts the degree-two polynomial from formal Taylor convolution,
+uses ten directions for \(S\) at fixed \(\mu\) and ten perpendicular directions
+for \(k\), then reconstructs its quadratic conditional mean in \(\mu\).
+Direct angular and child-parameter integrations supply a further check.
+Proofs, pointwise checks, fixed diagnostics, independent production, and replay
+audits are separate gates. Their actual exits and hashes are recorded in the
+checkpoint; this derivation asserts no new accepted integral.
+\end{document}

@@ -1,0 +1,149 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,hyperref}
+\title{Two nested triangle loops inside a four-loop vertex}
+\author{Phi3Lab: isolated precision development}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+Mass is one and each loop uses $d^6k/\pi^3$. Couplings and graph symmetry weights are excluded. This construction covers G15, G68 and, with an additional three-loop parent, G55, G78, G98, G366. The exact reduction preserves all 40 original forest terms. No precision acceptance follows from these identities alone.
+
+\paragraph{Original graph and the inner boundary.}
+Let $h$ be the inner host loop. Its three propagators are
+$\Delta(h+A_i)$, $\Delta(v)=(1+v^2)^{-1}$.
+After the innermost triangle's $T^0$ subtraction its Schwinger representation contains a negative logarithm. Both triangle simplex measures have volume $1/2$; there is no additional factorial. For simplex coordinates $\alpha_i,\beta_i$ with sum one, define
+\[
+ B=\sum_i\alpha_i A_i,\qquad
+ Q=\sum_i\alpha_i |A_i|^2-|B|^2.
+\]
+Write the triangle variance as $\ell h^2+2c\cdot h+E$, with
+$\ell=x(1-x)\in(0,1/4]$. Set
+\[
+ D=E-2B\cdot c+\ell|B|^2,\qquad H=E-\frac{|c|^2}{\ell}.
+\]
+The matrix identities, checked separately for each original routing, are
+\[
+ D-H=\frac{|c-\ell B|^2}{\ell}\ge0,\quad H\ge0,
+\]
+\[
+ (1+r\ell)(E_h+rE)-(B+rc)^2
+ =(1+r\ell)Q+rD+r^2\ell H.
+\]
+Here $E_h=\sum_i\alpha_i|A_i|^2$. All squares denote quadratic forms in the retained momenta. Parent subtraction never sets the retained host loop to zero.
+
+\paragraph{Exact removal of two loops.}
+Put $U=1+r\ell$. After the common scale integral the complete child kernel is
+\begin{equation}
+ \mathcal R(Q,\ell,D,H)=
+ \int_0^\infty\frac{dr}{r}
+ \left[
+ \log\left(1+\frac{Q}{1+r}\right)
+ -\frac{1}{U^3}\log\left(1+
+ \frac{Q+r(D+r\ell H)/U}{1+r}\right)
+ \right].
+ \label{eq:radial}
+\end{equation}
+Both terms remain combined. This includes the inner triangle and two-loop vertex subtractions. In particular $\mathcal R(0,\ell,0,0)=0$.
+
+Define
+\begin{align*}
+ a&=1+Q,& b&=1+\ell a+D,& c_0&=\ell(1+H),\\
+ d&=(1-\ell a+D)^2+4\ell a(D-H),&
+ r_+&=\frac{b+\sqrt d}{2a},&
+ r_-&=\frac{2c_0}{b+\sqrt d}.
+\end{align*}
+The stable small-root expression avoids subtracting nearly equal positive numbers.
+For
+\[
+ \Phi(t)=\frac{\pi^2}{6}-\operatorname{Li}_2(1-t)
+ +\frac{t(2-3t)\log t}{2(1-t)^2}-\frac{t}{2(1-t)}
+\]
+and $L=\log(1+Q)$, the exact closed form is
+\begin{equation}
+ \mathcal R=L\log\ell+\frac{L^2}{2}+\frac{3L}{2}
+ -\Phi(r_+/\ell)-\Phi(r_-/\ell)+\Phi(1/\ell)+\Phi(1).
+\end{equation}
+The removable values are
+\[
+ \Phi(1)=\frac{\pi^2}{6}-\frac54,\quad
+ \Phi'(1)=\frac13,\quad \Phi''(1)=-\frac1{12}.
+\]
+For $z=t-1$, use
+\[
+ \Phi(1+z)=\Phi(1)+
+ \sum_{n\ge1}\frac{2(-1)^{n-1}z^n}{n^2(n+1)(n+2)}.
+\]
+If $|z|<1/2$, truncation after $N$ terms has value, first-derivative and second-derivative errors bounded by
+$4|z|^{N+1}$, $4|z|^N$, $4|z|^{N-1}$ respectively.
+The native implementation adds these bounds to its intervals.
+
+\paragraph{Nested and physical subtractions.}
+Two host loops $q,k$ remain. Without a three-loop parent the kernel is
+\[
+ (1-T^0_{\rm phys})\,H_6(q,k,p)\,\mathcal R.
+\]
+With the parent it is
+\[
+ (1-T^0_{\rm phys})H_o(q,p)
+ \left[H_m(q,k,p)\mathcal R-\Delta(k)^3\mathcal R_{\rm parent,0}\right].
+\]
+$\mathcal R_{\rm parent,0}$ retains $k$; it is generally nonzero.
+$T^0_{\rm phys}$ sets only $p_1,p_2$ to zero, retaining both host loops.
+Seven host geometry variables and four simplex coordinates give an eleven-dimensional representation.
+
+\paragraph{An independently integrable control.}
+Let $C$ be the physical quadratic Taylor coefficient of the complete bracketed expression, including its parent counterterm. Subtract $\chi C$ and return its exact rotation mean, with
+\[
+ \chi=\left[1+\left(\frac{q^2+k^2}{64}\right)^4\right]^{-3}.
+\]
+The number 64 is fixed before diagnostics.
+Native covariance and a separate 24-frame reference implement
+$\langle(q\cdot p_a)(k\cdot p_b)\rangle=(q\cdot k)(p_a\cdot p_b)/6$.
+
+For $R_0=1+q^2+k^2$ and $L_0=1-\log\ell$, the checked routes bound the baseline, pure quadratic and linear coefficients of each of $Q,D,H$ by $32R_0$, $32$, $64\sqrt{R_0}$.
+Differentiating the full-axis integral gives
+\[
+ |\mathcal R|\le128R_0L_0,\qquad
+ \sum_i|\mathcal R_i|\le37R_0L_0,\qquad
+ \sum_{ij}|\mathcal R_{ij}|\le75R_0L_0.
+\]
+More explicit bounds are
+\[
+ |\mathcal R_Q|\le3+D,\quad |\mathcal R_D|\le L_0,\quad
+ |\mathcal R_H|\le\tfrac13,
+\]
+\[
+ |\mathcal R_{QQ}|\le6+2D,\quad|\mathcal R_{DD}|\le L_0,\quad
+ |\mathcal R_{HH}|\le\tfrac1{12},\quad
+ |\mathcal R_{QD}|\le1,\quad
+ |\mathcal R_{QH}|\le\tfrac13,\quad
+ |\mathcal R_{DH}|\le\tfrac14.
+\]
+These follow from positive denominators in \eqref{eq:radial}, $0<\ell\le1/4$, and $0\le H\le D$.
+The child Taylor coefficient bounds are
+\[
+ (128R_0L_0,\;2368R_0^{3/2}L_0,\;154784R_0^2L_0).
+\]
+Six hosts have linear and quadratic bounds $18\sqrt{R_0}$ and $189R_0$.
+Including the three-host parent term gives
+\[
+ |C|\le228512R_0^2L_0<2^{18}R_0^2L_0.
+\]
+The two auxiliary simplex measures integrate $L_0$ to $3/4$.
+For $T=q^2+k^2$, the radial measure is $T^5dT/120$.
+The control tail above $T\ge64$ is conservatively bounded by
+\[
+ \int_{q^2+k^2>T}|\chi C|\,d\mu
+ \le \frac{2^{20}64^{12}}{120T^4}.
+\]
+The original complete forest's convergence uses the massive Euclidean BPH theorem as external input. The code independently audits every divergent part and subtraction order; it does not reprove that theorem.
+
+\paragraph{Actual evidence and scope.}
+The six-graph proof rebuilt 40 forests. The control audit examined 24,570 nonempty edge subsets and checked 20 rotation moments. Four scalar test points supplied 40 independent full-axis components at 130 digits with 100-digit relative agreement. Twelve near-removable derivatives were independently checked at 640 digits with 600-digit relative agreement.
+Native point tests, fixed diagnostics, fresh production, independent stored replay, and ledger reconciliation remain separate stages. Empirical acceptance is distinct from a rigorous quadrature error certificate.
+
+\begin{thebibliography}{1}
+\bibitem{vanhees} H.~van Hees, \emph{Introduction to Relativistic Quantum Field Theory}, Sections 5.7--5.9,
+\url{https://itp.uni-frankfurt.de/~hees/publ/lect.pdf}.
+\end{thebibliography}
+\end{document}

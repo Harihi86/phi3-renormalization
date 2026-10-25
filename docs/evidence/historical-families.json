@@ -1,0 +1,102 @@
+{
+  "source": "Preserved Phi3Lab 4.4 Stage4 complete-family status records",
+  "fresh_four_loop_generation": false,
+  "families": [
+    {
+      "family": "L1E2",
+      "status_sha256": "7d8c20d645fb680eb6bcb219d308aa4a06d5d058fa52a9dba18f3d9e5a0d7b72",
+      "complete": true,
+      "exit_code": 0,
+      "rows": 1,
+      "columns": 3,
+      "checked_cells": 3,
+      "exact_equal": true,
+      "numerical_accuracy_accepted": false,
+      "large_integrals_run": false
+    },
+    {
+      "family": "L1E3",
+      "status_sha256": "11671bf8567cdf82449f91396e550a17fb52ea9dbf939d317852141f5823c1a4",
+      "complete": true,
+      "exit_code": 0,
+      "rows": 1,
+      "columns": 2,
+      "checked_cells": 2,
+      "exact_equal": true,
+      "numerical_accuracy_accepted": false,
+      "large_integrals_run": false
+    },
+    {
+      "family": "L2E2",
+      "status_sha256": "4a95cc04d64b54640f0709e094847cdd85b62976acbc8f1a80276172886b3a0f",
+      "complete": true,
+      "exit_code": 0,
+      "rows": 2,
+      "columns": 7,
+      "checked_cells": 14,
+      "exact_equal": true,
+      "numerical_accuracy_accepted": false,
+      "large_integrals_run": false
+    },
+    {
+      "family": "L2E3",
+      "status_sha256": "171c397389489b5ec3563731adb363ce2b50dec73bc68f5b093650caf98a3e7d",
+      "complete": true,
+      "exit_code": 0,
+      "rows": 7,
+      "columns": 11,
+      "checked_cells": 77,
+      "exact_equal": true,
+      "numerical_accuracy_accepted": false,
+      "large_integrals_run": false
+    },
+    {
+      "family": "L3E2",
+      "status_sha256": "9b9fd15f51f9767dd4de7fc03a61b08d0e87d67d035b76ace392defb7abe4266",
+      "complete": true,
+      "exit_code": 0,
+      "rows": 10,
+      "columns": 40,
+      "checked_cells": 400,
+      "exact_equal": true,
+      "numerical_accuracy_accepted": false,
+      "large_integrals_run": false
+    },
+    {
+      "family": "L3E3",
+      "status_sha256": "1339842718c74ebb58d7b86fe541e80f24e65547550e8661b92740acdfc217a1",
+      "complete": true,
+      "exit_code": 0,
+      "rows": 56,
+      "columns": 162,
+      "checked_cells": 9072,
+      "exact_equal": true,
+      "numerical_accuracy_accepted": false,
+      "large_integrals_run": false
+    },
+    {
+      "family": "L4E2",
+      "status_sha256": "82758bfbb37aa7023ef1cf4e1e35e867e15054375b1d71cbf2e2b5edda36990d",
+      "complete": true,
+      "exit_code": 0,
+      "rows": 64,
+      "columns": 385,
+      "checked_cells": 24640,
+      "exact_equal": true,
+      "numerical_accuracy_accepted": false,
+      "large_integrals_run": false
+    },
+    {
+      "family": "L4E3",
+      "status_sha256": "5e4f111a975d67be3cde11e6083b9559f8af5a52ae0433e20acb0c0819e1cb52",
+      "complete": true,
+      "exit_code": 0,
+      "rows": 540,
+      "columns": 2553,
+      "checked_cells": 1378620,
+      "exact_equal": true,
+      "numerical_accuracy_accepted": false,
+      "large_integrals_run": false
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "command": "python -m pytest -q",
+  "mac_compute_resumed": false,
+  "scope": "Full suite with repository-local isolated temporary directories"
+}

@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,booktabs,longtable,tikz,graphicx}
+\usepackage[margin=16mm]{geometry}
+\begin{document}
+\section*{Six-dimensional $\phi^3$: two-loop three-point counterterms}
+Fixed external labels; amputated connected 1PI; $g^5$ factored out. Local integrals remain symbolic.
+\[S_{int}=g\phi^3/3!,\quad v_3=-g,\quad C_\gamma=-t_\gamma\bar R_\gamma,\quad R_G=(1-t_G)\bar R_G.\]
+\[t_2: \deg(p)\le2,\qquad t_3: \deg(p_1,p_2)=0.\]
+\[K_m=\int D(q)^2,\quad K_z=\int[-D(q)^3+\tfrac46q^2D(q)^4],\quad K_3=\int D(q)^3.\]
+\[v_{2m}=-g^2K_m/2,\quad v_{2z}(p)=-g^2K_zp^2/2,\quad v_{3,1}=+g^3K_3.\]
+\begin{center}\resizebox{\textwidth}{!}{\begin{tabular}{lccccccccccc}
+\toprule
+Graph & I & M12 & M13 & M23 & Z12 & Z13 & Z23 & G1 & G2 & G3 & C3L2 \\\midrule
+L2E3G1 & $-1/2$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $1/2T_0\,I$ \\
+L2E3G2 & $-1$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $1$ & $0$ & $0$ & $-1T_0\,G1+1T_0\,I$ \\
+L2E3G3 & $-1$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $1$ & $0$ & $-1T_0\,G2+1T_0\,I$ \\
+L2E3G4 & $-1/2$ & $1/2$ & $0$ & $0$ & $1/2$ & $0$ & $0$ & $0$ & $0$ & $0$ & $-1/2T_0\,M12-1/2T_0\,Z12+1/2T_0\,I$ \\
+L2E3G5 & $-1$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $1$ & $-1T_0\,G3+1T_0\,I$ \\
+L2E3G6 & $-1/2$ & $0$ & $1/2$ & $0$ & $0$ & $1/2$ & $0$ & $0$ & $0$ & $0$ & $-1/2T_0\,M13-1/2T_0\,Z13+1/2T_0\,I$ \\
+L2E3G7 & $-1/2$ & $0$ & $0$ & $1/2$ & $0$ & $0$ & $1/2$ & $0$ & $0$ & $0$ & $-1/2T_0\,M23-1/2T_0\,Z23+1/2T_0\,I$ \\
+\bottomrule\end{tabular}}\end{center}
+Every cell is checked by two independent algorithms. Zeros are structural, not approximate.
+External reference diagrams remain unavailable. The 162-case research ledger records 24 strict analytic, 48 empirical and 90 unresolved cases.
+\subsection*{L2E3G1}
+\input{L2E3G1.tex}
+Positive weight: $1/S=1/2$.
+\begin{itemize}
+\item I: $- 1/2$
+\item C3L2: $1/2 T_0\,I$
+\end{itemize}
+\subsection*{L2E3G2}
+\input{L2E3G2.tex}
+Positive weight: $1/S=1$.
+\begin{itemize}
+\item I: $- 1$
+\item G1: $1$
+\item C3L2: $- 1 T_0\,G1 + 1 T_0\,I$
+\end{itemize}
+\subsection*{L2E3G3}
+\input{L2E3G3.tex}
+Positive weight: $1/S=1$.
+\begin{itemize}
+\item I: $- 1$
+\item G2: $1$
+\item C3L2: $- 1 T_0\,G2 + 1 T_0\,I$
+\end{itemize}
+\subsection*{L2E3G4}
+\input{L2E3G4.tex}
+Positive weight: $1/S=1/2$.
+\begin{itemize}
+\item I: $- 1/2$
+\item M12: $1/2$
+\item Z12: $1/2$
+\item C3L2: $- 1/2 T_0\,M12 - 1/2 T_0\,Z12 + 1/2 T_0\,I$
+\end{itemize}
+\subsection*{L2E3G5}
+\input{L2E3G5.tex}
+Positive weight: $1/S=1$.
+\begin{itemize}
+\item I: $- 1$
+\item G3: $1$
+\item C3L2: $- 1 T_0\,G3 + 1 T_0\,I$
+\end{itemize}
+\subsection*{L2E3G6}
+\input{L2E3G6.tex}
+Positive weight: $1/S=1/2$.
+\begin{itemize}
+\item I: $- 1/2$
+\item M13: $1/2$
+\item Z13: $1/2$
+\item C3L2: $- 1/2 T_0\,M13 - 1/2 T_0\,Z13 + 1/2 T_0\,I$
+\end{itemize}
+\subsection*{L2E3G7}
+\input{L2E3G7.tex}
+Positive weight: $1/S=1/2$.
+\begin{itemize}
+\item I: $- 1/2$
+\item M23: $1/2$
+\item Z23: $1/2$
+\item C3L2: $- 1/2 T_0\,M23 - 1/2 T_0\,Z23 + 1/2 T_0\,I$
+\end{itemize}
+\section*{Counterterm host graphs}
+\subsection*{M12}
+\input{M12.tex}
+\subsection*{M13}
+\input{M13.tex}
+\subsection*{M23}
+\input{M23.tex}
+\subsection*{Z12}
+\input{Z12.tex}
+\subsection*{Z13}
+\input{Z13.tex}
+\subsection*{Z23}
+\input{Z23.tex}
+\subsection*{G1}
+\input{G1.tex}
+\subsection*{G2}
+\input{G2.tex}
+\subsection*{G3}
+\input{G3.tex}
+\end{document}

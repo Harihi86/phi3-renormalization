@@ -1,0 +1,158 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\newcommand{\ph}{\varphi}
+\newcommand{\dd}{\,\mathrm{d}}
+\title{Projective forest remainders in six-dimensional $\phi^3$ theory}
+\author{Phi3Lab isolated precision development}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent
+This note describes candidates 74 and 75. It establishes algebraic
+representations and their tested implementation, not whole-integral precision.
+Original graphs, recursive BPH programs, forest signs and evidence are retained.
+
+\section{Conventions and the original forest}
+The loop measure is $\mathrm{d}^6k/\pi^3$ per loop. These original integral
+programs contain no coupling or symmetry factor. The squared mass and physical
+invariants are one. For each actual forest $w$, its routed Gaussian matrix gives
+$U_w=\det A_w$ and $F_w=U_w h_w$ by the Schur complement.
+At four loops, $U_w$ and $F_w$ have parameter degrees four and five.
+
+Internal subgraphs in the present scope require three-point Taylor degree zero.
+Their own boundary momenta, including other loop momenta when present, are
+projected only in their subgraph factors. Their routes are obtained by
+recompiling BPH from each original graph. Incompatible overlapping subgraphs
+never occur together in a forest. A powerset of all subgraphs is therefore
+not a valid replacement for the recursive program.
+
+\section{Exact common-scale integration}
+Write the Schwinger parameters as $s\alpha_e$ and set
+$M=\sum_e\alpha_e>0$, $h_w=F_w/U_w>0$ and $r_w=h_w/M$.
+The four Gaussian integrals contribute $s^{-12}U_w^{-3}$.
+The radial Jacobian is $s^{n-1}$, where $n$ is the number of edges.
+
+For $n=12$, the overall three-point Taylor projector gives
+\begin{align}
+ \int_0^\infty \frac{e^{-Ms}(e^{-h_ws}-1)}{s}\dd s
+ &=-\log(1+r_w),\\
+ f_w^{(3)}(\alpha)&=-\operatorname{sgn}(w)U_w^{-3}\log(1+r_w).
+\end{align}
+For $n=11$, the overall two-point projector has total degree two
+in the external momentum vector. Since $h_w$ is quadratic in that vector,
+\begin{align}
+ J_2(M,h)&=\int_0^\infty
+   \frac{e^{-Ms}(e^{-hs}-1+hs)}{s^2}\dd s\\
+ &=\int_0^h\frac{h-t}{M+t}\dd t
+ =(M+h)\log(1+h/M)-h.
+\end{align}
+The middle equality follows by writing
+$e^{-hs}-1+hs=s^2\int_0^h(h-t)e^{-st}\dd t$; its integrand is nonnegative.
+Define
+\[
+ \ph(x)=(1+x)\log(1+x)-x,\qquad x>-1.
+\]
+Then
+\[
+ f_w^{(2)}(\alpha)=\operatorname{sgn}(w)
+       \frac{M}{U_w^3}\ph(r_w).
+\]
+No extra factorial or further subtraction quadratic in $p^2$ is introduced.
+The projective forest sum is retained before integration over parameter faces.
+
+\section{Rational differences before transcendental evaluation}
+Pair an actual forest state $b$ with a state $z$ obtained by adding
+one compatible Taylor subgraph. Their signs are opposite. Put
+$s_b=\operatorname{sgn}(b)$ and
+\[
+ d=r_b-r_z,\qquad x=\frac{d}{1+r_z}>-1.
+\]
+For the three-point function the exact pair is
+\[
+ s_b\left[
+ \left(\frac1{U_z^3}-\frac1{U_b^3}\right)\log(1+r_z)
+ -\frac{\log(1+x)}{U_b^3}\right].
+\]
+For the two-point function use the exact identity
+\[
+ \ph(r_b)-\ph(r_z)=d\log(1+r_z)+(1+r_z)\ph(x).
+\]
+The pair becomes
+\[
+ s_b M\left[
+ \left(\frac1{U_b^3}-\frac1{U_z^3}\right)\ph(r_z)
+ +\frac{d\log(1+r_z)}{U_b^3}
+ +\frac{(1+r_z)\ph(x)}{U_b^3}\right].
+\]
+Every coefficient and argument difference is computed as an exact rational.
+Arb then encloses the complete sum, with an attained-accuracy check.
+
+Candidate 74 pairs the innermost triangle toggle. Candidate 75 constructs
+a deterministic maximum matching on actual opposite-parity forest toggles.
+It retains unmatched states using $f_w^{(2)}$.
+In particular, L4E2G44 has three forests: one pair and one unmatched state.
+Deleting the latter is rejected by the exact partition check.
+
+\section{Projective measure and complete order probabilities}
+The full densities have degree $-n$, with $n=12$ or $11$ respectively.
+Let $x_j=1$ and $0<x_i<1$ for $i\ne j$, and set
+$\alpha_i=x_i/\sum_e x_e$. The simplex Jacobian is $(\sum_e x_e)^{-n}$,
+which cancels the density's homogeneous scaling. Thus all $n$ maximum charts
+are summed, without division by $n$.
+
+Within a chart, an order $\pi$ and $n-1$ ratios give
+\[
+ x_{\pi_0}=1,\qquad
+ x_{\pi_j}=\prod_{\ell=1}^j t_\ell,\qquad
+ J=\prod_{j=1}^{n-1} t_j^{\,n-j-1}\frac{\dd t_j}{\dd u_j}.
+\]
+For each nonempty remaining set $S$, choose the next edge $e$ with probability
+\[
+ p(e\mid S)=\frac{W(S\setminus\{e\})}
+                  {\sum_{f\in S}W(S\setminus\{f\})}>0.
+\]
+The integer weights obey an exact subset recurrence. Exact probability
+propagation proves total path mass one and counts all $n!$ paths.
+This uses $2^n-1$ nonempty subsets, not explicit enumeration of all permutations.
+The estimator weight is $J/p(\pi)$.
+Averaging $n$ translated selectors contributes $1/n$ only for that average;
+it is not a second division of the chart sum.
+
+The proposal face scores are heuristics. They do not prove absolute
+integrability, variance bounds or rigorous quadrature errors.
+
+\section{Independent checks and acceptance boundary}
+Two native constructions use exact Gaussian Schur elimination and positive
+$U/F$ polynomials. Integer Cauchy--Binet minors verify the latter. The separate
+high-precision reference uses mpmath LU solves and the original unpaired
+forest sum, never the paired formula.
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Actual completed check & Candidate 74 & Candidate 75\\
+\midrule
+Original graphs / forests & 6 / 40 & 7 / 77\\
+Exact Gaussian--polynomial comparisons & 160 & 308\\
+Proof-stage unpaired references & 24 & 28\\
+Native map branches & 5328 & 5236\\
+Native exact coefficient comparisons & 50 & 58\\
+Native intervals & 50 & 58\\
+Native independent references & 25 & 29\\
+Native rejected mutations & 26 & 26\\
+\bottomrule
+\end{tabular}
+\end{center}
+Ordinary references use 640 decimal digits; native extreme cases use 1600.
+Proof and native-test workers and their supervisors exited successfully.
+These are pointwise and structural checks, not additional accepted integrals.
+
+Whole-integral acceptance still requires a complete fixed diagnostic,
+fresh production seeds, both physical kernels, replay of stored requests,
+independent statistics and the unchanged precision gates:
+relative $3\%$, absolute $10^{-8}$ and the existing arithmetic-radius gate.
+Empirical sampling acceptance is not a rigorous quadrature error certificate.
+\end{document}

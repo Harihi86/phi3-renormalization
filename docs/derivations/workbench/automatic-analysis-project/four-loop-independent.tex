@@ -1,0 +1,244 @@
+\section{四圈结果的独立外圈动量参考}
+\label{sec:four-loop-independent}
+
+This section concerns the fixed graph L4E3G205, with common squared mass
+$M=1$ and symmetric Euclidean invariants $p_1^2=p_2^2=p_3^2=1$,
+$p_1+p_2+p_3=0$.  Every original loop measure is $d^6k/\pi^3$; couplings,
+vertex signs and diagram symmetry weights are excluded.  The reduction is
+used only as an independent verification oracle.  Its implementation imports
+neither the production Gaussian density and jets nor an existing
+topology-specific integration kernel.  It does not replace graph-driven
+production execution by a formula registry.
+
+\subsection{The actual graph and the eight recursive terms}
+
+The graph has nine vertices, twelve internal edges and external legs at
+vertices $6,7,8$.  In original edge order its edges are
+\begin{equation}
+\begin{split}
+ &(0,5),(0,5),(0,8),(1,4),(1,4),(1,7),\\
+ &(2,3),(2,3),(2,7),(3,6),(4,5),(6,8).
+\end{split}
+\end{equation}
+Its only proper divergent subgraphs are the three vertex-disjoint bubbles
+on edge sets $\{0,1\}$, $\{3,4\}$ and $\{6,7\}$.  Directly from the
+disjoint-spinney Bogoliubov recursion,
+\begin{equation}
+ \overline R_G I=
+ (1-t_{\gamma_1}^{2})(1-t_{\gamma_2}^{2})(1-t_{\gamma_3}^{2})I,
+ \qquad R_G I=(1-t_G^0)\overline R_G I.
+ \label{eq:four-independent-eight}
+\end{equation}
+The product has eight terms.  Each local Taylor operator acts on the full
+boundary momentum of its own bubble.  This is an elementary factorization
+of this particular recursive expression, not an invocation of a general
+forest or unverified project $Z$ identity.
+
+Tracing the outer cycle gives
+\begin{equation}
+ 6\longrightarrow\operatorname{bubble}(3,2)\longrightarrow7
+ \longrightarrow\operatorname{bubble}(1,4)
+ \longrightarrow\operatorname{bubble}(5,0)\longrightarrow8
+ \longrightarrow6.
+\end{equation}
+The three side insertion counts are therefore $(1,2,0)$, rather than one
+bubble on every side.  A side containing $n$ bubbles has $n+1$ ordinary
+outer propagators, so define
+\begin{align}
+ \Sigma_R(s;M)
+ &=\int_0^1\bigl[(M+s u(1-u))
+       \log(1+s u(1-u)/M)-s u(1-u)\bigr],du,\\
+ L_n(s;M)&=\frac{\Sigma_R(s;M)^n}{(s+M)^{n+1}}.
+ \label{eq:four-independent-line}
+\end{align}
+The finite subtraction integrates to $-s/6$ and is retained throughout.
+There is no extra factor $1/2$ for an insertion.  At finite common
+original-edge Schwinger cutoff $\eta>0$, the independent inner bubble
+integrations factor exactly in \eqref{eq:four-independent-eight}.
+
+For the symmetric point we may use side counts $(0,1,2)$ and choose
+$q_0=k$, $q_1=k+p_1$, $q_2=k-p_3$.  The complete overall degree-zero
+subtraction is then
+\begin{equation}
+ J=\int\frac{d^6k}{\pi^3}
+ \left[L_0(k^2)L_1((k+p_1)^2)L_2((k-p_3)^2)
+       -\frac{\Sigma_R(k^2)^3}{(1+k^2)^6}\right].
+ \label{eq:four-independent-outer}
+\end{equation}
+Writing three copies of $L_1$ would describe a different graph, although its
+zero-point term would happen to be the same.  This makes the off-shell
+branch mapping an essential part of the independent check.
+
+\subsection{The three-dimensional integral and its stable evaluation}
+
+Set $r=k^2$ and embed the external plane using
+$p_1=(1,0)$ and $p_3=(-1/2,\sqrt3/2)$.  The projection of a uniform $S^5$
+direction onto this plane has density
+$2(1-x^2-y^2)/\pi$ on the unit disk.  With
+$x=\sqrt v\cos\theta$, $y=\sqrt v\sin\theta$, the normalized measure and
+shifted squared momenta are
+\begin{align}
+ \frac{d^6k}{\pi^3}
+ &\longrightarrow\frac12 r^2,dr\,2(1-v)\,dv\,
+                     \frac{d\theta}{2\pi},\\
+ q_1^2&=r+1+2\sqrt r\,x,\qquad
+ q_2^2=r+1+\sqrt r\,x-\sqrt{3r}\,y.
+ \label{eq:four-independent-measure}
+\end{align}
+The directions $(x,y)$ and $(-x,-y)$ are paired before radial integration.
+An exact independent closed form at $M=1$ is
+\begin{equation}
+ \Sigma_R(s)=\frac{(s+4)^{3/2}}{3\sqrt s}
+       \operatorname{arsinh}(\sqrt s/2)-\frac43-\frac{4s}{9}.
+ \label{eq:four-independent-bubble-closed}
+\end{equation}
+Near $s=0$, the implementation instead uses
+\begin{equation}
+ \Sigma_R(s)=\sum_{j=2}^{\infty}a_js^j,\qquad
+ a_j=\frac{(-1)^j(j!)^2}{j(j-1)(2j+1)!},\quad
+ a_2=\frac1{60},\quad
+ \frac{a_{j+1}}{a_j}=-\frac{j-1}{2(2j+3)}.
+\end{equation}
+This closed form was also compared with a separate 70-digit
+one-dimensional parameter integration at six scales; the largest observed
+relative difference was $4.22\times10^{-15}$.
+
+Let $\delta_\pm$ be the log ratio of the shifted product to its common
+zero-point product, and set
+$e=(\delta_++\delta_-)/2$, $o=(\delta_+-\delta_-)/2$.  The paired relative
+difference is evaluated as
+\begin{equation}
+ \operatorname{expm1}(e)
+       +e^e,2\sinh^2(o/2).
+ \label{eq:four-independent-evenodd}
+\end{equation}
+At high radius the even and odd quantities are formed directly by analytic
+Taylor derivatives and even/odd binomial grouping.  They are not obtained
+by subtracting nearly equal floating logarithms.  The derivative
+coefficients use 60--80-digit mpmath arithmetic before conversion to the
+floating angular and radial quadrature; the full integral is not an
+80-digit computation.
+
+\subsection{A separate analytic radial-tail estimate}
+
+For $r\geq4$, $|z|\leq1$ and $|a|=1$, write
+$s=|k+za|^2$.  Then $r/4\leq s\leq9r/4$ and, with $\ell=\log r$,
+the positive one-loop parameter formula gives
+\begin{equation}
+ 0\leq\Sigma_R(s)\leq\frac{s\ell}{6},\qquad
+ 0\leq\Sigma_R'(s)\leq\frac\ell6,\qquad
+ 0\leq\Sigma_R''(s)\leq\frac1{6s}.
+\end{equation}
+Consequently, for $n=0,1,2$,
+\begin{align}
+ |L_n(s)|&\leq\frac{\ell^n}{6^n s},\\
+ |L_n'(s)|&\leq\frac{(2n+1)\ell^n}{6^n s^2},\\
+ |L_n''(s)|&\leq\frac{(4n^2+5n+2)\ell^n}{6^n s^3}.
+ \label{eq:four-independent-line-bounds}
+\end{align}
+Put $g(z)=L_0(r)L_1(|k+zp_1|^2)L_2(|k-zp_3|^2)$.
+Since $|s'|\leq3\sqrt r$ and $s''=2$, direct Leibniz differentiation gives
+\begin{equation}
+ |g''(z)|\leq\frac{20000}{27}\frac{\log^3r}{r^4}.
+\end{equation}
+The paired second-order Taylor remainder contributes a factor $1/2$;
+the radial measure contributes another $1/2$.  Thus the whole omitted
+outer tail above $T\geq4$ is bounded by
+\begin{equation}
+ |\operatorname{tail}(T)|\leq\frac{5000}{27T}
+ \left(\log^3T+3\log^2T+6\log T+6\right).
+ \label{eq:four-independent-tail}
+\end{equation}
+At $T=\operatorname{expm1}(48)$ this is
+$3.109\times10^{-14}$, as a display approximation to the analytic bound.
+
+Without pairing, the first Taylor derivative satisfies
+$|g'|\leq(64/9)\log^3r/r^{7/2}$, which is also radially integrable.
+For the common-cutoff bubble, its value and first two $s$ derivatives are
+bounded by the same positive uncut quantities.  The cutoff outer
+propagators have the corresponding uncut derivative majorants through
+order two.  The above bounds therefore justify angular pairing and
+dominated removal of $\eta$ in the reduced outer integral, identifying
+\eqref{eq:four-independent-outer} with the same BPH regulated limit.
+This argument is not, by itself, a general $L^1$ proof for the unreduced
+24-dimensional combined momentum expression.
+
+\subsection{A separate exact-coefficient Taylor truncation estimate}
+
+Write $\Sigma_R(s)=s^2\phi(s)$ with
+\begin{equation}
+ \phi(s)=\int_0^1h(u)^2,du\int_0^1
+             \frac{1-z}{1+s h(u)z},dz,\qquad h(u)=u(1-u).
+\end{equation}
+For $|w|=\varrho<1$, the ratio
+$\phi(r(1+w))/\phi(r)$ is a positive-weight average of $(1+vw)^{-1}$,
+$0\leq v\leq1$.  Its modulus is at most $(1-\varrho)^{-1}$ and its real
+part is at least $(1-\varrho)/(1+\varrho)^2$.  It has a consistent analytic
+logarithm, and
+\begin{align}
+ \left|\log\frac{\phi(r(1+w))}{\phi(r)}\right|
+ &\leq2\log(1+\varrho)-\log(1-\varrho)+\frac\pi2,\\
+ |\log(1+vw)|&\leq-\log(1-\varrho)+\frac\pi2.
+\end{align}
+Apply the two univariate Cauchy estimates separately to the shifted lines.
+For counts $(0,1,2)$ there are three copies of $\log\Sigma_R$ and five
+copies of $\log(1+s)$ in their combined log ratio.  At
+$\varrho=9/10$ the sum of the boundary constants is less than $60$.
+
+For a high-radius join $R$, Taylor order $J$, and
+$q_0=(R^{-1}+2R^{-1/2})/\varrho<1$, put
+$a=(J+1)/2$ and $D_*=60q_0/(1-q_0)$.  The Cauchy remainder, the exponential
+mean-value estimate, and the radial prefactor bound
+$\log^3r/432$ give
+\begin{equation}
+\begin{split}
+ E_{\mathrm{Taylor}}\leq{}
+ &\frac{e^{D_*}60q_0^{J+1}}{432(1-q_0)}\\
+ &\times\left[
+ \frac{\log^3R}{a}+\frac{3\log^2R}{a^2}
+       +\frac{6\log R}{a^3}+\frac6{a^4}\right].
+\end{split}
+ \label{eq:four-independent-taylor-tail}
+\end{equation}
+For $R=1000,J=14$, this is $4.470\times10^{-15}$.
+It bounds finite Taylor truncation with exact derivative coefficients.
+It does not bound numerical coefficient rounding or the remaining
+quadrature, and is distinct from \eqref{eq:four-independent-tail}.
+
+\subsection{Calibration, actual refinements and preserved provenance}
+
+The identical angular/radial scheme first reproduces the one-loop triangle
+and the two-loop single-bubble BPH amplitude.  The latter's unit-point
+reference is $-0.00617095361238479$.  In the last run its observed gap is
+$1.27\times10^{-15}$; the one-loop calibration gap is
+$6.25\times10^{-16}$.  The target four-loop QMC mean was not used to tune
+the mapping, formula or refinement choices.
+
+\begin{center}
+\begin{tabular}{c c c}
+\hline
+Run & Radial/disk/half-angle & Four-loop value\\
+\hline
+Coarse & $12/20/24$ & $-0.0005158785412719462$\\
+Fine & $20/32/40$ & $-0.0005158785412708389$\\
+Finer & $28/48/64$ & $-0.0005158785412715456$\\
+\hline
+\end{tabular}
+\end{center}
+The first two runs use logarithmic panel width $2$, with respectively
+$x=\log(1+r)\leq40,44$, join $R=10000$, Taylor orders $8,10$, and
+60/70-digit derivative coefficients.  The last run uses panel width $1$,
+$x\leq48$, join $R=1000$, Taylor order $14$ and 80-digit coefficients.
+The last two results differ by $7.07\times10^{-16}$.  These are refinement
+and calibration diagnostics, not a rigorous total quadrature enclosure.
+
+The independent original script, three run JSON files, summary and
+derivation notes are copied byte-for-byte into the documentation's
+\texttt{automatic-four-loop-independent-evidence} directory, with original
+times and hashes retained.  The portable tool
+\path{tools/compare_automatic_four_loop_independent.py}
+records its own hash and verifies the original script hash.  Its default
+output is \path{results/automatic-four-loop-oracle-run.json}.
+This reference is not bound to a transient production-source fingerprint;
+a production comparison must preserve its own actual source, program,
+execution and uncertainty records separately.

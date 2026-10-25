@@ -1,0 +1,29 @@
+{
+  "all_passed": true,
+  "pages": [
+    {
+      "language": "cn",
+      "cell_targets": 77,
+      "local_links": 261
+    },
+    {
+      "language": "en",
+      "cell_targets": 77,
+      "local_links": 261
+    }
+  ],
+  "svg_files_parsed": 119,
+  "generated_tex_inputs_checked": 32,
+  "saved_example_json_equal": [
+    "path-a.json",
+    "path-b.json",
+    "verification.json"
+  ],
+  "saved_table_equal": true,
+  "saved_table_comparison": "Exact CSV fields; platform line endings ignored.",
+  "wheel_core_modules": 55,
+  "sdist_imported_files": 607,
+  "tex_compilation_performed": false,
+  "visual_review_performed": false,
+  "mac_compute_resumed": false
+}

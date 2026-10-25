@@ -1,0 +1,418 @@
+\section{A graph-driven recursive BPH Gaussian compiler}
+\label{sec:automatic-compiler}
+
+The input is a connected, amputated, one-particle-irreducible multigraph
+$G$ of massive scalar $\phi^3$ theory in six Euclidean dimensions.
+Internal edges retain distinct indices, including parallel edges; external
+half-edges retain their physical labels.  Let $L$, $I$ and $E$ denote its
+loop, internal-edge and external-leg counts.  Trivalence and Euler's
+identity give
+\[
+ I=3L+E-3,\qquad \Omega_G=6L-2I=6-2E.
+\]
+The present implementation accepts $1\le L\le4$ and $1\le E\le3$.
+Its generated expressions use no topology-specific integration kernel.
+This section establishes the regulated construction and its interior
+parameter formula, and states separately the analytic and numerical
+evidence needed to identify and integrate its unregulated limit.
+
+\subsection{The primary construction is the Bogoliubov recursion}
+
+For an embedded edge subgraph $\gamma$, all omitted incident half-edges
+are separate boundary ports.  This convention matters when parallel
+edges have the same endpoints.  The compiler enumerates proper,
+connected, 1PI edge subsets with
+\[
+ \omega_\gamma=6L_\gamma-2I_\gamma\ge0.
+\]
+There is no replacement of an edge subset by an induced vertex subset.
+If $P_\gamma$ lists all independent boundary momenta, the Taylor operator
+is the full total-degree polynomial
+\[
+ t_\gamma^{\omega_\gamma} f(P_\gamma)
+ =\sum_{r=0}^{\omega_\gamma}\frac1{r!}
+   \left.\frac{d^r}{dz^r}f(zP_\gamma)\right|_{z=0}.
+\]
+The boundary variables can include other loop momenta of $G$; they are
+not restricted to the physical external momenta.
+
+For a nonempty spinney $S$ of mutually vertex-disjoint proper divergent
+subgraphs, put
+\begin{align*}
+ \overline R_G I_G
+ &=I_G+\sum_{S\ne\varnothing}
+       \left(\prod_{\gamma\in S} C_\gamma\right)I_{G/S},\\
+ C_\gamma&=-t_\gamma^{\omega_\gamma}\overline R_\gamma I_\gamma,
+ \qquad
+ R_G I_G=(1-t_G^{\Omega_G})\overline R_G I_G.
+\end{align*}
+The local polynomial carried by a two-point counterterm is retained in
+full, including its mass and kinetic terms.  Contracting a subgraph in
+this notation does not discard that polynomial.
+
+The actual program expands this recursion by choosing disjoint maximal
+subgraphs and then recursively preparing their proper subgraphs.  It
+records a word $W$ with its subgraphs ordered from inner to outer and
+coefficient $(-1)^{|W|}$.  The maximal members and the successive maximal
+members inside them are unique for any resulting word.  There is
+therefore no additional multiplicity attached to a word.  For the
+finite input graph the resulting support can be compared with a
+separately enumerated set of compatible forests.  This is an auxiliary
+finite combinatorial check; the implementation does not invoke an
+unverified general forest or $Z$ identity to construct its answer.
+
+\subsection{A compatible tree gives exact integer momentum coordinates}
+
+For a fixed recursive word, its selected subgraphs are nested or
+vertex-disjoint.  A spanning tree can be constructed inside each minimal
+selected subgraph, extended inside its parent, and finally extended to
+$G$.  Equivalently, the implemented Kruskal ordering first processes
+edges belonging to the smallest selected subgraph, breaking ties by the
+original edge index.  For every selected $\gamma$,
+$T\cap E_\gamma$ is then a spanning tree of its vertices.
+
+Let the edges outside $T$ be the chords $h_1,\ldots,h_L$.  Assigning a
+unit momentum to each chord and solving conservation along tree leaves
+gives
+\[
+ k_e=\sum_{j=1}^L r_{ej}\ell_j
+       +\sum_{a=1}^{E-1}r_{e,L+a}p_a,
+ \qquad r_{ej}\in\mathbb Z,
+ \qquad p_E=-\sum_{a<E}p_a.
+\]
+The reduced oriented incidence matrix of a tree has determinant $\pm1$.
+Consequently this solve is integral, and different fundamental cycle
+coordinates are related by an integer unimodular transformation,
+possibly followed by a shift linear in the physical momenta.  Its loop
+integration Jacobian is one.  An internal chord of $\gamma$ has its tree
+path entirely in $\gamma$, so its fundamental cycle vanishes on every
+edge outside $\gamma$.  The compiler checks both the number of these
+chords, $L_\gamma$, and this absence of leakage.
+
+At a positive common Schwinger cutoff, loop integration and Taylor
+differentiation may be interchanged.  Translation invariance of those
+Gaussian integrations also makes the integrated local Taylor polynomial
+independent of the compatible routing used for its word.  This does
+not assert that an external-momentum-dependent loop shift commutes
+pointwise with an unintegrated Taylor operator.
+
+\subsection{Scaled rows implement the boundary Taylor operators}
+
+For each selected $\gamma$ introduce a formal scalar $t_\gamma$.  For
+each edge $e$ and each coordinate $j$ of the routing, define
+\[
+ \chi_\gamma(e,j)=
+ \begin{cases}
+ 1,&e\in E_\gamma\ \text{and }j\text{ is not an internal chord of }\gamma,\\
+ 0,&\text{otherwise}.
+ \end{cases}
+\]
+Every physical coordinate is external to $\gamma$ in this definition.
+The row used to build its Gaussian form is
+\[
+ c_{ej}(t)=r_{ej}\prod_{\gamma\in W}
+                 t_\gamma^{\chi_\gamma(e,j)}.
+\]
+Thus a boundary loop momentum is scaled even though it is not a physical
+external momentum.  In a nested pair an inner physical coefficient can
+contain $t_{\rm inner}t_{\rm outer}$, an outer internal loop coefficient
+inside the inner subgraph contains only $t_{\rm inner}$, and an inner
+internal loop coefficient is unchanged.  These are precisely the
+inside-out boundary scalings required by the recursion.
+
+For $\omega_\gamma=0$ the program sets $t_\gamma=0$ directly.  For the
+other selected subgraphs it works in the finite ring
+\[
+ \mathbb R[t_\gamma:\gamma\in W,\ \omega_\gamma>0]
+     /(t_\gamma^{\omega_\gamma+1}:\gamma\in W),
+\]
+and finally sums all coefficients in the rectangular index set
+$0\le k_\gamma\le\omega_\gamma$.  A coefficient in this ring already
+means $\partial^k f(0)/\prod k_\gamma!$.  Multiplying it by another
+factorial would be an error.  The rectangular indexing concerns the
+different Taylor operators; each individual operator is still a
+total-degree Taylor polynomial in all of its boundary momenta.
+
+\subsection{Gaussian integration in the finite Taylor algebra}
+
+Give every original edge its own positive Schwinger parameter $\alpha_e$.
+No parameter is removed when a recursive word inserts a counterterm.
+For that word set
+\[
+ Q_W(t)=\sum_{e=1}^I\alpha_e c_e(t)c_e(t)^T
+       =\begin{pmatrix}A&B\\B^T&C\end{pmatrix},\qquad
+ U_W=\det A,
+\]
+where $A$ is the $L\times L$ loop block.  With the physical Gram matrix
+$g_{ab}=p_a\cdot p_b$, define
+\[
+ H_W=\sum_{a,b=1}^{E-1}g_{ab}
+                  (C-B^TA^{-1}B)_{ab}.
+\]
+The constant loop block is positive definite at an interior parameter
+point: the internal subgraph cycles and the quotient cycles still form
+a complete basis after its selected boundary momenta have been set to
+zero.  Gaussian elimination is therefore legitimate in the Taylor
+ring.  Inverting a pivot uses a finite geometric expansion in its
+nilpotent remainder; a logarithm uses the corresponding finite Taylor
+series.  These algebraic operations implement derivatives of the
+Gaussian integral, rather than numerical finite differences.
+
+For each of the six spatial coordinates the same scalar loop matrix
+occurs.  With the convention $d^6\ell/\pi^3$ per loop,
+\[
+ \int\prod_{j=1}^L\frac{d^6\ell_j}{\pi^3}
+       e^{-\sum_e\alpha_e k_e(t)^2}
+       =U_W(t)^{-3}e^{-H_W(t)}.
+\]
+There is no diagram symmetry weight, coupling, $(4\pi)$ factor, or
+dimensional-regularization prefactor in this equation.
+
+\subsection{The overall subtraction makes the scale integral explicit}
+
+Write $\alpha_e=\rho x_e$, $\sum_e x_e=1$.  The Jacobian is
+$\rho^{I-1}d\rho\,d^{I-1}x$, $U(\rho x)=\rho^LU(x)$, and
+$H(\rho x)=\rho H(x)$.  Hence the remaining scale power is
+\[
+ \rho^{I-1-3L}=\rho^{E-4}.
+\]
+The simplex measure here is the usual coordinate Lebesgue measure,
+whose volume is $1/(I-1)!$.  No extra simplex factorial is to be inserted.
+
+Since $H$ is quadratic in all physical momenta, the overall zero-degree
+subtraction for $E=3$ removes $1$ from $e^{-\rho H}$; the full
+degree-two subtraction for $E=2$ removes $1-\rho H$.  For $M=m^2>0$,
+\begin{align*}
+ \Phi_3(H,M)
+ &=\int_0^\infty\frac{e^{-M\rho}}\rho
+                    (e^{-H\rho}-1)d\rho
+ =-\log(1+H/M),\\
+ \Phi_2(H,M)
+ &=\int_0^\infty\frac{e^{-M\rho}}{\rho^2}
+                    (e^{-H\rho}-1+\rho H)d\rho\\
+ &=(M+H)\log(1+H/M)-H.
+\end{align*}
+For $E=1$ momentum conservation leaves no independent external momentum;
+the full zero-momentum Taylor condition therefore gives $R_GI_G=0$.
+This includes the chosen finite condition on the linear counterterm.
+
+For a word define $\mathcal T_W$ to set its zero-order variables to zero
+and sum the retained Taylor coefficients of its other variables.
+The projective density emitted by the compiler is
+\[
+ \mathcal D_G(x;p,M)=
+   \sum_{W\text{ from the recursion}}(-1)^{|W|}
+    \mathcal T_W\bigl[U_W(t)^{-3}\Phi_E(H_W(t),M)\bigr].
+\]
+All words are evaluated at the same original $x$ and combined before
+numerical integration.  In particular a separately divergent word is
+not assigned an unregulated numerical integral.
+
+\subsection{A two-loop overlapping graph extracted from the actual program}
+
+The following matrices were extracted by
+\path{tools/extract_automatic_overlap.py} from actual
+\texttt{compile\_bph} output, retained in
+\path{docs/automatic-compiler-evidence/generated-overlap.json}.  They are an illustration of the
+algorithm, not a formula table used by its engine.  The edge order is
+\[
+ (0,2),(0,3),(1,2),(1,3),(2,3),
+\]
+with physical legs at vertices $0,1$.  Write its parameters as
+$(a,b,c,d,e)$ and $p^2=s$.  Its two proper divergent triangles have edge
+sets $\gamma_a=\{0,1,4\}$ and $\gamma_b=\{2,3,4\}$.
+They overlap, so the recursive words are only
+$\varnothing$, $\{\gamma_a\}$ and $\{\gamma_b\}$.
+
+For the empty word, the program obtains the routing rows in the basis
+$(\ell_1,\ell_2,p)$
+\[
+ \begin{pmatrix}1&1&1\\-1&-1&0\\-1&0&-1\\1&0&0\\0&1&0\end{pmatrix}.
+\]
+The full loop-plus-physical matrices after each selected zero-order
+Taylor substitution are
+\[
+ Q_\varnothing=
+ \begin{pmatrix}
+ a+b+c+d&a+b&a+c\\
+ a+b&a+b+e&a\\
+ a+c&a&a+c
+ \end{pmatrix},
+\]
+\[
+ Q_{\gamma_a}=
+ \begin{pmatrix}c+d&0&c\\0&a+b+e&0\\c&0&c\end{pmatrix},
+ \qquad
+ Q_{\gamma_b}=
+ \begin{pmatrix}a+b&0&-a\\0&c+d+e&0\\-a&0&a\end{pmatrix}.
+\]
+The compatible tree and chord basis of the last word differ from those
+of the first word; each transformation has unit Jacobian.  Put
+\begin{align*}
+ U&=(a+b)(c+d)+e(a+b+c+d),\\
+ V&=ab(c+d)+cd(a+b)+e(a+c)(b+d).
+\end{align*}
+Direct determinants and Schur complements of these emitted matrices give
+\begin{align*}
+ U_\varnothing&=U,&H_\varnothing&=sV/U,\\
+ U_{\gamma_a}&=(c+d)(a+b+e),&H_{\gamma_a}&=s\,cd/(c+d),\\
+ U_{\gamma_b}&=(a+b)(c+d+e),&H_{\gamma_b}&=s\,ab/(a+b).
+\end{align*}
+The resulting density is the first $U^{-3}\Phi_2$ expression minus
+the other two.  In particular no simultaneous
+$t_{\gamma_a}t_{\gamma_b}$ term is introduced for the overlapping pair.
+
+\subsection{A common regulator and the exact scope of the limit}
+
+For regulated algebra use the same propagator on every original edge,
+\[
+ D_\eta(k)=\int_\eta^\infty e^{-\alpha(k^2+M)}d\alpha,
+ \qquad \eta>0.
+\]
+Every recursive word retains the same original region
+$\alpha_e\ge\eta$.  All Gaussian integrals and finitely many Taylor
+derivatives are then absolutely integrable.  After projectivization the
+common lower scale limit is
+\[
+ T(x,\eta)=\eta/\min_e x_e.
+\]
+Replacing the lower limits in the two definitions of $\Phi_E$ by this
+same $T$ gives the regulated Gaussian expression exactly.  For fixed
+interior $x$ the subtracted exponential is $O(\rho)$ for $E=3$ and
+$O(\rho^2)$ for $E=2$, also after any of the finitely many Taylor
+derivatives.  The mass controls infinity.  It follows that its
+$\eta\downarrow0$ limit is the displayed projective density.
+
+That interior conclusion alone does not justify taking the limit
+through the entire simplex or through the original $6L$-dimensional
+momentum integral.  To make both identifications one needs suitable
+integrable majorants for the complete recursive sum, uniform in the
+common regulator.  A future inductive proof must also retain control in
+the internal subgraph-external momenta, not just at one fixed reference
+scale.  The separate one- and two-loop family proofs provide this
+bridge for their stated domains.  Graph-derived primitive certificates
+provide additional bounds for their explicitly certified graphs.
+Compiling all three- and four-loop
+graphs, or testing a collection of UV rays, is not a proof of the
+corresponding uniform bridge for every such graph.  The compiler's
+formal expression, a pointwise numerical UV diagnostic, an integrated
+estimate, and an analytic convergence certificate are distinct claims.
+
+\subsection{Arithmetic cancellation is checked separately from integration}
+
+The common-parameter sum can be much smaller than its individual words.
+For the two-loop nested bubble with edges
+\[
+ (0,1),(0,3),(1,2),(2,3),(2,3)
+\]
+and $s=M=1$, an actual randomized-integration point was
+\[
+ \begin{aligned}
+ \alpha={}&(0.6311634306896491,\ 0.016292580874392757,\ 0.35254392304634735,\\
+ &\qquad6.228782654682385\!\times10^{-8},\
+ 3.101784279669877\!\times10^{-9}).
+ \end{aligned}
+\]
+Its unguarded binary64 density was $+440112873472$, while independent
+100-digit differentiation gave $-3680.2843093271767$.  A positive
+importance weight of about $1.71\times10^{-8}$ turned the false density
+into a spurious weighted value about $7527$, rather than the correct
+$-6.29\times10^{-5}$.  This was an arithmetic error, not statistical
+evidence for a large positive tail.  A signed local BPH density is allowed
+and is not clipped to impose positivity.
+
+The initial safeguard recomputed the complete sum whenever a
+proper-subgraph parameter sum or its complement was below $10^{-4}$.
+That face check is retained, but simultaneous quadratic subtractions
+can fail outside its threshold. The current whole-coefficient relative
+trigger and optional checked native executor are described in
+Section~\ref{sec:precision-repair}; both retain the independent standard
+library Decimal path. If the smallest positive face scale, also
+including $1$, is $r$, the Decimal starting precision is
+\[
+ d=\min\{470,\max\{80,32+12\lceil\max(0,-\log_{10}r)\rceil\}\}.
+\]
+It then recomputes with $\min(500,d+30)$ digits, requiring
+\[
+ |v_{d'}-v_d|\le10^{-25}\max\{|v_{d'}|,|v_d|\},
+ \qquad d'=\min(500,d+30),
+\]
+with an explicit acceptance when both values are zero, and increases
+precision again if necessary. Failure to stabilize by
+500 digits raises an error. The displayed failing point now agrees
+with the independent reference.  The batch path tries
+\texttt{numpy.longdouble} first, but records its actual mantissa width;
+on the tested platform it has only 53 significant bits.  No extra
+precision is inferred from its type name.
+
+Increasing the arithmetic precision was not by itself sufficient.  A
+second test exposed a small-$z$ series truncated at $n=29$ for
+$\Phi_2$, with $z=H/M$, that had been reused even in high-precision
+arithmetic.  For parameters
+\[
+ (0.1,0.4,0.5,4\times10^{-21},6\times10^{-21}),\quad s=M=1,
+\]
+independent 160-digit differentiation gave
+\[
+ 116357167448485560.1524657840956468920609\ldots,
+\]
+whereas both 110- and 200-digit calculations with that fixed series
+stabilized at
+\[
+ 116357167448126952.4750081595388072343536\ldots.
+\]
+Their common bias escaped an arithmetic precision comparison.  The
+omitted analytic tail, before multiplication by $U^{-3}$, is bounded by
+$M|z|^{30}/[30\cdot29(1-|z|)]$ when $|z|<1$.  It can therefore be
+amplified near a UV face.  The Decimal implementation now uses
+context-dependent convergent summation for both small-$z$ functions:
+\[
+ \log(1+z)=\sum_{n\ge1}\frac{(-1)^{n+1}z^n}{n},\qquad
+ \Phi_2=M\sum_{n\ge2}\frac{(-1)^nz^n}{n(n-1)}.
+\]
+It continues until adding the next term no longer changes the sum in
+the active context, then performs the higher-precision recheck.  Both
+failure cases are regression tests, rather than being hidden by a
+wider numerical tolerance.
+
+Decimal recomputation evaluates the accepted binary64 input parameters
+and Gram entries; it does not invent extra input accuracy. The face
+threshold, whole-coefficient condition trigger and precision comparisons
+are practical arithmetic diagnostics,
+not outward-rounded error intervals or a theorem that all cancellation
+patterns have been detected.
+
+\subsection{Numerical integration and current verification}
+
+The optional generic integrator maps independently scrambled Sobol
+points to Gamma variables and normalizes them to a symmetric Dirichlet
+distribution on the original $I$-edge simplex.  For parameter $\beta$,
+\[
+ p_\beta(x)=\frac{\Gamma(I\beta)}{\Gamma(\beta)^I}
+                   \prod_e x_e^{\beta-1},\qquad
+ J=\mathop{\mathrm E}_{p_\beta}
+                   [\mathcal D_G(x)/p_\beta(x)].
+\]
+The full word sum is formed before multiplication by this importance
+weight and before averaging.  Standard errors use the variation of the
+independently scrambled replicate means, not an independence assumption
+for the points within one scramble.  The first half of each nested
+Sobol sequence supplies a second power diagnostic.  These quantities,
+maximum weighted samples, native precision checks and actual Decimal
+fallback counts are recorded
+separately; none is a rigorous total quadrature enclosure.
+
+All 698 generated one- through four-loop graphs compile.  Their recursive
+supports agree with the independent finite forest-support check.
+Independent exact rational Gaussian determinants agree with
+matrix-tree and spanning-two-forest polynomials for the tested original
+words, including selected three- and four-loop primitive graphs.
+Closed one-loop finite densities, physical-label and edge/vertex
+permutations, scalar/batch agreement, mass dimension, zero subtraction
+points, the two historical cancellation counterexamples and the new
+simultaneous-face cases in Section~\ref{sec:precision-repair} are tested. Old
+topology-specific entry points are patched to raise during an additional
+test.  These checks substantiate the implemented compiler and its
+recorded numerical results; they do not close an arbitrary-loop BPH
+convergence induction or certify all three- and four-loop numerical
+integrals.

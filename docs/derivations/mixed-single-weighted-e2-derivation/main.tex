@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+\usepackage[margin=23mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\title{Mixed four-loop two-point forests\\with one weighted bubble edge}
+\author{Phi3Lab isolated development}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent Targets: L4E2G6, G19, G15, G21, G46, G63. All expressions use
+unit mass and measure $d^6k/\pi^3$ per loop, without coupling or graph
+symmetry weights. There are 84 original forests and 42 bubble pairs.
+The graph audit checks all $6(2^{11}-1)=12282$ nonempty edge subsets.
+These are algebraic identities, not complete-integral precision claims.
+
+\paragraph{Original edge identities and changing bases.}
+A vertex subtraction can make a previously selected edge basis singular.
+For each compatible vertex forest, choose four original edge routes with
+loop coefficient matrix $L_f$ satisfying $\det L_f=\pm1$.
+The affine shift includes the retained external momentum. The same basis
+is used in the bubble-present and bubble-subtracted member of the pair.
+The two propagators carrying the bubble momentum are identified in the
+bare graph; additional equal routes after a parent projection are retained
+as separate edges. All transformed Gaussian determinants are compared
+exactly to the original positive polynomials, including Taylor variables.
+
+\paragraph{Bubble mass and kinetic subtraction.}
+For $t=k^2$, the degree-two bubble remainder is
+\[
+ B(t)=\frac{(t+4)^{3/2}}{3\sqrt t}\operatorname{arsinh}\frac{\sqrt t}{2}
+       -\frac49t-\frac43
+     =\frac{t^2}{60}+O(t^3).
+\]
+The resulting weighted propagator is $B(k^2)/(1+k^2)^2$.
+The remaining three host loops have eight effective edge parameters.
+The sign of a paired term is $(-1)^{|f|}$ for the compatible vertex
+forest $f$; the local bubble pair has already been summed.
+
+\paragraph{Overall subtraction and common scale.}
+Let $M=\sum_{e=1}^8\alpha_e$, $d$ be the weighted-edge parameter,
+$z=F_f/U_f$, $t_0=(M-d)/d$, and $t_1=t_0+z/d$.
+Define primitives by
+\[
+ A'(t)=\frac{B(t)}{(1+t)^2},\qquad
+ C'(t)=\frac{tB(t)}{(1+t)^2}.
+\]
+Then
+\begin{align*}
+ J(M,d,z)&=d\{t_1[A(t_1)-A(t_0)]-[C(t_1)-C(t_0)]\},\\
+ J(M,d,0)&=\partial_zJ(M,d,0)=0,\\
+ \partial_z^2J(M,d,z)
+ &=\frac{d\,B((M+z-d)/d)}{(M+z)^2},\\
+ J(M,d,z)&=d z^2\int_0^1
+ \frac{(1-v)B((M+vz-d)/d)}{(M+vz)^2}\,dv .
+\end{align*}
+This removes the constant and $p^2$ terms of the overall two-point
+function. The $p^4$ remainder is retained.
+
+\paragraph{Complete projective measure.}
+The full density is
+\[
+ {\cal D}(\alpha)=\sum_f(-1)^{|f|}
+       \frac{J(M,d,F_f/U_f)}{U_f^3}.
+\]
+Its homogeneity is $1-3(3)=-8$. In each of the eight sectors, set the
+largest parameter to one and the other seven to $x_j\in(0,1)$.
+Normalization to the simplex gives Jacobian
+$(1+\sum_jx_j)^{-8}$, which cancels the density rescaling.
+All eight sectors are added once; there is no additional $7!$.
+Separate forest terms are not integrated individually.
+
+\paragraph{Independent checks and limits.}
+The native implementations use original Gaussian determinants and
+positive minor polynomials. An independent reference computes
+$F/U$ by solving the Gaussian Schur system and checks the complete
+scalar remainder integral. Reusing $A(t_0)$ and $C(t_0)$ within a sector
+does not change precision. Original signs, omitted forests and Taylor
+orders are deliberately mutated and rejected.
+Full-kernel tests and complete-integral acceptance are distinct stages;
+the latter still requires the unchanged statistical gates and an
+independent stored-data audit.
+\end{document}

@@ -1,0 +1,895 @@
+\documentclass[11pt]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb}
+\title{Exact reductions of complete two-point forests\\G9, G20, G1, G17 and G8}
+\author{Phi3Lab isolated development}
+\date{25 October 2026}
+\begin{document}\maketitle
+Use unit mass and $d^6q/\pi^3$ per loop, without coupling or symmetry weight.
+The original twelve forests are paired into the three words with signs
+$+,-,-$. The two weighted edges remain
+\[
+ W(s)=\frac{B(s)}{(1+s)^2},\qquad
+ B(s)=\frac{(s+4)^{3/2}}{3\sqrt s}
+       \operatorname{arsinh}\frac{\sqrt s}{2}-\frac49s-\frac43.
+\]
+With $s=q^2,t=k^2$, the remaining bare propagators are
+$D(q+k)D(q-p)D(k+p)$, where $D(l)=(1+l^2)^{-1}$.
+The two parent terms are $D(k)^2D(q-p)$ and
+$D(q)^2D(k+p)$, with the same two weighted edges.
+
+\paragraph{Exact spherical expansion.}
+For $s,t>0$, define
+\[
+ a=1+s+t,\quad \Delta=\sqrt{a^2-4st},\quad
+ K(s,t)=\frac2{a+\Delta},\quad r(s,t)=K(s,t)\sqrt{st}.
+\]
+The expansion in six-dimensional zonal harmonics is
+\[
+ \frac1{1+s+t-2\sqrt{st}\,c}
+ =\sum_{n=0}^\infty f_n(s,t)C_n^{(2)}(c),\qquad
+ f_n=Kr^n\left(\frac1{n+1}-\frac{r^2}{n+3}\right).
+\]
+It follows from
+$C_n^{(2)}-C_{n-2}^{(2)}=(n+1)C_n^{(1)}$
+and the elementary generating function for $C_n^{(1)}$.
+Normalized angular averages satisfy
+\[
+ \left\langle C_n^{(2)}(\widehat q\cdot\widehat k)
+ C_m^{(2)}(\widehat k\cdot\widehat p)\right\rangle_{\widehat k}
+ =\delta_{nm}\frac2{n+2}C_n^{(2)}(\widehat q\cdot\widehat p).
+\]
+The two signs from $q+k$ and $k+p$ cancel at each $n$. Thus,
+with $e=p^2$, the full bare angular integral is
+\[
+ H(s,t;e)=\sum_{n=0}^\infty
+ \frac{2(n+1)(n+3)}{3(n+2)}
+ f_n(s,e)f_n(t,e)f_n(s,t).
+\]
+
+\paragraph{Closed summation and a separate rigorous series.}
+Put $\alpha=r(s,e)^2,\ \beta=r(t,e)^2,\ \gamma=r(s,t)^2$,
+$z=r(s,e)r(t,e)r(s,t)$, and
+$e_1=\alpha+\beta+\gamma$, $e_2=\alpha\beta+\alpha\gamma+\beta\gamma$,
+$e_3=\alpha\beta\gamma$.
+The exact partial fractions of the summand after removing
+$K(s,e)K(t,e)K(s,t)z^n$ are
+\begin{align*}
+ &\frac{4/3}{(n+1)^2}
+ -\frac{2(1+e_1)/3}{n+1}
+ +\frac{2(1+e_1+e_2+e_3)/3}{n+2}\\
+ &\hspace{12mm}
+ -\frac{2(e_2+e_3)/3}{n+3}
+ -\frac{4e_3/3}{(n+3)^2}.
+\end{align*}
+Each sum is an elementary shift of
+$-\log(1-z)/z$ or $\operatorname{Li}_2(z)/z$.
+The second implementation sums positive terms directly.
+At physical $e=1$, $r(s,1)\leq\sqrt2-1$ follows from
+$(s+2)^2-8s=(s-2)^2\geq0$, so $0<z<7/40$.
+After terms $n=0,\ldots,N-1$, the entire omitted tail lies in
+\[
+ \left[0,\,
+ K(s,1)K(t,1)K(s,t)\,
+ \frac{z^N}{(N+1)^2(1-z)}\right].
+\]
+The native series uses $N=256$ and includes this interval.
+This is a rigorous bound on the angular series, not on the remaining
+two-dimensional integral.
+
+\paragraph{Mass and kinetic subtraction.}
+Let $D_s=1+s$, $D_t=1+t$, and
+\[
+ j(s)=-D_s^{-2}+\frac{2s}{3D_s^3}.
+\]
+The actual external Taylor coefficients are
+\begin{align*}
+ H_0&=\frac{f_0(s,t)}{D_sD_t},\\
+ H_1&=f_0(s,t)\left[\frac{j(s)}{D_t}+\frac{j(t)}{D_s}\right]
+ +\frac{4\sqrt{st}\,f_1(s,t)}{9D_s^2D_t^2}.
+\end{align*}
+Here $H_1=\partial H/\partial e|_{e=0}$ is the coefficient of $p^2$.
+In particular, the last term is required by the correlated two-angle
+average. It must not be replaced by two independent one-angle averages.
+
+The complete angular remainder at $p^2=1$ is
+\[
+ {\cal R}=H(s,t;1)-H_0-H_1
+ -\frac{f_0(s,1)-D_s^{-1}-j(s)}{D_t^2}
+ -\frac{f_0(t,1)-D_t^{-1}-j(t)}{D_s^2}.
+\]
+Every mass, kinetic and parent term is explicit. The internal variables
+$s,t$ remain unchanged by the external Taylor operation.
+The final integral is precisely
+\[
+ \int_0^\infty\!\!\int_0^\infty
+ \frac{s^2t^2 B(s)B(t)}{4D_s^2D_t^2}\,
+ {\cal R}(s,t)\,ds\,dt .
+\]
+Both radial maps $s=x/(1-x)$ and $s=x/(1-x)^3$ cover the entire
+positive half-axis, with their exact Jacobians.
+
+\paragraph{Actual verification.}
+The original twelve forests and all their Gaussian/positive-polynomial
+identities were rebuilt. Thirty-six finite spherical convolution
+identities, nine coefficient recurrences and nine angular norms passed.
+Four 180-digit closed/series comparisons and two independent complete
+three-angle quadratures checked the bare, mass and kinetic terms.
+The native tests then passed 36 intervals against 18 independent
+640-digit references, two 1024-term series checks, and eleven mutations.
+Separate statistics tests matched twenty exact cases and rejected
+five corrupted inputs. Fixed whole-integral diagnostics and independent
+stored-evidence audits are still required before acceptance.
+\paragraph{Completed G9 numerical evidence.}
+The cubic radial chart passed fixed selection. Its fresh production and
+independent stored-evidence audit both completed: 256 requests,
+65,536 nodes, five exact statistical levels, sixteen independent
+640-digit references and thirteen deliberate evidence mutations.
+The empirical pooled value is approximately
+$1.0283102353401742\times10^{-5}$; the unchanged strong gate ratio
+is $0.0266639235662$. This is an empirical integral result, awaiting
+the ordered accounting update, and is not a rigorous quadrature enclosure.
+
+\section*{G20: exact transverse angular integration}
+The G20 bare remaining propagators are
+$D(q-k-p)D(q-p)D(k+p)$, with the same two radial weighted edges.
+No shift of either internal momentum depending on $p$ is performed.
+Set $a=\widehat q\cdot\widehat p$, $b=\widehat k\cdot\widehat p$ and
+\[
+ w=2\sqrt{st}\sqrt{(1-a^2)(1-b^2)},\quad
+ C=1+s+t-2\sqrt{st}\,ab,\quad
+ A=-2\sqrt{s}\,a,\quad B=2\sqrt{t}\,b.
+\]
+The remaining relative angle $u$ is a five-dimensional transverse cosine,
+with normalized measure $\tfrac34(1-u^2)du$. Its exact integral is
+\begin{align*}
+ I(C,w)&=\frac34\int_{-1}^1\frac{1-u^2}{C-wu}\,du
+ =\frac{3}{2w^2}\left[C-\frac{C^2-w^2}{w}
+           \operatorname{artanh}\frac wC\right],\\
+ I_C&=\frac3{w^2}\left[1-\frac Cw\operatorname{artanh}\frac wC\right],\\
+ I_{CC}&=\frac3{w^2}\left[\frac C{C^2-w^2}
+                        -\frac1w\operatorname{artanh}\frac wC\right].
+\end{align*}
+At $w=0$ the limits are $C^{-1},-C^{-2},2C^{-3}$.
+All massive denominators remain strictly positive.
+
+At external scale $p\mapsto\epsilon p$, the bare transverse integral is
+\[
+ \frac{I(C+\epsilon(A+B)+\epsilon^2,w)}
+ {(D_s+\epsilon A+\epsilon^2)(D_t+\epsilon B+\epsilon^2)}.
+\]
+Define
+\begin{align*}
+ g_0&=(D_sD_t)^{-1},\qquad
+ g_1=-\frac{A/D_s+B/D_t}{D_sD_t},\\
+ g_2&=\frac{A^2/D_s^2-D_s^{-1}+B^2/D_t^2-D_t^{-1}
+                      +AB/(D_sD_t)}{D_sD_t}.
+\end{align*}
+The exact mass and kinetic coefficients are
+\[
+ T_0=g_0 I,\qquad
+ T_2=g_2 I+g_1(A+B)I_C
+          +g_0\left[I_C+\tfrac12(A+B)^2I_{CC}\right].
+\]
+The complete remainder pairs $\epsilon=\pm1$, subtracts these two
+coefficients and both individually Taylor-subtracted parent insertions.
+Each coefficient is also rebuilt independently by multiplying the
+quadratic jets of the three original routed rational propagators.
+Thus the internal radii and original external routing are fully traceable.
+
+The two primitive derivatives and all four external jet identities passed.
+Six complete routed checks for G20/G9 agree to ninety relative digits,
+and two G9 full angular cross-checks agree with its independent
+two-dimensional reduction. Four integration variables remain for G20.
+Native tests and fresh fixed whole-integral diagnostics are separate
+requirements and do not follow merely from this analytic proof.
+\section*{G20: complete external-direction average}
+The four-dimensional transverse representation passed its local tests,
+but failed the fixed whole-integral selection. No acceptance is assigned
+to that representation. The following further reduction keeps $q,k$ fixed.
+Put $h=q\cdot k$, $l=q-k$, $u=l^2=s+t-2h$, and use three vectors
+$v_1=q,v_2=-k,v_3=l$. With $e=p^2$, their propagator denominators obey
+\[
+ d_1+d_2-d_3=1+e+2h=:C(e),\qquad
+ \frac1{d_1d_3}+\frac1{d_2d_3}-\frac1{d_1d_2}
+ =\frac{C(e)}{d_1d_2d_3}.
+\]
+Let $P(s,t,h;e)$ denote the normalized spherical average of the pair
+with squared norms $s,t$ and scalar product $h$. Then the complete bare
+average is
+\[
+ H_{20}(s,t,h;e)=\frac{N(e)}{C(e)},\quad
+ N(e)=P(s,u,s-h;e)+P(t,u,t-h;e)-P(s,t,-h;e).
+\]
+For $K_s=K(s,e)$, $r_s=r(s,e)$, and similarly for $t$, define
+\[
+ Q=K_sK_t e h,\quad Z^2=(K_sK_t e)^2 st,\quad
+ a_n=\frac1{n+1}-\frac{r_s^2}{n+3},\quad
+ b_n=\frac1{n+1}-\frac{r_t^2}{n+3}.
+\]
+No division by a potentially vanishing angular norm is required:
+\begin{align*}
+ P&=K_sK_t\sum_{n\geq0}\frac{2\bar C_n a_nb_n}{n+2},\\
+ \bar C_0&=1,\quad\bar C_1=4Q,\quad
+ n\bar C_n=2(n+1)Q\bar C_{n-1}-(n+2)Z^2\bar C_{n-2}.
+\end{align*}
+The independent implementation uses
+$\bar U_0=1,\bar U_1=2Q$,
+$\bar U_n=2Q\bar U_{n-1}-Z^2\bar U_{n-2}$ and
+$\bar C_n=(n+1)\bar U_n+Z^2\bar C_{n-2}$.
+For $z=r_sr_t$, truncation after $N$ terms has absolute tail at most
+$K_sK_t z^N/(1-z)$. At $e=1$, $z<7/40$.
+
+\paragraph{Certified removable limit.}
+If $C(1)=2+2h=0$, write $e_0=-1-2h$ and use
+$H_{20}(e_0)=N'(e_0)$, following from the exact identity $N=C H_{20}$.
+If an interval for $C(1)$ contains zero, evaluate $N'(e_0)$ and add
+the symmetric interval bounded by
+\[
+ \frac{|C(1)|}{2}\sup_{1/2\leq e\leq3/2}|N''(e)|.
+\]
+This uses the actual interval width and does not clip a denominator.
+For each pair, a valid bound on $|P''|$ is
+\[
+ 2(1+\sqrt{2s})^2+2(1+\sqrt{2t})^2
+ +2(1+\sqrt{2s})(1+\sqrt{2t})+\sqrt{2s}+\sqrt{2t}.
+\]
+It follows by differentiating the two positive massive denominators:
+$d_i\geq1$, $|d_i'|\leq1+\sqrt{2s_i}$ and
+$|d_i''|\leq\sqrt{2s_i}$ on the stated range.
+Writing $g_s=\partial_e\log K_s$, one has $-1\leq g_s\leq0$.
+Differentiate each pair summand by replacing $a_nb_n$ with
+\[
+ [(n+1)(g_s+g_t)+n/e]a_nb_n+a_n'b_n+a_nb_n',\qquad
+ a_n'=-\frac{2r_s^2(g_s+1/(2e))}{n+3}.
+\]
+The differentiated tail is bounded by
+\[
+ K_sK_t z^N\left[\frac{4N+10}{1-z}+\frac{4z}{(1-z)^2}\right],
+ \qquad z<\frac14\quad(1/2\leq e\leq3/2).
+\]
+
+\paragraph{Actual external Taylor coefficients.}
+For $D_u=1+u$, spherical averaging of the original quadratic jets gives
+\begin{align*}
+ T_0&=\frac1{D_sD_tD_u},\\
+ T_2&=T_0\bigg[-\frac1{D_s}-\frac1{D_t}-\frac1{D_u}
+ +\frac23\bigg(\frac{s}{D_s^2}+\frac{t}{D_t^2}+\frac{u}{D_u^2}
+ -\frac{h}{D_sD_t}+\frac{s-h}{D_sD_u}+\frac{t-h}{D_tD_u}\bigg)\bigg].
+\end{align*}
+Subtract $T_0,T_2$ and the same two parent remainders as above from
+$H_{20}(s,t,h;1)$. The complete measure is
+\[
+ \frac{s^2t^2B(s)B(t)}{4D_s^2D_t^2}\,ds\,dt\,
+ \frac83\sin^4(\pi v)\,dv,\qquad
+ h=\sqrt{st}\cos(\pi v),\quad0<v<1.
+\]
+The analytic proof checked the original twelve forests, both homogeneous
+recurrences, six analytic derivative comparisons, and three independent
+original routed two-angle quadratures, including $C(1)=0$.
+Actual native tests passed 48 interval enclosures against 24 independent
+640-digit references, three direct routed quadratures to 25 relative
+digits, and thirteen mutations. The removable-limit native branch was
+explicitly exercised together with its two nearby points. Twenty exact
+statistics cases and five corrupted inputs passed separately.
+The fresh fixed three-dimensional diagnostic failed its original selection
+gate; no production or acceptance was assigned to this representation.
+
+\section*{G20: q-direction integration and radius-difference sectors}
+At fixed $k,p$, let $b=\widehat k\cdot\widehat p$, $p^2=1$ and
+$u=t+1+2\sqrt t\,b$. The complete bare $q$-direction average is
+\[
+ \frac{P(1,u,1+\sqrt t\,b;s)}{1+u}.
+\]
+This integrates the angular correlation between the two loop momenta
+before the remaining numerical integration. One pair-series factor is
+$r(1,s)\leq\sqrt2-1$, the other is less than one, hence $z<5/12$.
+The two native homogeneous recurrences include an absolute 512-term tail.
+
+For $K=K(s,t)$, $r=r(s,t)$, define
+\[
+ J_1=K(1-r^2/3),\qquad J_2=K^2,\qquad J_3=\frac{K^3}{1-r^2}.
+\]
+These are the full averages of $D(q-k)$, $D(q-k)^2$, $D(q-k)^3$.
+The last two formulas follow independently by mass differentiation.
+Writing
+\begin{align*}
+ A&=\frac23\left(-D_s^{-1}-D_t^{-1}+sD_s^{-2}+tD_t^{-2}\right)
+       -\frac{1+s+t}{3D_sD_t},\\
+ B&=-\frac13+\frac{s-t-1}{3D_s}+\frac{t-s-1}{3D_t},
+\end{align*}
+the complete mass and kinetic averages are
+\[
+ T_0=\frac{J_1}{D_sD_t},\qquad
+ T_2=\frac{A J_1+B J_2-2J_3/3+1/(3D_sD_t)}{D_sD_t}.
+\]
+The parent terms are fully averaged analytically. Relative to a finite
+angular orbit of the original routed density, this adds the explicit
+zero-mean control
+\[
+ \frac{\tfrac12[D(k+p)+D(k-p)]-f_0(t,1)}{D_s^2}.
+\]
+The direct original-forest comparison includes this control explicitly.
+Replacing the finite-orbit parent by its full average without recording
+this difference would be an incorrect pointwise equality claim.
+
+The $b\leftrightarrow-b$ pair and four/eight equally spaced angle shifts
+retain the full integral, including its $\tfrac83\sin^4\theta$ weight.
+Forty native intervals, twenty 640-digit references, two complete
+original angular quadratures and thirteen mutations passed.
+The subsequent fixed diagnostic still failed and has no acceptance.
+
+The next exact radial transport writes
+\[
+ s=(r+d)^2,\quad t=r^2,\quad
+ \left|\frac{\partial(s,t)}{\partial(r,d)}\right|=4r(r+d),
+ \qquad r,d>0.
+\]
+The transformed integrand is the sum of the two sectors $F(s,t)+F(t,s)$,
+with this Jacobian; it is not their average. The sectors cover the entire
+positive quadrant up to a measure-zero boundary. Both $r,d$ cover their
+full half-axes via $x/(1-x)$ or $x/(1-x)^3$. A finite radius difference
+is therefore sampled directly even at large radius. The exact measure
+proof checks three exponential moments and sixteen independent original
+angular quadratures. No internal momentum routing or Taylor order changes.
+
+\section*{G1: complete unweighted box}
+The original shared weighted edge is $B(s)^2/(1+s)^3$.
+The external-momentum-independent bare change $r=q+k$ leaves four
+unweighted propagators with momenta $q,q+p,q-r,q+p-r$.
+Each parent retains its original weighted momentum and gives the
+second-order-subtracted bubble $B(p^2)/(1+s)^2$ with negative sign.
+There are two such parents.
+
+For their four denominators,
+\[
+ d_0+d_3-d_1-d_2=-2r\cdot p.
+\]
+The common triangle divergences cancel in this exact identity. Using
+the already defined complete triangle slice $T(s,h,v)$, the bare box is
+\[
+ \int_0^1\frac{T(s,h,v)-T(s,-h,v)}h\,dv,\qquad h=r\cdot p.
+\]
+With $\sigma=z(1-z)$ and $J_n=\int_0^1(1+s\sigma)^{-n}dz$,
+\[
+ J_1=\frac{4\operatorname{arsinh}(\sqrt s/2)}{\sqrt{s(s+4)}},
+ \quad J_2=\frac{2(1+J_1)}{s+4},\quad J_3=\frac{1+3J_2}{s+4}.
+\]
+Put $I_1=(J_1-J_2)/s$, $I_2=(1-2J_1+J_2)/s^2$ and
+$I_3=(1-3J_1+3J_2-J_3)/s^3$. The actual local Taylor coefficients are
+\[
+ T_0=\frac{2v(1-J_1)}s,\qquad
+ T_2=-2v^2(I_1-2I_2)+2v^3(I_1-3I_2)+\frac83h^2v^3I_3.
+\]
+The two parents contribute
+\[
+ -\frac{2[(1+v(1-v))\log(1+v(1-v))-v(1-v)]}{(1+s)^2}.
+\]
+All terms remain at fixed internal $s,h,v$ during the external Taylor
+operation. At $h=0$ the box quotient uses the complete finite rational
+parameter integral. When an interval contains zero, the added absolute
+remainder is at most $2v^3h^2/105$; this follows from
+$\int_0^1(1-z)[z(1-z)]^3dz=1/280$ and the massive denominator bound.
+
+The full radial and angular measures, cubic radial map, parameter
+reflection and exact four/eight-point angular orbits are retained.
+The original twelve forests, seventeen 180-digit scalar checks,
+forty native intervals, twenty 640-digit references, two independent
+complete parameter quadratures to 75 relative digits, and thirteen
+mutations passed. The eight-point chart passed fixed selection.
+Fresh production passed all unchanged empirical gates at 65,536 nodes,
+with pooled value approximately $8.812158748994505\times10^{-4}$ and
+strong uncertainty ratio $0.02231835654$.
+The independent audit replayed all 65,536 nodes and recomputed all five
+statistical levels exactly. Sixteen independent 640-digit references
+and thirteen evidence mutations passed. Ordered ledger reconciliation
+is still pending; the statistical gate is not a rigorous quadrature bound.
+
+\section*{G17: differentiate the shifted bubble weight}
+There is no external-dependent loop change. At fixed $s=q^2$ and
+$h=q\cdot p$, the bare factor is $W(s)W(s+\epsilon^2-2\epsilon h)$
+times the complete unweighted triangle. The first parent subtracts
+the constant triangle with exactly these weighted boundaries.
+Write its finite triangle slice as
+\[
+ T_\epsilon=-L_0+\epsilon h v\frac{1-J_0}{s}
+                    -\epsilon^2L_2+O(\epsilon^3),
+ \quad J_0=\frac{4\operatorname{arsinh}(\sqrt s/2)}{\sqrt{s(s+4)}}.
+\]
+Here $L_0=\sqrt{(s+4)/s}\operatorname{arsinh}(\sqrt s/2)-1$ and
+\begin{align*}
+ J_{00}&=\frac{2(1+J_0)}{s+4},&
+ I_{20}&=\frac{J_0}{2}-\frac{1-J_0}{s},&
+ I_{30}&=\frac{J_0}{2}-\frac{3(1-J_0)}{2s},\\
+ L_2&=v I_{20}-v^2 I_{30}
+       -\frac{h^2v^2}{s^2}(1-2J_0+J_{00}).
+\end{align*}
+The shifted weight has the jet
+\[
+ W(s+\epsilon^2-2\epsilon h)
+ =W-2\epsilon h W'+\epsilon^2(W'+2h^2W'')+O(\epsilon^3).
+\]
+Consequently the actual mass and kinetic coefficients of the product are
+\[
+ T_0=-WL_0,\qquad
+ T_2=-WL_2-\frac{2h^2v(1-J_0)}sW'
+                   -L_0(W'+2h^2W'').
+\]
+The middle term is the cross derivative. Treating the shifted weight as
+constant would lose it and the last two derivative contributions.
+For $b(v)=(1+v(1-v))\log(1+v(1-v))-v(1-v)$, the complete local remainder is
+\[
+ \frac{W(s+1-2h)T(s,h,v)+W(s+1+2h)T(s,-h,v)}2
+ -T_0-T_2-\frac{W(s)}{1+s}b(v).
+\]
+Its outer radial weight is $s^2W(s)\,ds/2$, with the full normalized
+angular measure and $0<v<1$. The remaining parent has its original
+negative sign. Proof, forty native intervals, twenty 640-digit references
+and two independent complete parameter integrals passed. Fresh production
+and audit passed 65,536 nodes with pooled value
+$5.313029764248839\times10^{-5}$ and strong uncertainty ratio
+$0.05221607020$. This is empirical full-integral acceptance pending
+ordered accounting, not a rigorous radial quadrature certificate.
+
+\section*{Elementary complete spherical pair}
+Let $P(s,t,d;e)$ be the normalized $S^5$ average of two propagators,
+whose fixed vectors have squared lengths $s,t$, dot product $d$, and
+whose shared angular vector has squared length $e$. Put
+\[
+ k_s=K(s,e),\quad r_s=k_s\sqrt{se},\quad
+ k_t=K(t,e),\quad r_t=k_t\sqrt{te},\quad
+ q=k_sk_t e d,\quad
+ \eta^2=(k_sk_t e)^2(st-d^2).
+\]
+The full harmonic sum simplifies to the elementary expression
+\[
+ P=k_sk_t\left[1-\frac{r_s^2+r_t^2-2q}{1-q}
+ H\!\left(\frac{\eta^2}{(1-q)^2}\right)\right],\qquad
+ H(z)=\frac{(1+z)\arctan\sqrt z/\sqrt z-1}{2z}.
+\]
+The removable value is $H(0)=1/3$. For small arguments,
+\[
+ H(z)=\sum_{n=0}^{\infty}\frac{(-z)^n}{(2n+1)(2n+3)}.
+\]
+The implementation includes an explicit tail bound. The independent
+arcsine form uses $\arctan\sqrt z=\arcsin\sqrt{z/(1+z)}$.
+Partial fractions of the harmonic coefficients show that all
+dilogarithms cancel exactly. Eleven complete independent integrals
+verify the Feynman representation
+\[
+ P=\int_0^1\left[
+ \frac{2}{A(x)+\sqrt{A(x)^2-4e V(x)}}\right]^2dx,
+\]
+where $A(x)=1+e+t+x(s-t)$ and
+$V(x)=t+2x(d-t)+x^2(s+t-2d)$.
+The symbolic coefficient identities and thirty scalar checks passed;
+the independent integrals include collinear limits and large radii.
+
+\section*{G8: full spherical pair and both parent terms}
+For the bare and second-parent terms use $r=q+k$, keeping $k$ fixed;
+for the first parent use $r=q$. These changes have unit Jacobian and
+are independent of external momentum. With $s=r^2,t=k^2$,
+$b=\widehat k\cdot\widehat p$, $u=t+1-2\sqrt t b$ and
+$d=t-\sqrt t b$, the complete unsubtracted three-word sum is
+\[
+ F(s,t,b)=\frac{
+ P(t,u,d;s)[W(s)W(u)-W(t)^2]-W(s)W(u)/(1+s)^2}{1+t}.
+\]
+Both parent signs remain negative. Define $D_s=1+s,D_t=1+t$ and
+\[
+ J_2=K(s,t)^2,\quad J_3=\frac{K(s,t)^3}{1-r(s,t)^2},\quad
+ J_4=\frac{K(s,t)^4[3-r(s,t)^2]}{3[1-r(s,t)^2]^3}.
+\]
+The full angular Taylor coefficients at fixed original loop momenta are
+\begin{align*}
+ T_0={}&\frac{[W_sW_t-W_t^2]J_2-W_sW_t/D_s^2}{D_t},\\
+ T_2={}&\frac1{D_t}\left\{
+ W_s\left(W'_t+\frac t3W''_t\right)(J_2-D_s^{-2})
+ +(W_sW_t-W_t^2)\left(-\frac{J_3}3-\frac{2J_4}3\right)
+ \right.\\[-2pt]
+ &\hspace{35mm}\left.
+ +\frac{W_sW'_t}{3}\big[(s-t+1)J_3-J_2\big]\right\}.
+\end{align*}
+The last term is the weight--propagator cross derivative. An exact
+eight-point angular orbit averages the low-degree Taylor polynomials.
+The full radial measure is $s^2t^2\,ds\,dt/4$. Both cubic squared-radius
+and complete two-sector radius-difference charts are available.
+The proof rebuilds all twelve original forests and checks the original
+routed propagator jets by two independent angular quadratures.
+Forty native intervals, twenty 640-digit references, two full Feynman
+integrals and thirteen mutations passed. Fixed selection chose the
+radius-difference chart. Fresh production and its independent audit
+passed all 65,536 nodes, five exact statistical levels and sixteen
+640-digit references. The pooled value is
+$3.027577410237416\times10^{-4}$; the strong uncertainty ratio is
+$0.01797424266$. Ordered accounting remains separate from these receipts.
+
+\section*{G20: a rigorous bound for the complete remaining angle}
+After the first angular integration, the bare slice is
+\[
+ F_b(s,t,b)=\frac{P(1,t+1+2\sqrt t b,1+\sqrt t b;s)}
+                  {2+t+2\sqrt t b}.
+\]
+The original mass, kinetic and both parent angular means above are
+subtracted in full. To integrate the remaining angle, continue
+$\theta$ into the strip $|\operatorname{Im}\theta|\leq\log2$.
+At its boundary $\cosh\eta=5/4$ and $\sinh\eta=3/4$.
+For any real vector $Q$,
+\[
+ \operatorname{Re}[1+(Q+p(\theta+i\eta))^2]
+ =|Q+\operatorname{Re}p|^2+\frac7{16}>0.
+\]
+Thus all three bare propagators are analytic in the strip. For the
+first two denominators the sharper lower bounds are
+$d_s=2+s-5\sqrt s/2$ and $d_t=2+t-5\sqrt t/2$.
+The paired function $\tfrac83\sin^4\theta[F_b(b)+F_b(-b)]/2$
+is $\pi$-periodic and has modulus at most
+\[
+ M(s,t)=\frac{625}{42d_sd_t}.
+\]
+Its complete $N$-point midpoint rule therefore satisfies
+\[
+ |I-I_N|\leq\frac{2M(s,t)}{4^N-1}.
+\]
+This bound is added to every native interval. A predeclared relative
+$2^{-80}$ bound determines the deterministic angular node count;
+the chosen count is logged. No angular tail is discarded. Only two
+radial sampling dimensions remain. Exact strip identities, three
+independent full-angle integrals, a nested Feynman integral and nine
+error-bound checks passed. Native validation passed thirty-two intervals,
+sixteen 640-digit references and two independent complete-angle integrals.
+Fresh production and independent audit passed all 65,536 nodes,
+five exact statistical levels and sixteen independent references.
+The pooled value is $3.687425079168148\times10^{-5}$ and the strong
+uncertainty ratio is $0.06710864774$. The angular error is rigorously
+bounded; the remaining radial Monte Carlo error is assessed by the
+unchanged empirical gates. Ordered accounting remains separate.
+
+\section*{G63: two finite triangles and two parent counterterms}
+After the bubble pair, all sixteen original forests group into
+\[
+ W(s)D(k+p)T_R(k,p)^2
+ -2W(s)D(k)^2 T_R(k,0)B(p^2),\qquad T_R(k,0)=-L_0(s).
+\]
+The two triangle loops coincide by an internal reversal, independent of
+external momentum. At fixed triangle parameters $v,w$, write their
+jets as $a_0+\epsilon a_1+\epsilon^2a_2$ and
+$b_0+\epsilon b_1+\epsilon^2b_2$. Their coefficients are the triangle
+jets given for G17. Put $h=\sqrt s\,c$ and $D_s=1+s$. The mass and
+kinetic coefficients, including the external propagator, are
+\begin{align*}
+ M&=\frac{a_0b_0}{D_s},\\
+ K&=\frac{a_0b_2+a_1b_1+a_2b_0}{D_s}
+    +\frac{2h(a_0b_1+a_1b_0)}{D_s^2}
+    +a_0b_0\left(\frac{4h^2}{D_s^3}-\frac1{D_s^2}\right).
+\end{align*}
+The complete paired remainder retains the two parent contributions
+$-t_0(s)[b(v)+b(w)]/D_s^2$, where $t_0=-L_0$.
+The additional term subtracted is
+$t_0(s)[C(s,c,v)+C(s,c,w)]$. Each $C$ is the previously proved G48
+control with zero \emph{joint} angular--parameter mean. Multiplication
+by $t_0(s)$ preserves that mean; it does not justify replacing a
+nonzero angular mean by zero. The true nonzero tail remains.
+The full measure is
+\[
+ \frac{s^2B(s)}{2(1+s)^2}\,ds\;d\Omega_5\;dv\,dw,
+ \qquad \int d\Omega_5=1.
+\]
+The original sixteen forests, two product-jet identities and nine
+independent 150-digit checks passed. Native tests passed forty-eight
+intervals, twenty-four 640-digit references, two complete parameter
+quadratures and fifteen mutations. Fixed selection chose the eight-point
+angular orbit. Fresh production and its independent audit passed all
+65,536 nodes, five exact statistical levels, sixteen 640-digit references
+and thirteen evidence mutations. Its pooled value is
+$1.834638208864187\times10^{-3}$; the strong uncertainty ratio is
+$0.08007875142$. It is included once in index59 as an empirical result.
+
+\section*{G46: a weighted spherical pair times a finite triangle}
+Let $s=q^2$, $t=k^2$ and $h=q\cdot p$, with $p^2=1$.
+The original sixteen forests give the complete bare product
+\[
+ W(t)D(q)D(q-p)V(q,p)T_R(q,p),\qquad
+ V_\epsilon=P(s,s+\epsilon^2-2\epsilon h,s-\epsilon h;t)
+                  -\frac1{(1+t)^2}.
+\]
+The subtraction in $V$ is the original weighted triangle's zero-momentum
+counterterm. Its two negative parent groups are distinct. The first is
+proportional to $V_0(s,t)B(p^2)/(1+s)^3$; the second is proportional to
+$T_R(t,0)D(q)D(q-p)/(1+t)^2$. Their signs and denominators are preserved.
+
+Put $F=K(s,t)^2$, $\Delta=\sqrt{(1+s+t)^2-4st}$,
+$U=1+(1+s-t)/\Delta$ and $J_3=K(s,t)^2/\Delta$. Then
+\begin{align*}
+ F_s&=-K^3 U,& F_{ss}&=\frac32K^4U^2-\frac{4tK^3}{\Delta^3},\\
+ a_0&=F-(1+t)^{-2},&a_1&=-hF_s,&
+ a_2&=\frac{F_s+2h^2F_{ss}-J_3}{3}.
+\end{align*}
+For triangle jets $b_0,b_1,b_2$, the actual product coefficients are
+\begin{align*}
+ M&=\frac{a_0b_0}{D_s^2},\\
+ K&=\frac{a_0b_2+a_1b_1+a_2b_0}{D_s^2}
+    +\frac{2h(a_0b_1+a_1b_0)}{D_s^3}
+    +a_0b_0\left(\frac{4h^2}{D_s^4}-\frac1{D_s^3}\right).
+\end{align*}
+The two parent remainders in the common measure are
+\[
+ -\frac{a_0 b(v)}{D_s^3},\qquad
+ -\frac{T_R(t,0)}{(1+t)^2}R_B(s),
+\]
+where the full radial bubble remainder is
+\[
+ R_B(s)=\frac1{D_s}\left[
+ K(s,1)\left(1-\frac{r(s,1)^2}{3}\right)-\frac1{D_s}
+                         +\frac1{D_s^2}-\frac{2s}{3D_s^3}\right].
+\]
+Its original radial measure is retained. In particular, this second
+parent cannot be replaced by the first parent's coefficient.
+The full common measure is $s^2t^2W(t)\,ds\,dt/4$ times the normalized
+angle and $dv$. Either both squared radii use cubic half-axis maps,
+or both radius-difference sectors are summed:
+$s=(r+d)^2,t=r^2$ and their exchange, with absolute Jacobian $4r(r+d)$.
+No extra zero-mean control is assumed.
+All sixteen forests and twenty-one independent 150-digit full-parameter
+and derivative checks passed. Native tests passed forty-eight intervals,
+twenty-four 640-digit references and two full parameter integrals.
+Nevertheless both fixed diagnostics failed. There is no production
+acceptance for this representation.
+
+\section*{G46: an integrability obstruction, not a precision certificate}
+The additional fixed-radius audit explains why bounded-point tests
+are insufficient here. With $s$ fixed, $t\to\infty$ and $L=\log t$,
+\[
+ W(t)=\frac{L/6-4/9}{t}+O(L/t^2),\qquad
+ T_R(t,0)=1-\frac L2+O(L/t).
+\]
+The complete spherical pair difference satisfies
+$V_\epsilon=-\epsilon^2/(3t^3)+O(t^{-4})$.
+Thus the bare group and first parent give integrable densities in
+this direction. The second parent instead leaves
+\[
+ \frac{s^2R_B(s)}4\,
+ \frac{(L-2)(3L-8)}{36t}+O(\operatorname{polylog}(t)/t^2).
+\]
+Since $R_B(1)>0$, this is not absolutely integrable on an open range
+of fixed $s$. Exact leading identities and nine 350-digit limit
+checks passed. No increase in sample count repairs this obstruction.
+The original BPH amplitude is not declared divergent: a common UV
+regulator or a justified joint radial subtraction must combine these
+overlapping contributions before the infinite-domain limit.
+
+The inherited per-forest basis maps include recorded affine external
+offsets. They were retained in the exact Gaussian/positive-polynomial
+checks. Statements above about momentum-independent reversals refer
+only to additional transformations after that basis; they do not
+erase the inherited external offsets. In particular, these formal
+identities alone do not authorize reordering divergent radial integrals.
+\section*{A certified common-scale evaluation on the original Schwinger domain}
+For G6, G15, G19, G21 and G46, all 68 original forests reduce to 34 paired
+states. Their positive polynomials satisfy, coefficient by coefficient,
+\[
+ 0<F(\alpha)\leq M(\alpha)U(\alpha),\qquad
+ M=\sum_{e=1}^{8}\alpha_e,\qquad \alpha_e>0.
+\]
+This statement was checked against each original polynomial, including
+monomials with a squared parameter in $MU$. It implies
+\[
+ t_0=\frac{M-d}{d}>0,\qquad q=\frac FU>0,\qquad
+ \delta=\frac qd\leq1+t_0.
+\]
+The complete scale remainder can be evaluated directly as
+\[
+ J=d\delta^2\int_0^1(1-s)W(t_0+\delta s)\,ds,
+ \qquad W(t)=\frac{B(t)}{(1+t)^2},
+\]
+without subtracting two large primitive values. The bubble identity is
+\[
+ B(t)=\int_0^1 b(v(1-v)t)\,dv,\quad
+ b(z)=(1+z)\log(1+z)-z
+     =z^2\int_0^1\frac{1-u}{1+uz}\,du.
+\]
+On the Bernstein ellipse $\rho=2$ in $y=2s-1$, one has
+$\Re s\geq-1/8$ and $|s|,|1-s|\leq9/8$. Consequently
+\[
+ \Re(1+t)\geq\frac78(1+t_0),\quad
+ \Re(1+uv(1-v)t)\geq\frac{31}{32},\quad
+ |t|\leq\frac{17}{8}(1+t_0).
+\]
+Using $\int_0^1v^2(1-v)^2\,dv=1/30$ gives
+\[
+ |B(t)|\leq\frac8{465}|t|^2,\qquad
+ |W(t)|\leq\frac{2312}{22785},\qquad
+ |(1-s)W(t)|\leq\frac{867}{7595}.
+\]
+The positive Clenshaw--Curtis rule on $[0,1]$ has total weight one and
+is exact through degree $N$. Bounding the Chebyshev tail therefore gives
+the uniform, explicit scale enclosure
+\[
+ |J-J_N|\leq d\delta^2\frac{3468}{7595}\,2^{-N}.
+\]
+The native implementation adds this bound for every signed forest term
+after division by $U^3$, sums absolute error bounds, and retains all eight
+projective sectors and all coordinate Jacobians. Degrees 64, 128, 256 and
+512 are declared in advance; an output requires at least 80 relative
+bits after adding the error. The original Gaussian and positive-minor
+kernels, mass and kinetic subtractions, and affine momentum maps are retained.
+The standard quadrature weights are documented at
+\texttt{https://dlmf.nist.gov/3.5.E16}.
+This is a bound for the inner scale evaluation; the remaining seven-dimensional
+integral still requires its own complete precision gate and independent audit.
+
+\section*{Positive rational transport and a conditional partition proposal}
+The first proposal uses seven one-dimensional, strictly positive histogram
+densities with integer masses summing to $65536$. The exact inverse maps
+and their full Jacobian preserve the original common projective domain.
+Training uses existing diagnostic replicates 0 and 1; candidate maps are
+sealed before comparing replicates 2 and 3. These historical comparisons
+are method selection, not new precision evidence.
+
+A separate conditional proposal partitions the histogram coordinates into
+dyadic rectangles $R_\ell$, with positive rational probabilities
+$p_\ell=m_\ell/2^{24}$. An auxiliary selector chooses $\ell$ and seven
+independent local coordinates fill $R_\ell$. Its exact importance factor is
+\[
+ \frac{|R_\ell|}{p_\ell}\,J_{\rm histogram}.
+\]
+The selector introduces an eighth sampling coordinate; the physical kernel
+still receives exactly seven coordinates. For any integrable $f$,
+\[
+ \sum_\ell p_\ell\frac{|R_\ell|}{p_\ell}
+       \int_{[0,1]^7}f(a_\ell+w_\ell z)\,dz
+ =\int_{[0,1]^7}f(x)\,dx.
+\]
+Strictly positive masses cover the entire domain. Leaf selection is
+right-continuous at cumulative boundaries, while all seven local coordinates
+remain interior. Exact polynomial moments, volumes and boundary behavior
+are tested independently. No conditional proposal is counted as an accepted
+integral before fresh diagnostics, production and an independent replay.
+\section*{A complete Hepp-sector proposal with exact probabilities}
+The original eight projective charts can instead be partitioned into all
+$8!$ strict orders of the eight parameters. Ties have measure zero.
+For an order $(e_0,\ldots,e_7)$, put
+\[
+ S_j=\{e_j,\ldots,e_7\},\qquad
+ \alpha_{e_0}=1,\qquad
+ \alpha_{e_j}=\prod_{k=1}^{j}r_k,\qquad r_j=u_j^{p(S_j)}.
+\]
+The positive integer powers are fixed from the polynomial supports before
+fresh diagnostics. In this implementation $p(S)$ is either 1 and 2, or
+1 and 4. The support score used to choose them is
+\[
+ \gamma(S)=\min_{\text{paired states}}
+ \bigl[|S|+2\min_{m\in\operatorname{supp}F}|S\cap m|
+             -5\min_{m\in\operatorname{supp}U}|S\cap m|\bigr].
+\]
+The larger power is used when $\gamma(S)\leq1$.
+This score only designs the proposal: it is not a convergence proof or
+a finite-variance certificate for the signed forest sum.
+
+Define exact integer weights recursively by
+\[
+ H(\varnothing)=1,\qquad
+ H(S)=p(S)\sum_{e\in S}H(S\setminus\{e\}),\qquad
+ Z=\sum_{e\in E}H(E\setminus\{e\}).
+\]
+The conditional probability of removing $e$ from the current set $S$ is
+$H(S\setminus\{e\})/\sum_{f\in S}H(S\setminus\{f\})$.
+Its telescoping product gives the order probability
+\[
+ \pi(e_0,\ldots,e_7)=\frac{\prod_{j=1}^{7}p(S_j)}Z.
+\]
+Every order has positive probability. The coordinate Jacobian and the
+full importance factor are therefore
+\[
+ J_{\rm sector}=\prod_{j=1}^{7}p(S_j)u_j^{p(S_j)|S_j|-1},\qquad
+ \frac{J_{\rm sector}}\pi
+       =Z\prod_{j=1}^{7}u_j^{p(S_j)|S_j|-1}.
+\]
+Summing the expectation over all orders recovers the complete sum of the
+eight original chart integrals. The native implementation averages eight
+selector rotations $(u_0+k/8)\bmod1$; each rotation preserves uniform
+selector measure, so their average preserves the same complete integral.
+Half-open cumulative intervals give an unambiguous exact value at a
+selector boundary, including zero after a rotation.
+
+Order selection, transformed parameters, Jacobians and order probabilities
+use rational arithmetic. The two kernels independently compute $U,F$ by
+exact Gaussian determinants and by the proved positive minor polynomials.
+The original signed forest sum and scale function $J$ are retained.
+Working precision can increase from the requested value up to 8192 bits;
+an output requires at least 80 relative bits for the complete eight-rotation
+sum. This is an arithmetic enclosure of each sampled density, not a
+whole-integral error bound. The complete integral still requires fresh
+fixed diagnostics, independent production kernels and audited statistics.
+\section*{Rational ratio maps matched to regular sector powers}
+The following separate candidate improves the proposal geometry while
+retaining the same signed physical density. Put
+\[
+ \beta(S)=\begin{cases}\gamma(S),&\gamma(S)\geq1,\\
+ 1/P,&\gamma(S)\leq0,\end{cases}\qquad P\in\{2,4\}.
+\]
+Now use $H(S)=\beta(S)^{-1}\sum_{e\in S}H(S\setminus\{e\})$.
+The order probability is $Z^{-1}\prod_j\beta(S_j)^{-1}$.
+Clearing a common denominator in all $H(S)$ preserves every conditional
+probability and permits exact integer tables.
+
+For $\beta=c\geq1$, the map and its inverse are
+\[
+ r=\frac{cu}{1+(c-1)u},\qquad
+ u=\frac r{c-(c-1)r},\qquad
+ r'=\frac c{[1+(c-1)u]^2}>0.
+\]
+For $\beta=1/P$, use $r=u^P$.
+Both maps cover $[0,1]$ exactly, and their complete importance factor is
+\[
+ \frac1\pi\prod_{j=1}^7r'_j(u_j)\,r_j(u_j)^{|S_j|-1}.
+\]
+For each map, differentiating $r(u)^{k+1}/(k+1)$ and checking its two
+endpoints proves the transformed monomial integral $1/(k+1)$.
+The exact proof covers 45 such identities, every order and conditional
+partition, 280 boundary or orbit cases and the 62 original chart moments.
+
+The density induced in $r$ by the rational map is
+$h_c(r)=c/[c-(c-1)r]^2$. Thus a sector monomial $r^{b-1}$ has second moment
+\[
+ I_2(b,c)=\int_0^1\frac{r^{2b-2}}{h_c(r)}\,dr
+ =\frac1c\left[\frac{c^2}{2b-1}
+       -\frac{2c(c-1)}{2b}+\frac{(c-1)^2}{2b+1}\right],\quad b\geq1.
+\]
+A subset recurrence sums these exact moments over all orders without
+evaluating the physical density. For the clipped proxy
+$f_{\rm proxy}=\prod_jr_j^{b(S_j)-|S_j|}$ with
+$b(S)=\max(\gamma(S),1/2)$, the $P=2$ rational proposal has normalized
+second moments about 1.35--1.41, compared with 18--61 for the preceding
+pure-power proposals. These figures concern a single selector and this
+proxy only. They are not measured variances of the actual signed forest
+sum or of its eight-rotation average, and add no accepted physical graph.
+The $P=4$ candidate has a separate frozen density and must be assessed by
+its own fresh complete diagnostic.
+
+Related subset normalization and order sampling are described in
+M.~Borinsky, \emph{Tropical Monte Carlo quadrature for Feynman integrals},
+Proposition~6.8 and Algorithm~4, DOI:~10.4171/AIHPD/158.
+Our full-domain measure identities are proved directly for the frozen
+positive tables. They do not transfer positivity or convergence claims
+to the signed BPH forest sum. All original subtraction checks remain necessary.
+\section{Exact conditional sums over initial edge choices}
+The complete fixed diagnostic for the rational proposal did not pass the
+frozen selector for any of the five mixed two-point graphs. The following
+change retains the original 68 forests and their closed scalar kernels.
+It treats discrete chart choices explicitly instead of increasing the
+number of samples in that failed diagnostic.
+
+Write $p_\pi$ for the full probability of an ordered sector, and let $s$
+fix its first $d$ edges, with $d=1$ or $2$. The exact prefix probability
+$w_s=\sum_{\pi\supset s}p_\pi$ gives the conditional suffix law
+$p_{\pi\mid s}=p_\pi/w_s$. If the prefix occupies the selector interval
+$[L_s,L_s+w_s)$, its contribution can be sampled through
+\[
+ v_s=L_s+w_s u_0,\qquad
+ \mathcal F_d(u)=\sum_{s:\,|s|=d}
+       \frac{w_s J_{\pi(v_s)}(u_1,\ldots,u_7)}{p_{\pi(v_s)}}
+       f\bigl(\alpha_{\pi(v_s)}(u_1,\ldots,u_7)\bigr).
+\]
+Here $f$ is the entire signed forest density on the original common
+Schwinger domain, not a separately integrated subtraction term. Every
+prefix interval is positive and the intervals partition $[0,1)$ exactly.
+The change of variable $dv_s=w_s\,du_0$ proves that
+$\int\mathcal F_d$ equals the original integral. There is no factor
+$1/8$ for $d=1$ or $1/56$ for $d=2$.
+
+For every graph, independent products over all $8!=40320$ orders recover
+both sets of prefix masses. The five-graph measure proof checks 201600
+orders, 50 selector moments and 5440 exact mapped branches, including
+endpoint hierarchies. The seven ratio maps are unchanged, with critical
+power fixed at two; all original mass, kinetic and external-momentum
+subtractions remain. The old extreme-precision scalar checks are bound
+through the unchanged native source and new build provenance.
+
+If $h_s$ is the conditionally sampled full-importance integrand, then
+$\mathcal F_d=\sum_s w_s h_s$ and Jensen gives
+$\mathcal F_d^2\leq\sum_s w_s h_s^2$. This bounds its second moment
+relative to one randomly sampled prefix. It does not prove a variance
+improvement over the preceding eight-rotation method. Independent
+diagnostics and the unchanged complete-integral gates remain necessary.
+\end{document}

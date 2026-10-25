@@ -1,0 +1,123 @@
+\documentclass[UTF8,fontset=fandol,11pt]{ctexart}
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,longtable,tikz,xcolor,hyperref}
+\hypersetup{colorlinks=true,linkcolor=teal,urlcolor=teal}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks[2]
+\title{两圈重叠发散图的 BPH 递归重整化\\\large 减除、有限积分、解析界与软件复算}
+\author{Phi3Lab 2.0 研究与验证记录}
+\date{2026年10月19日}
+\begin{document}
+\maketitle
+\begin{abstract}
+本文完成六维、有质量、Euclidean 单实标量 $\phi^3$ 的一张两圈重叠二点图：从 Bogoliubov 递归产生两项子图反项及整体 Taylor 减除，在共同正则化下得到有限参数积分；分别证明参数表示与原始十二维动量表达式的绝对收敛，并给出紧集一致界和大外动量尺度界。标准库数值实现与不同坐标、不同积分核的独立路线相互核对。结论限于本图及明确的 Taylor 方案；数值阶数差不是严格积分误差。
+\end{abstract}
+\begin{center}
+\begin{tikzpicture}[scale=.9, every node/.style={font=\small}]
+\coordinate (L) at (0,0);\coordinate (R) at (4,0);
+\coordinate (T) at (2,1.2);\coordinate (B) at (2,-1.2);
+\draw[thick,teal] (L)--node[above left]{$a:\ k$}(T);
+\draw[thick,teal] (L)--node[below left]{$b:\ p-k$}(B);
+\draw[thick] (R)--node[above right]{$c:\ q$}(T);
+\draw[thick] (R)--node[below right]{$d:\ p-q$}(B);
+\draw[very thick,orange] (T)--node[right]{$e:\ k-q$}(B);
+\draw[->] (-1.2,0)--node[above]{$p$}(L);
+\draw[<-] (R)--node[above]{$-p$}(5.2,0);
+\foreach \x in {L,R,T,B}{\fill (\x) circle (2pt);}
+\end{tikzpicture}
+\end{center}
+两个三角形 $\{a,b,e\}$ 与 $\{c,d,e\}$ 共享中央边；整体有 $V=4$、$I=5$、$L=2$、$\omega=2$，两个子图各有 $\omega_\gamma=0$。固定标签的图权重为 $1/S=1/2$。
+
+\paragraph{先读结果与约定。}
+记 $M=m^2>0$、$s=p_E^2$，两次积分测度为 $d^6k/\pi^3$ 与 $d^6q/\pi^3$。在 $s=M=1$，未乘图权重与耦合的有限结果为
+\[
+ \boxed{J_R(1,1)\simeq +0.00277755520593736.}
+\]
+乘图权重后是约 $0.00138877760296868$；若使用通常的每圈 $d^6k/(2\pi)^6$，另有 $(4\pi)^{-6}$。有效作用量的整体符号及耦合约定仍须单列。
+
+\paragraph{论证链。}
+先在正则化传播子上执行子图零阶减除，再执行整体二阶减除；Gauss 积分与总 Schwinger 尺度积分将结果化为四维参数积分。只在相消组合上建立控制函数，避免把发散项分开积分。随后独立分析单硬圈、可比双硬圈与软差动量通道，证明动量空间绝对收敛。两条控制收敛论证将两种表示连接起来。下面的英文正式推导给出全部常数；后面的中文数值部分将它们对应到实际程序。
+\clearpage
+\tableofcontents
+\clearpage
+\input{analysis-section.tex}
+
+\clearpage
+\section{数值算法：把紫外相消写成有界积分核}
+\subsection{先消去最容易出错的相消}
+利用 $k\leftrightarrow q$ 对称性限制 $A\leq B$ 并乘 $2$，采用射影尺度 $B=1$，写 $A=X\in[0,1]$、$E=Z\in[0,\infty)$。本节只说明换元，$M$ 仍表示质量平方。径向质量参数变为 $M(1+X+Z)$，不能误写成固定 $M$。
+令 $Z=Xr/(1-r)$、$W=1-r$，则对数紫外面 $X,Z\to0$ 的首项相消可用恒等式
+\[
+ K_M(y+h)-K_M(y)
+ =h\log(1+y/M)+K_{M+y}(h)
+\]
+精确处理。这里 $K_M(z)=(M+z)\log(1+z/M)-z$；求差时没有用两个几乎相等的浮点数直接相减。
+定义连续函数
+\[
+ \mathfrak h(z)=\frac{(1+z)\log(1+z)-z}{z^2}
+  =\int_0^1\frac{1-v}{1+zv}\,dv,\qquad \mathfrak h(0)=\frac12.
+\]
+在小 $z$ 时用其收敛级数计算，另把 $\sigma^2=(s/M)^2$ 解析提取，最终计算 $J_R=(s(s/M))G(s/M)$，避免先平方很小的比值造成下溢。
+
+\subsection{实际采用的两张有界参数图}
+在 $(X,W)$ 单位正方形分别取
+\[
+ (X,W)=(t,ty),\qquad (X,W)=(ty,t),
+ \qquad 0\leq t,y\leq1,
+\]
+两张图的 Jacobian 均为 $t$。记
+\[
+ r=1-W,\quad C=1+Xr,\quad d=1+y-ty\geq1,
+ \quad A_u=u(1-u),\quad B_v=v(1-v),
+\]
+\[
+ T=A_u+\frac{r(u-v)^2}{C},\qquad
+ \nu=\frac{W}{X+W}
+ =\begin{cases}y/(1+y),&\text{第一张图},\\1/(1+y),&\text{第二张图},\end{cases}
+ \qquad\nu_*=\frac{\nu}{1+\sigma B_v\nu}.
+\]
+令 $\ell(z)=\log(1+z)/z$，$\ell(0)=1$。程序中去除 $\sigma^2$ 后的有界核为
+\begin{align}
+ F={}&\frac{2tW}{C^3}\biggl[
+ T B_v\nu\,\ell(\sigma B_v\nu)
+ +XT^2\nu_*\mathfrak h(\sigma XT\nu_*)\notag\\
+ &\hspace{23mm}-r(3+3Xr+X^2r^2)B_v^2\nu\,
+                    \mathfrak h(\sigma B_v\nu)\biggr]\notag\\
+ &-\frac{2y\nu}{d^3}A_u^2\mathfrak h(\sigma X A_u\nu),\\
+ J_R(s,M)={}&\frac{s^2}{M}\sum_{j=1}^2\int_{[0,1]^4}F_j(t,y,u,v;\sigma)\,dt\,dy\,du\,dv.
+\end{align}
+所有分母都有明确的正下界，$t=0$ 等边界可连续取值。对零外动量返回精确的 $0$。标准库实现逐维使用 Gauss--Legendre 求积；默认每维 $16$ 阶，总节点数 $2\times16^4$。程序分别记录两个阶数的值、差值与耗时，不能把差值误标为严格误差上界。
+
+\subsection{真正独立的复算路线}
+独立工具保留 $B=1$ 的射影坐标，把区域分为 $E=A y$、$A=E y$ 与 $E\geq1$ 的三张图。更重要的是，它不调用上面的对数核，而采用
+\[
+ K_M(sf)=s^2\int_0^1\frac{(1-r)f^2}{M+rsf}\,dr
+\]
+增加第五维积分。因此坐标和积分核都不同。可选 NumPy 环境只提供节点及数组运算；核心工作台依然只需要 Python 标准库。
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$s/M$ & 独立五维结果（$M=1$） & 与四维核心的差（20 阶）\\
+\midrule
+0.1 & $0.00003559910372634172$ & $9.49\times10^{-20}$\\
+1 & $0.002777555205937361$ & $4.34\times10^{-18}$\\
+4 & $0.01675339249830868$ & $1.28\times10^{-16}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+表中记录一次独立运行，最终源码版本的原始数据写在软件的 \path{results/overlap_comparison.json}。阶数变化与路线一致支持这些近似数值，但不提供严格的数字包围区间。上面的解析界解决收敛与尺度控制，不能当作此表的误差条。
+
+\section{软件中的使用、验证与范围}
+双击 Mac 的\texttt{启动分析.command}或 Windows 的\texttt{启动分析.bat}，将先重新生成报告，再打开本地计算工作台。在页面中输入 $p^2$、质量平方与积分阶数即可计算；保持启动窗口开启。直接打开 HTML 也能离线阅读预生成结果。使用说明和 JSON 保留所有归一化信息。
+\begin{quote}\ttfamily\small
+python3 -m phi3lab overlap --s 1 --m2 1 --order 16\par
+python3 tools/verify\_tests.py\par
+python tools/compare\_overlap.py
+\end{quote}
+最后一个命令在安装了 NumPy 的可选环境中执行。输入错误、非正质量、非有限数或超出支持阶数会明确报错。构建清单将源码指纹、输出文件与独立核查分开记录；源码改变后，旧的外部核查不会被重建报告冒充为当前证据。
+
+本交付包含这张重叠图的减除、有限积分、解析界和可复算软件；图集共十三张；其余条目提供精确拓扑、权重、子图、递归展开与参数多项式。没有把这一个例子的结果外推为所有图的积分、所有圈数的 BPH 定理或 MS 与本方案的有限转换。
+
+\section*{来源与工作归属}
+方法主线参照 A. D. Kennedy, \emph{A Simple Proof of the BPH Theorem}, arXiv:hep-th/9612113，尤其第 3--5 节。现代 $\phi^3$ 与积分工具文献、版本和许可记录在软件的现代调研页。上述代表图的推导、算法、代码与复算在本次协作中完成；学生在项目报告中仍应据实区分自己掌握并复写的推导、软件辅助和未完成的一般论证。
+\end{document}

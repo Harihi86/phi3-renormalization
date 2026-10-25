@@ -108,7 +108,7 @@ def main():
         (args.output / f"graph-{index + 1}.svg").write_text(render_svg(graph), encoding="utf-8")
     report = {
         "scope": "bare amputated scalar graphs; fixed labelled external legs; d=6 power counting",
-        "amplitude_calculation": "NOT_RUN: no integration or counterterm evaluation in this public subset",
+        "amplitude_calculation": "NOT_RUN: this bare-graph demo does not evaluate amplitudes; use phi3-ct for counterterms",
         "examples": reports,
         "bounded_two_loop_three_point_count": len(generate(2, 3)),
     }

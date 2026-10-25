@@ -1,0 +1,104 @@
+\documentclass[11pt]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\title{Certified hybrid evaluation of the shared-bubble primitive}
+\author{Phi3Lab development evidence}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent This note describes the new scalar evaluation stage for
+$L4E3G39$ and $L4E3G394$. It retains their sixteen original BPH forest
+states, all $720$ Hepp orders, exact rational coefficient collection,
+the original external Gram matrix and both independent determinant constructions.
+It is not a new whole-integral precision certificate.
+
+\paragraph{Normalization identity.}
+Write $A_2(t)=P(w(t))-P(1)$, with
+\[
+ w(t)=\frac{4}{(\sqrt{t+4}+\sqrt t)^2}, \qquad t>0 .
+\]
+After exact collection of equal arguments the forest contribution has the
+form $F=\sum_j c_j P(w(t_j))$, where $c_j\in\mathbb Q$ and
+$\sum_j c_j=0$. For the set $S=\{j:t_j\leq1/16\}$,
+\[
+ F=\sum_{j\in S}c_j A_2(t_j)
+   +\sum_{j\notin S}c_jP(w(t_j))
+   +\left(\sum_{j\in S}c_j\right)P(1).
+\]
+The final coefficient is collected exactly before evaluating the constant.
+The identity $\sum_jc_j=0$ does not imply
+$\sum_{j\in S}c_j=0$. Omitting or reversing this term is an error.
+The new preflight includes two nonzero-normalization cases and
+rejects both errors against independent closed-form references.
+
+\paragraph{Small argument.}
+For $0<t\leq1/16$, the normalized series is evaluated directly:
+\[
+ A_2(t)=t^5\sum_{n=0}^{\infty}c_n t^n,\qquad c_0=\frac1{18000}.
+\]
+For a truncation after $n=N-1$, the implemented tail bound is
+\[
+ |R_N(t)|\leq
+ \frac{t^{N+5}\big((N+2)-(N+1)t\big)}{4050(1-t)^2}.
+\]
+The bound and a positive lower bound
+\[
+ A_2(t)\geq
+ \frac{t^5}{18000(1+t/4)^2(1+t)^3}
+\]
+are checked with interval arithmetic to choose the truncation.
+The coefficient recurrence and Horner operations also use interval arithmetic.
+
+\paragraph{Large argument.}
+Outside the small-argument branch, a six-periodic real series is used
+only when interval arithmetic proves $w\leq1/4$; otherwise the original
+closed form is retained. Let $L=\log w$ and $m=N+1$. The real-series
+remainder obeys
+\[
+ |R_N(w)|\leq\frac{w^{N+1}}{1-w}
+ \left[
+ \frac{M_0}{m}
+ +M_1\left(\frac{|L|}{m}+\frac1{m^2}\right)
+ +M_2\left(\frac{|L|^2}{m}+\frac{2|L|}{m^2}+\frac2{m^3}\right)
+ \right].
+\]
+Here $M_k$ are the certified maxima of the six-periodic coefficients
+for the corresponding logarithmic components.
+This bound is added to the computed interval.
+The complete forest output must retain at least $80$ relative bits;
+working precision may increase up to $8192$ bits.
+
+\paragraph{Independent checks.}
+The successful whole-graph preflight verifies $23\,760$ exact mapping
+branches, $20$ coefficient comparisons against freshly constructed,
+unreduced $720$-order sums, and $20$ native intervals against $10$
+independent closed references. It rejects $29$ injected errors.
+Transport and stored replay tests independently reconstruct the
+beta maps from binomial tails and the Jacobian from factorial ratios.
+They do not import the production transport evaluator.
+
+\paragraph{Lossless diagnostic recovery.}
+The original diagnostic actually exited after timeouts.
+Independent replay validated $18$ complete groups, consisting of
+$36$ requests and $9\,216$ nodes. The remaining $14$ groups are
+recomputed at all $512$ original nodes per group, using $64$-point
+sequential requests. The fixed plan remains $32$ groups and
+$16\,384$ nodes with seeds $12410244001+239r$, $r=0,1,2,3$.
+No partial failed group is selected for reuse and no statistical samples
+are added. Selection is permitted only after the complete fixed plan.
+Fresh production, if selected, retains the unused seed base
+$12510244001$ and four $8192$-node repeats per kernel.
+All statistical gates and independent whole-integral audit requirements
+remain unchanged.
+
+\paragraph{Evidence files.}
+The reproducible sources are
+\texttt{shared\_e3\_hybrid\_sector\_functions\_v1.hpp},
+\texttt{verify\_shared\_e3\_hybrid\_native\_v2.py}, and
+\texttt{run\_shared\_e3\_hybrid\_periodized\_diagnostic\_v1.py}.
+The successful preflight is
+\texttt{jobs/shared-e3-hybrid-native-tests-02};
+the verified recovery plan is
+\texttt{jobs/shared-e3-periodized-recovery-plan-01}.
+Original data, failures and frozen programs remain intact on the Mac.
+\end{document}

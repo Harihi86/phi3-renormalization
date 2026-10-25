@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,hyperref}
+\title{Independent Series References for Bubble Kernels}
+\author{Phi3Lab development record}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent This note concerns normalized, equal-mass scalar reference functions.
+It does not change graph symmetry factors, counterterm signs, external momentum
+routing, or the acceptance conditions for whole graph integrals.
+\section{A positive series for the bubble}
+Let
+\[
+ B(t)=\frac{t^2}{60}\,{}_2F_1(1,1;7/2;-t/4),\qquad t\geq0 .
+\]
+With \(x=t/(t+4)\), the transformed series is
+\[
+ B(t)=\frac{t^2}{3(t+4)}
+       \sum_{n=0}^{\infty}\frac{x^n}{2n+5}.
+\]
+The transformed hypergeometric coefficient \(c_n=5/(2n+5)\) is fixed
+by \(c_0=1\) and
+\(c_{n+1}/c_n=(n+5/2)/(n+7/2)\).
+The positive tail after \(N\) terms obeys
+\[
+ 0\leq \sum_{n=N}^{\infty}\frac{x^n}{2n+c}
+ \leq \frac{x^N}{(2N+c)(1-x)},\quad 0\leq x<1 .
+\]
+For large \(t\), put
+\[
+ a=\frac{t}{2(\sqrt{1+t/4}+1)},\qquad
+ t=a(a+4),\qquad q(t)=\sqrt{\frac{t}{t+4}}.
+\]
+Then
+\(\operatorname{atanh}q(t)=2\operatorname{atanh}q(a)\).
+Repeated halving brings the series argument \(q(a)^2\) below \(1/4\).
+The reconstruction uses
+\[
+ B(t)=\frac{(t+4)^{3/2}}{3\sqrt t}\operatorname{atanh}q(t)
+      -\frac{4t}{9}-\frac43.
+\]
+For small \(t\), the direct positive series avoids this subtraction.
+
+\section{A squared-bubble primitive with an exact recurrence}
+Define
+\[
+ A(t)=\int_0^t\frac{B(s)^2}{(1+s)^3}\,ds,\qquad
+ A(t)=\sum_{n=0}^{\infty}a_n t^{n+5},\qquad a_0=\frac1{18000}.
+\]
+The bubble satisfies
+\[
+ t^2(t+4)B''-t(t+2)B'+(t-4)B=0.
+\]
+Set \(p=-(t+2)/(t(t+4))\), \(r=(t-4)/(t^2(t+4))\), and \(Y=B^2\).
+Direct differentiation gives the symmetric-square equation
+\[
+ Y'''+3pY''+(2p^2+p'+4r)Y'+(4pr+2r')Y=0.
+\]
+Substitution \(Y=(1+t)^3 A'\), clearing denominators, and matching
+powers of \(t\) yields a finite recurrence over exact rational numbers.
+The implementation checks this operator algebraically and compares its
+first 24 coefficients with an independent Cauchy convolution.
+
+In detail, writing \(B(t)=t^2\sum_{n\geq0}b_n t^n\) gives
+\[
+ b_0=\frac1{60},\qquad
+ b_{n+1}=-\frac{n+1}{4n+14}\,b_n.
+\]
+The independent coefficient construction is
+\[
+ a_n=\frac1{n+5}
+ \sum_{\substack{i,j,k\geq0\\i+j+k=n}}
+ b_i b_j(-1)^k\binom{k+2}{2}.
+\]
+Since \(\lvert b_n\rvert\leq 4^{-n}/60\),
+\[
+ |a_n|\leq\frac{\binom{n+2}{2}}{2025(n+5)}
+          \leq\frac{n+2}{4050}.
+\]
+Consequently, for \(0\leq t<1\),
+\[
+ \left|A(t)-\sum_{n=0}^{N-1}a_n t^{n+5}\right|
+ \leq
+ \frac{t^{N+5}\bigl((N+2)-(N+1)t\bigr)}
+      {4050(1-t)^2}.
+\]
+The Euler integral for the hypergeometric function also gives
+\[
+ B(s)\geq\frac{s^2}{60(1+s/4)},\qquad
+ A(t)\geq\frac{t^5}{18000(1+t/4)^2(1+t)^3}.
+\]
+The implemented series uses \(0\leq t\leq1/16\), a bounded term count,
+and the ratio of these two bounds to choose its truncation.
+
+\section{Verification scope}
+All recurrence and coefficient statements above use exact rational algebra.
+The tail estimates bound truncation in exact real arithmetic. They do not
+enclose floating point rounding. The implementation is an independent
+high precision reference, not an interval certificate for a graph integral.
+
+The positive bubble series has six independent 640-digit reference checks.
+For \(t\in[34,34+1/200]\), direct series quadrature of
+\(B(t)/(1+t)^2\) and \(B(t)^2/(1+t)^3\), with Gauss--Legendre orders 96 and
+192, agrees with independently derived primitives within a relative
+\(10^{-600}\). These four scalar cross-checks completed in approximately
+34 seconds. Quadrature-order agreement is not a rigorous quadrature bound.
+
+The squared-primitive series is tested separately against the existing
+dilogarithm/trilogarithm primitive, with extra precision to compensate for
+its subtraction at \(t=0\), and against direct scalar quadrature.
+See the saved job receipts for actual completion and source hashes.
+No running verifier is modified, no old failed job is relabelled successful,
+and none of these scalar tests increases the accepted graph count.
+\end{document}

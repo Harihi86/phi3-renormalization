@@ -1,0 +1,8 @@
+{
+  "exit_code": 0,
+  "large_integrals_run": false,
+  "mac_compute_resumed": false,
+  "command": "phi3-ct build --output runs/ct-public-final",
+  "raw_log_sha256": "87ede18e845abc94fa441b799220c95906b177200a01dff9bca65e1fc48fc144",
+  "public_log_changes": "Only absolute output path replaced by repository-relative runs/ct-public-final."
+}

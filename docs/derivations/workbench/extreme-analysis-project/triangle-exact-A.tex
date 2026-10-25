@@ -1,0 +1,134 @@
+\subsection{Exact integration of the scale-sensitive triangle parameter}
+
+This reduction starts from the explicitly prepared recursive BPH integrand
+of the nested triangle. It does not replace that recursion by a general
+forest identity or alter any finite Taylor counterterm. Let
+$S=\max_i s_i>0$, $\lambda=S/M$, $L=\log\lambda$, and write all external
+invariants and vectors in the following formulas in units of $S$.
+For fixed inner and outer simplex fractions put
+\[
+ \begin{gathered}
+ C=1-A,\quad H=u(1-u),\quad D=A+CH,\\
+ T=(1-u)z(1-z)\widehat s_1,\quad v=(1-u)z,\quad w=(1-u)(1-z).
+ \end{gathered}
+\]
+The previously established identity gives
+\[
+ G-T=H\left|k_0-(1-z)\widehat p_1\right|^2=:Z\ge0,
+ \qquad
+ \delta=\frac{C(AG+CB\widehat s_1)}D,
+ \quad B=uvw.
+\]
+The paired density, including $dA$ but excluding the two simplex measures,
+is
+\[
+ \left\{\frac{\log(1+\lambda AW)}{AC}
+ -\frac{A^2}{CD^3}\log(1+\lambda(AW+\delta))\right\}dA.
+\]
+Its absolute integrability was proved before this change of variables.
+
+Set $x=A/D$, $E=1-(1-H)x$. Then
+\[
+ A=\frac{Hx}{E},\quad C=\frac{1-x}{E},\quad D=\frac H E,
+ \qquad
+ \frac{dA}{AC}=\frac{dx}{x(1-x)},\quad
+ \frac{A^2dA}{CD^3}=\frac{x^2dx}{1-x}.
+\]
+Writing $L_c=\log(1+\lambda AW)$ and
+$L_r=\log(1+\lambda(AW+\delta))$, the exact $A$ integral is therefore
+\[
+ I_A=\int_0^1\left\{\frac{L_c}{x}
+       +\frac{L_c-L_r}{1-x}+(1+x)L_r\right\}dx.
+\]
+In particular the cancellation at $x=1$ is retained before integration.
+
+The two positive logarithm arguments are
+\begin{align*}
+ e^{L_c}&=\frac{1+(K-1)x}{E},\qquad K=H(1+\lambda W),\\
+ e^{L_r}&=\frac{N_0(1+rx)(1+sx)}E,\qquad N_0=1+\lambda T,\\
+ r+s&=\frac{-(1-H)+\lambda(HW+G-2T)}{N_0},\qquad
+ rs=\frac{\lambda(T-G)}{N_0}\le0.
+\end{align*}
+Thus $r\ge0$, $-1<s\le0$. Evaluation at $x=1$ gives the essential identity
+\[
+ N_0(1+r)(1+s)=K.
+\]
+Define the continuous real function
+\[
+ \mathcal J(t)=\int_0^1(1+x)\log(1+tx)dx
+ =\left(\frac32+\frac1t-\frac1{2t^2}\right)\log(1+t)
+       -\frac54+\frac1{2t},\quad
+ \mathcal J(0)=0,\quad\mathcal J(-1)=-\frac74.
+\]
+Direct integration of the three finite terms above gives
+\begin{align*}
+ I_A={}&\frac12\log^2K+\operatorname{Li}_2(1-H)
+ +\operatorname{Li}_2\left(\frac r{1+r}\right)
+ +\operatorname{Li}_2\left(\frac s{1+s}\right)\\
+ &+\frac32\log N_0+\mathcal J(r)+\mathcal J(s)-\mathcal J(H-1).
+\end{align*}
+Here the first two dilogarithms from the $x^{-1}$ and $(1-x)^{-1}$
+integrals combine by
+\[
+ -\operatorname{Li}_2(1-K)-\operatorname{Li}_2(1-1/K)
+ =\frac12\log^2K.
+\]
+These are exact finite BPH identities, not a fit to high-scale values.
+
+\paragraph{A stable log-domain evaluation.}
+Let $R=1+r$, $Q=1+s$, and $\mu=M/S$. Use the bounded scaled quantities
+\[
+ A_0=\mu+T,\quad B_0=(1+H)\mu+HW+T+Z,\quad K_0=H(\mu+W),
+ \quad d_1=-(1-H)\mu+HW+Z-T,
+\]
+and
+\[
+ V=\frac{B_0+\operatorname{hypot}(d_1,2\sqrt{A_0Z})}{2},\qquad
+ \log R=\log V-\log(\mu+T),\quad \log Q=\log K_0-\log V.
+\]
+No subtraction of discriminants or construction of a huge root is needed.
+The sum $\log(\mu+T)$ uses log-sum-exp, retaining $-L$ when $T=0$.
+Landen's identity changes the only negative dilogarithm argument to
+\[
+ \operatorname{Li}_2\left(\frac{s}{1+s}\right)
+ =-\operatorname{Li}_2(1-Q)-\frac12\log^2Q.
+\]
+All remaining dilogarithm evaluations consequently have arguments in
+$[0,1]$. Reflection reduces them to a positive series at most $1/2$; its
+tail after $N$ terms is at most
+$x^{N+1}/[(N+1)^2(1-x)]$. Small arguments of $\mathcal J$ use its
+convergent series rather than cancellation in the displayed closed form.
+
+\paragraph{Separating the large scale before quadrature.}
+Write $w_\mu=\log H+\log(\mu+W)$ and
+$q_R=\mathcal J(R-1)-3\log R/2$. Algebraically, the exact residual kernel
+after removing the explicit scale polynomial is
+\begin{align*}
+ \mathcal C_\lambda={}&\frac12w_\mu^2
+ +L\log(1+\mu/W)+\frac32\log V+\operatorname{Li}_2(1-H)\\
+ &+\operatorname{Li}_2(1-R^{-1})-\operatorname{Li}_2(1-Q)
+ -\frac12\log^2Q+q_R+\mathcal J(Q-1)-\mathcal J(H-1).
+\end{align*}
+In particular $q_R\to-5/4$ when $R\to\infty$, so no growing logarithm
+remains hidden in that evaluation. Since each simplex has area $1/2$ and
+$\int_{\Delta_i}\log H=-1$, the complete amplitude is exactly
+\[
+ J(\lambda\widehat s)=\frac18L^2+b(\widehat s)L+C_\lambda(\widehat s),
+ \qquad
+ b=\frac12\int_{\Delta_o}\log W-\frac18,
+ \quad C_\lambda=\int_{\Delta_o}\int_{\Delta_i}\mathcal C_\lambda.
+\]
+The shape moment in $b$ is integrated separately at orders128 and256.
+The residual uses scale-independent cubic or quartic Beta-CDF endpoint
+maps. Their complements are evaluated directly before binary64 rounding.
+The logarithm of $S/M$ is computed from binary mantissas and exponents,
+without forming that possibly overflowing ratio.
+
+The independent uniform estimate in the following asymptotic-reference
+section bounds $|C_\lambda-c|$ by $130\lambda^{-1/4}$. It controls finite
+mass effects when $\mu$ underflows, but is distinct from numerical error in
+the shape coefficients or residual quadrature. In the legal zero-outer-leg
+shape, $s_3=0$ and $s_1=s_2$, the outer fraction $y$ disappears identically;
+the exact-$A$ route then has only three numerical coordinates. Canonical
+ordering of the interchangeable outer legs applies this same reduction
+when $s_2=0$.

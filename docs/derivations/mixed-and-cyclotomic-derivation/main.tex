@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\newcommand{\nuu}{\nu}
+\title{Exact mixed-forest face bounds and a real series for the squared-bubble primitive}
+\author{Phi3Lab numerical development}
+\date{25 October 2026}
+\begin{document}\maketitle
+\section{The complete weighted-bubble remainder}
+Let $d>0$ denote the weighted edge parameter, $M>d$ the sum of all eight effective parameters, and $h=F/U\geq0$. Define
+\begin{align*}
+ B(t)&=\int_0^1\!\phi(tx(1-x))\,dx,&\phi(x)&=(1+x)\log(1+x)-x,\\
+ A'(t)&=\frac{B(t)}{(1+t)^2},&C'(t)&=tA'(t).
+\end{align*}
+With $t_0=(M-d)/d$, $t_1=t_0+h/d$, the original bubble and the overall two-point subtraction give
+\[
+ J(h;M,d)=d\{t_1[A(t_1)-A(t_0)]-[C(t_1)-C(t_0)]\}.
+\]
+Direct differentiation yields
+\[
+ J(0)=J'(0)=0,\qquad J''(h)=\frac{d B((M+h-d)/d)}{(M+h)^2}.
+\]
+Thus $J(h)=\int_0^h(h-s)J''(s)\,ds$. The complete density is
+\[
+ \sum_f\epsilon_f\frac{J(F_f/U_f;M,d)}{U_f^3},
+\]
+homogeneous of degree $-8$. The five mixed two-point graphs retain their original 68 forests; bubble pairing leaves 34 effective states. Original propagator identities and all nested or overlapping compatibility conditions remain explicit.
+\section{Exact proper-face witnesses}
+On a proper coordinate face $S$, scale $\alpha_e\mapsto\lambda\alpha_e$ for $e\in S$. The order of a nonzero polynomial is its lowest nonvanishing $S$ degree after exact coefficient collection. $M$ has a nonzero limit. The inequalities
+\[
+ 0\leq B(t)\leq\frac{t}{6}\log(1+t/4),\qquad B(t)\leq t^2/60
+\]
+follow from $\phi(x)\leq x\log(1+x)$ and $\phi(x)\leq x^2/2$. They bound derivatives of $J$, up to logarithms. If $b=M-d$ also vanishes, the second bound supplies two additional orders in $b+h$.
+
+Pair only actual opposite-sign forests differing by one legal Taylor subgraph. Write
+\begin{align*}
+ u_b&=\nuu(U_b),&u_z&=\nuu(U_z),& r_z&=\nuu(F_z)-u_z,\\
+ a&=\nuu(U_b-U_z)+2\min(u_b,u_z)-3u_b-3u_z,\\
+ e&=\nuu(F_bU_z-F_zU_b)-u_b-u_z,& v&=\nuu(M-d).
+\end{align*}
+The identity
+\begin{align*}
+ U_b^{-3}J(h_b)-U_z^{-3}J(h_z)
+ ={}&(U_b^{-3}-U_z^{-3})J(h_z)\\
+ &+U_b^{-3}(h_b-h_z)J'(h_z)\\
+ &+U_b^{-3}(h_b-h_z)^2\int_0^1(1-s)J''(h_z+s(h_b-h_z))\,ds
+\end{align*}
+gives the lower order
+\[
+ \kappa=\min\{a+2r_z+2\min(v,r_z),\ -3u_b+e+r_z+2\min(v,r_z),\ -3u_b+2e+2\min(v,r_z,e)\}.
+\]
+Identically zero contributions are omitted; unmatched original states are retained. A complete matching is selected as a witness separately on each face. Adding $|S|$ to the smallest retained order gives $\gamma(S)$. Each witness is checked independently with scalar monomial degrees. Product monomials retain repeated-edge powers.
+
+The proposal caps positive $\gamma$ at two or three. All $8!$ orders, projective charts, exact conditional probabilities and Jacobians remain present. Eight selector translations are averaged by $1/8$, with no additional factorial or chart divisor. Before transcendental evaluation, coefficients of $A(t)$ and $C(t)$ at identical rational arguments, including $t_0$, are collected exactly.
+\section{Six-periodic combination of squared-bubble primitives}
+For $A_2'(t)=B(t)^2/(1+t)^3$, use
+\[
+ w=\frac4{(\sqrt{t+4}+\sqrt t)^2},\qquad L=\log w,\qquad \rho=e^{i\pi/3}.
+\]
+Keep the existing Hermite rational part and zero-pole logarithms. If the residues at $1,-1,\rho$ at logarithmic degree $k$ are $r_{k,+},r_{k,-},a_k+i\sqrt3 b_k$, define
+\[
+ s_k(n)=r_{k,+}+(-1)^n r_{k,-}+2a_k\cos(n\pi/3)+2\sqrt3 b_k\sin(n\pi/3).
+\]
+All $s_k$ are rational and six-periodic. Combining the three polylogarithmic primitive rules gives the real series
+\[
+ \sum_{n\geq1}w^n\left[-\frac{s_0(n)}n+s_1(n)\left(-\frac Ln+\frac1{n^2}\right)+s_2(n)\left(-\frac{L^2}n+\frac{2L}{n^2}-\frac2{n^3}\right)\right].
+\]
+Let $M_k=\max_{n\bmod6}|s_k(n)|$, $m=N+1$ and $\ell=|\log w|$. An absolute tail bound after $N$ terms is
+\[
+ E_N\leq\frac{w^{N+1}}{1-w}\left[\frac{M_0}{m}+M_1\left(\frac\ell m+\frac1{m^2}\right)+M_2\left(\frac{\ell^2}m+\frac{2\ell}{m^2}+\frac2{m^3}\right)\right].
+\]
+The bound follows term by term from coefficient domination and the geometric series. Native evaluation uses this series for $0<w\leq1/4$, verifies the tail against $2^{-p-64}$ with Arb at working precision $p$, and adds it to the rounded result interval. Outside this domain the original closed expression is used.
+\section{Scope of the evidence}
+Face orders are separate-face lower bounds allowing logarithms. They do not by themselves prove joint multiscale convergence, finite variance, or a rigorous quadrature error bound. The scalar tail bound controls only truncation of this exact primitive representation; native intervals must also include rounding. Full-integral acceptance still requires fresh fixed production samples, both independently constructed kernels, the unchanged statistical gates, and independent stored-data audits. No whole-integral acceptance is inferred from these derivations alone.
+\end{document}

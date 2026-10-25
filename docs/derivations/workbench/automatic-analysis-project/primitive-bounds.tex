@@ -1,0 +1,195 @@
+\section{An exact graph-derived certificate for primitive graphs}
+
+This section applies to a connected, one-particle-irreducible, bare trivalent
+three-point graph in six Euclidean dimensions.  Let $L$ be its loop number,
+$I=3L$ its number of internal edges, and $M=m^2>0$ the common squared mass.
+Each loop measure is $d^6k/\pi^3$; couplings and symmetry factors are excluded.
+No general forest identity is assumed.  In the primitive case the recursive
+BPH definition has no proper counterterms and reduces directly to
+$R_G=1-t_G^0$.
+
+For every nonempty proper edge subset $A$, including disconnected subsets,
+define its cycle rank and ultraviolet gap by
+\begin{equation}
+ h(A)=|A|-|V|+c(V,A),\qquad d(A)=|A|-3h(A).
+ \label{eq:automatic-gap}
+\end{equation}
+Here isolated vertices are included in $c(V,A)$ and cancel from $h(A)$.
+The certificate checks the exact integer condition $d(A)>0$ for all such
+$A$.  It returns a request for a recursive-remainder certificate if this
+condition fails; no claim about subdivergent graphs is inferred from the
+primitive argument.
+
+\subsection{Hepp sectors and exact subset dynamic programming}
+
+Let $U$ be the first graph polynomial, with the convention
+$U=\sum_T\prod_{e\notin T}\alpha_e$, summing over spanning trees.
+Partition the positive projective domain by all edge orderings
+$\alpha_{e_1}\leq\cdots\leq\alpha_{e_I}$.  In one such sector use the
+projective gauge $\alpha_{e_I}=1$ and coordinates
+\begin{equation}
+ \alpha_{e_j}=\prod_{r=j}^{I-1}t_r,\qquad
+ 0<t_r<1,\qquad
+ A_r=\{e_1,\ldots,e_r\}.
+\end{equation}
+The Jacobian is $\prod_{r=1}^{I-1}t_r^{r-1}$.  Ascending Kruskal selection
+produces a spanning tree whose complement contains exactly $h(A_r)$ edges
+from each prefix $A_r$.  Its positive monomial therefore gives
+\begin{equation}
+ U\geq\prod_{r=1}^{I-1}t_r^{h(A_r)},\qquad
+ \int_{\text{sector}}\frac{\Omega}{U^3}
+ \leq\prod_{r=1}^{I-1}\frac{1}{d(A_r)}.
+ \label{eq:automatic-sector}
+\end{equation}
+There is no missing gauge factor: the projective form $\Omega/U^3$ has
+degree $I-3L=0$, and its pullback to $\sum_e\alpha_e=1$ is precisely
+$U^{-3}d\alpha_1\cdots d\alpha_{I-1}$.
+
+The sum of the right-hand side of \eqref{eq:automatic-sector} over all
+$I!$ orderings is computed without enumerating them.  With exact rational
+arithmetic set
+\begin{equation}
+ D(\varnothing)=1,\qquad
+ D(A)=\frac{\sum_{e\in A}D(A\setminus\{e\})}{d(A)}
+ \quad(\varnothing\ne A\subsetneq E),\qquad
+ B=\sum_{e\in E}D(E\setminus\{e\}).
+ \label{eq:automatic-dp}
+\end{equation}
+Induction on $|A|$, separating an ordering by its last edge, proves this
+recurrence.  Thus
+\begin{equation}
+ \int_{\sum\alpha=1}U^{-3}\,d^{I-1}\alpha\leq B<\infty.
+ \label{eq:automatic-period-bound}
+\end{equation}
+The algorithm checks $2^I-2$ subsets and uses $O(I2^I)$ rational additions.
+For the one-loop triangle, the primitive two-loop $K_{2,3}$ graph, the
+three-loop cube with one vertex removed, and the four-loop Petersen graph
+with one vertex removed, it gives respectively
+\begin{equation}
+ B=3,\quad24,\quad192,\quad804.
+\end{equation}
+These are rigorous upper bounds, not evaluations of the periods.  In
+particular the previously derived exact two-loop period $1/2$ remains much
+sharper than its graph-generic bound $24$.
+
+\subsection{Finite BPH integral and uniform derivatives}
+
+Use a fundamental-cycle routing and integrate its Gaussian loop variables.
+Write $H$ for the nonnegative external Schur-complement quadratic form.
+In the simplex gauge, a trial assignment setting all chord momenta to zero
+gives
+\begin{equation}
+ 0\leq H(p)\leq S,\qquad S=\max_{i=1,2,3}|p_i|^2,
+ \qquad p_1+p_2+p_3=0.
+ \label{eq:automatic-h-bound}
+\end{equation}
+Indeed the physical flow along each tree edge is a sum of a subset of
+the three external momenta, hence is zero or one of $\pm p_i$.
+The overall degree-zero Taylor subtraction and the common radial
+Schwinger integration give
+\begin{equation}
+ J_G(p;M)=-\int_{\sum\alpha=1}U^{-3}
+      \log\!\left(1+\frac{H(p)}{M}\right)d^{I-1}\alpha.
+ \label{eq:automatic-primitive-bph}
+\end{equation}
+Consequently its absolute parameter integral, which here equals $-J_G$,
+is bounded by $B\log(1+S/M)$.  This covers all simultaneous and
+hierarchical ultraviolet faces, rather than only selected radial limits.
+
+For a fixed physical shape set $J(\lambda)=J_G(\sqrt\lambda p;M)$,
+$\lambda\geq0$.  For every $n\geq1$, differentiation under the integral is
+justified by \eqref{eq:automatic-period-bound}, and gives
+\begin{equation}
+ |J^{(n)}(\lambda)|
+ \leq B(n-1)!\left(\frac{S}{M+\lambda S}\right)^n.
+ \label{eq:automatic-scale-derivative}
+\end{equation}
+These are derivatives of the exact integral; they are unrelated to a
+quadrature-refinement error.  For a momentum direction $v$ with
+$\sum_i v_i=0$ and $\max_i|v_i|\leq1$, positivity of the quadratic form
+implies $H(v)\leq1$ and
+$|H(p,v)|\leq\sqrt{H(p)H(v)}$.  At $\max_i|p_i|\leq P$ this yields
+\begin{equation}
+ |\partial_vJ_G|\leq\frac{2BP}{M},\qquad
+ |\partial_u\partial_vJ_G|
+ \leq B\left(\frac{2}{M}+\frac{4P^2}{M^2}\right)
+ \label{eq:automatic-cartesian-derivatives}
+\end{equation}
+for two such directions $u,v$.  Replacing $M$ by a positive lower bound
+$M_0$ makes all these estimates uniform on compact physical momenta and
+all masses $M\geq M_0$.
+
+\subsection{Original momentum absolute convergence and the regulator bridge}
+
+Parameter convergence alone is not a proof of original momentum $L^1$
+convergence.  The latter has a separate direct proof here.  Put
+$D(Q)=(Q^2+M)^{-1}$ and
+$I(k,p)=\prod_eD(Q_e(k,p))$.  In the above routing the physical coefficient
+$C_ep$ vanishes on chords and is zero or $\pm p_i$ on tree edges.
+The exact Taylor remainder is
+\begin{equation}
+ I(k,p)-I(k,0)=\int_0^1\frac{d}{dt}I(k,tp)\,dt,
+\end{equation}
+and each differentiated summand obeys
+\begin{equation}
+ \left|\frac{d}{dt}D(Q_e(k,tp))\right|
+ \prod_{f\ne e}D(Q_f(k,tp))
+ \leq 2|C_ep|\,D(Q_e(k,tp))^{3/2}
+             \prod_{f\ne e}D(Q_f(k,tp)).
+ \label{eq:automatic-fractional-majorant}
+\end{equation}
+This is a positive integrand.  Tonelli's theorem, the positive Schwinger
+representation with one propagator power $3/2$, and Gaussian integration
+give
+\begin{align}
+ &\int\prod_{\ell=1}^L\frac{d^6k_\ell}{\pi^3}
+ D(Q_e)^{3/2}\prod_{f\ne e}D(Q_f)\\
+ &\quad=\frac{\Gamma(1/2)}{\Gamma(3/2)}
+ \int_{\sum\alpha=1}
+ \frac{\alpha_e^{1/2}U^{-3}}{(M+H(tp))^{1/2}}\,d^{I-1}\alpha
+ \leq\frac{2B}{\sqrt M}.
+ \label{eq:automatic-fractional-integral}
+\end{align}
+The power of the common radial scale is $-1/2$, since
+$\sum\nu_e=3L+1/2$.  Equations
+\eqref{eq:automatic-fractional-majorant}--\eqref{eq:automatic-fractional-integral}
+prove the explicit original-momentum estimate
+\begin{equation}
+ \|I(\cdot,p)-I(\cdot,0)\|_{L^1}
+ \leq\frac{4B\sum_e|C_ep|}{\sqrt M}
+ \leq\frac{4B(|V|-1)P}{\sqrt M}
+ =\frac{8LBP}{\sqrt M}.
+ \label{eq:automatic-momentum-l1}
+\end{equation}
+
+To justify the common original-edge regulator, replace every propagator by
+$D_\eta(Q)=e^{-\eta(Q^2+M)}/(Q^2+M)
+=\int_\eta^\infty e^{-\alpha(Q^2+M)}d\alpha$.
+Writing $A=Q^2+M$, the differentiated factor contains
+$(1+\eta A)e^{-\eta A}\leq1$, so exactly the majorant
+\eqref{eq:automatic-fractional-majorant} works uniformly in $\eta>0$.
+The joint $(t,k)$ majorant is integrable by
+\eqref{eq:automatic-fractional-integral}; dominated convergence removes
+the regulator on the original Taylor remainder.
+
+For completeness, this domination can also be made common to all
+$\max_i|p_i|\leq P$ and $M\geq M_0>0$: bounded tree shifts satisfy
+$D(Q+a)\leq2(1+P^2/M_0)D(Q)$ for $|a|\leq P$.
+Applying this inequality to the fractional majorants gives one integrable
+majorant independent of the external momenta on the compact set.  If the
+mass also varies over $M\geq M_0$, use the fixed unshifted propagator
+$D_{M_0}$ on the right, since $D_M\leq D_{M_0}$.
+On the parameter side, the regulated radial lower limit is
+$\eta/\min_e\alpha_e$.  The absolute regulated logarithmic radial kernel
+is bounded by $\log(1+H/M)\leq\log(1+P^2/M_0)$; hence
+\eqref{eq:automatic-period-bound} supplies the second dominated-convergence
+argument.  At finite $\eta$, Gaussian integration and Taylor subtraction
+are legitimate.  The two limits therefore identify
+\eqref{eq:automatic-primitive-bph} with the ordinary, absolutely convergent
+momentum BPH remainder, in the stated normalization and subtraction
+scheme.  No separately divergent unregulated term is integrated.
+
+The software records the rational $B$ exactly.  Decimal bound values are
+display approximations, not interval enclosures.  Neither these analytic
+certificates nor numerical refinement comparisons constitute a rigorous
+total quadrature-error estimate.

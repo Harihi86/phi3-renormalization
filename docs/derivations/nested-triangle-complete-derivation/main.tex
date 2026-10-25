@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\Li}{\operatorname{Li}_2}
+\newcommand{\asinh}{\operatorname{arsinh}}
+\title{An exact triangle marginal for nested six-dimensional \(\phi^3\) forests}
+\author{Phi3Lab development evidence}
+\date{24 October 2026}
+\begin{document}
+\maketitle
+\noindent
+This derivation concerns normalized scalar integrals with mass squared one.
+The original graph symmetry factors, coupling powers and counterterm signs
+are retained by the graph program; they are not redefined here.
+It applies to the routed families L4E3G72, L4E3G73 and L4E3G250.
+Scalar identities below have exact algebraic checks and independent numerical
+checks. They do not by themselves certify a whole-graph quadrature result.
+
+\section{Complete triangle integral}
+For \(a,b>0\) and \(ab-(a+b-1)^2/4>0\), put
+\[
+ D=\{(x,y):x,y\geq0,\ x+y\leq1\},\qquad
+ F=1+ax+by-ax^2-by^2+(1-a-b)xy .
+\]
+The three external invariants are \(a,b,1\). The unit invariant comes from
+the physical external momentum in the original route. Define
+\[
+ {\cal L}(a,b)=\int_D\log F\,dx\,dy,\quad
+ J(a,b)=\int_D\frac{dx\,dy}{F},\quad
+ E(t)=2\sqrt{\frac{t+4}{t}}\asinh\frac{\sqrt t}{2}-2 .
+\]
+With
+\[
+ d=\frac{a+b-1}{2},\quad G=ab-d^2,\quad
+ c_x=\frac{b(a-d)}{2G},\quad c_y=\frac{a(b-d)}{2G},\quad
+ \Delta=1+\frac{ac_x+bc_y}{2},
+\]
+direct differentiation gives
+\[
+ (x-c_x)F_x+(y-c_y)F_y=2(F-\Delta).
+\]
+Apply the divergence theorem to
+\((x-c_x,y-c_y)\log F\). The three oriented edge fluxes have constant
+normal weights \(c_x,c_y,1-c_x-c_y\), respectively. Since
+\(\operatorname{area}(D)=1/2\),
+\[
+ \boxed{\displaystyle
+ {\cal L}(a,b)=
+ \frac{c_xE(b)+c_yE(a)+(1-c_x-c_y)E(1)}{2}
+ -\frac12+\Delta J(a,b).}
+\]
+This fixes the boundary signs and the factor of one half.
+
+\section{Rationalization and explicit dilogarithms}
+Let
+\[
+ \alpha=(a-b)^2-2(a+b)+1=-4G<0,\quad
+ \beta=2(a+b-1),\quad R(u)=\sqrt{5+\beta u+\alpha u^2},
+\]
+\[
+ d(u)=1+u(a-b-1),\qquad e(u)=1-u(a-b+1).
+\]
+Integrating the second barycentric coordinate first gives
+\[
+ J=\int_0^1\frac{du}{R(u)}
+ \log\frac{[R(u)+e(u)][R(u)+d(u)]}
+ {[R(u)-e(u)][R(u)-d(u)]}.
+\]
+Every factor is positive because
+\[
+ R^2-d^2=4[1+bu(1-u)],\qquad
+ R^2-e^2=4[1+au(1-u)].
+\]
+Set \(r=\sqrt5\) and \(z=(R-r)/u\). Then
+\[
+ u=\frac{\beta-2rz}{z^2-\alpha},\qquad
+ \frac{du}{R}=-\frac{2\,dz}{z^2-\alpha},\qquad
+ z_0=\frac{\beta}{2r},\quad
+ z_1=\sqrt{(a-b)^2+4}-r .
+\]
+A stable expression for the negative interval width is
+\[
+ \delta=z_1-z_0=
+ \frac{4r^2\alpha-\beta^2}
+ {2r[2r\sqrt{(a-b)^2+4}+2r^2+\beta]}<0.
+\]
+For \(\ell\in\{a-b-1,-a+b-1\}\) and \(\sigma=\pm1\), define
+\[
+ N_{\ell,\sigma}(z)
+ =(r+\sigma)(z^2-\alpha)
+   +(\beta-2rz)(z+\sigma\ell).
+\]
+The leading coefficient is \(\sigma-r<0\). Its discriminant is
+\(16b(b+4)\) for \(\ell=a-b-1\), and \(16a(a+4)\) for
+\(\ell=-a+b-1\). Thus both roots \(\rho_{\ell,\sigma,j}\) are real,
+and neither lies on \([z_1,z_0]\), because the corresponding factors
+\(R+\sigma d\) or \(R+\sigma e\) stay positive.
+
+Let \(\kappa=\sqrt{-\alpha}\) and
+\[
+ B=\frac{\delta}{z_0-i\kappa},\qquad
+ A_{\ell,\sigma,j}=\frac{\delta}{z_0-\rho_{\ell,\sigma,j}}.
+\]
+Each \(A\) is real and \(1+A>0\). Introduce
+\[
+ {\cal P}(A,B)=
+ \log(1-A/B)\log(1+B)
+ -\Li\!\left(\frac{A(1+B)}{A-B}\right)
+ +\Li\!\left(\frac{A}{A-B}\right).
+\]
+Then the complete inverse triangle is
+\[
+ \boxed{\displaystyle
+ J=-\frac{2}{\kappa}\operatorname{Im}
+ \left[
+ 2\log\frac{r+1}{r-1}\log(1+B)
+ +\sum_{\ell}\sum_{\sigma=\pm1}\sum_{j=1}^2
+       \sigma\,{\cal P}(A_{\ell,\sigma,j},B)
+ \right].}
+\]
+This is the conjugate-pole partial fraction identity, not a numerical
+operation that discards an unexplained imaginary remainder.
+
+\section{Principal-branch check}
+For real \(A\), \(1+A>0\), and \(\operatorname{Im}B\ne0\),
+\[
+ {\cal P}(A,B)=\int_0^1
+ \frac{B\log(1+Av)}{1+Bv}\,dv.
+\]
+Indeed, put \(Z(v)=A(1+Bv)/(A-B)\). Then
+\[
+ \operatorname{Im}Z(v)=
+ \frac{A\,\operatorname{Im}B\,(1+Av)}{|A-B|^2}.
+\]
+For \(A\ne0\), this has fixed nonzero sign, so the segment avoids the
+dilogarithm cut \([1,\infty)\). Moreover
+\[
+ (1-A/B)(1-Z(v))=1+Av>0.
+\]
+The two factors have opposite principal arguments. Their logarithms
+therefore add to the real logarithm on the right. Differentiating the
+displayed dilogarithm expression proves the identity. The removable case
+\(A=0\) has \({\cal P}=0\).
+
+\section{Integrated subtraction and angular control}
+When physical external momenta are set to zero, the triangle invariants
+are \((t,t,0)\), where \(t\) is the retained host loop momentum squared.
+Thus the subtracted triangle factor uses
+\[
+ T_0=-\frac{E(t)}2,\qquad T=-{\cal L}(a,b).
+\]
+In particular, the host loop momentum is not set to zero by this operation.
+The complete forest combination keeps
+\[
+ (H-1)K_0T_0+
+ H\bigl[(K-K_0)T_0+K_0(T-T_0)+(K-K_0)(T-T_0)\bigr],
+\]
+with the original host propagator ratio \(H\) and parent factor \(K\).
+
+All triangle coordinates in the quadratic angular control can also be
+integrated exactly. Define
+\[
+ J_0=\frac{4\asinh(\sqrt t/2)}{\sqrt{t(t+4)}},\qquad
+ J_2=\frac{2(1+J_0)}{t+4}.
+\]
+The needed moments are
+\[
+ U_1=-\frac{1-J_0}{2t},\quad
+ C_{\rm pair}=-\frac{1-J_0}{4t},\quad
+ C_{\rm fixed}=-\frac{J_0-3(1-J_0)/t}{12},\quad
+ I_2=\frac{1-2J_0+J_2}{t^2}.
+\]
+Independent reference expressions follow from
+\(E'(t)=(1-J_0)/t\) and \(I_2=-E''(t)\).
+The control remains an exactly zero-mean angular term. It introduces
+no physical counterterm. Absolute integrability is inherited from the
+previous full-density bound by exact marginalization.
+
+\section{Implementation and evidence}
+The resulting full density has five coordinates: the host radius, two
+angular coordinates and two parent-shape coordinates. The implementation
+also retains an optional parent-matched radial map
+\[
+ w=\frac{hs}{1-s+hs},\qquad
+ \frac{dw}{ds}=\frac{h}{(1-s+hs)^2},\qquad
+ h=\ell_{\rm parent}^{-1/2}.
+\]
+This is an exact full-axis change of variables.
+
+The scalar proof checks the divergence and rationalization identities,
+all four discriminants and the branch identity. Eight cases, including
+tiny, large and nearly degenerate invariants, agree with sixteen
+independent 160-digit direct integrals to ninety relative digits.
+Twenty control moments are independently checked.
+See \texttt{verify\_nested\_triangle\_complete\_v1.py} and
+\texttt{nested\_triangle\_complete\_v1.py}.
+The full native tests additionally rebuild the original forests and
+compare rigorous arithmetic intervals with independent routed references.
+Only actual completed production and independent stored-evidence replay
+may change the precision ledger.
+\end{document}

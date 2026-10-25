@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,hyperref}
+\newcommand{\dd}{\mathrm{d}}
+\title{Four-loop two-point graphs with one weighted bubble edge}
+\author{Phi3Lab: isolated continuation}
+\date{25 October 2026}
+\begin{document}\maketitle
+The scope is L4E2G4, L4E2G13, L4E2G25 and L4E2G47.
+All formulas use Euclidean dimension six, $m^2=p^2=1$, and
+$\dd^6 k/\pi^3$ per loop. Couplings and graph symmetry weights are excluded,
+as in the frozen original numerical programs. The accepted lower-loop
+L3E2G5 is not rerun.
+
+\section*{Exact forest pairing}
+The original 36 compatible forests pair into 18 states after combining the
+one-loop two-point bubble with its degree-two local subtraction. All
+overlapping vertex subtractions remain in the paired sum. The two original
+bubble-adjacent propagators are retained, giving
+\[
+ W(t)=\frac{B(t)}{(1+t)^2},\qquad
+ B(t)=\frac{(t+4)^{3/2}}{3\sqrt t}
+       \operatorname{arsinh}\frac{\sqrt t}{2}
+       -\frac{4t}{9}-\frac43 .
+\]
+Here $t=k^2$ is a retained host-loop invariant. In particular, a parent
+$T^0$ on physical external momenta does not set $k$ to zero.
+Additional edges can acquire the same route after a vertex projection;
+they remain separate edges. The independent spectral identity is
+\[
+ B(t)=t^2\int_0^{1/4}\frac{(1-4\sigma)^{3/2}}{6(1+\sigma t)}\,\dd\sigma .
+\]
+Both $B(0)$ and $B'(0)$ vanish. Derivatives with respect to $t=p^2$ remove
+the constant and $p^2$ terms, not a $p^4$ term.
+
+\section*{Analytic common scale}
+Each paired forest has three effective loops and eight effective edges.
+For its routed quadratic form let $U_f$ be the loop determinant,
+$F_f$ the augmented determinant, and $Q_f=F_f/U_f$.
+Positive Cauchy--Binet minors provide an independent construction.
+With $M=\sum_{e=1}^8\alpha_e$ and $d$ the weighted-edge parameter, the
+complete projective density is
+\[
+ \mathcal K(\alpha)=
+ \sum_{f\in\mathcal F_{\rm paired}}(-1)^{|f|}
+ \frac{J(M,d,Q_f)}{U_f^3}.
+\]
+The common Schwinger scale has power $\lambda^{-2}$. The overall
+degree-two subtraction is retained in the initial-value problem
+\[
+ J(0)=J'(0)=0,\qquad
+ J''(z)=\frac{d\,B((M+z-d)/d)}{(M+z)^2}.
+\]
+Its full independent remainder integral is
+\[
+ J(M,d,z)=d z^2\int_0^1
+ \frac{(1-u)B((M+uz-d)/d)}{(M+uz)^2}\,\dd u .
+\]
+The whole signed forest sum is evaluated at each shared point.
+No claim is made that individual forest terms have separately convergent
+parameter integrals.
+
+Let $A'(t)=B(t)/(1+t)^2$, $A(0)=0$, using the independently verified
+logarithm/dilogarithm primitive. Put $h=\operatorname{arsinh}(\sqrt t/2)$ and
+\[
+ \begin{split}
+ C(t)={}&\frac{h\sqrt{t(t+4)}(t-2)}{3(t+1)}
+       +\frac43h^2-\frac{11}{18}t\\
+       &+\frac1{18}\log(1+t)+\frac{8t}{9(t+1)} .
+ \end{split}
+\]
+Then $C'(t)=tB(t)/(1+t)^2$ and $C(0)=0$. The closed scale primitive is
+\[
+ t_0=\frac{M-d}{d},\qquad t_1=t_0+\frac zd,\qquad
+ J=d\left\{t_1[A(t_1)-A(t_0)]-[C(t_1)-C(t_0)]\right\}.
+\]
+These derivative and boundary identities are checked separately from
+numerical comparisons.
+
+\section*{Eight exact sectors}
+The degrees of $J,U_f,F_f$ are $1,3,4$, so $\mathcal K$ is homogeneous
+of degree $-8$. Partition the positive parameter domain according to its
+largest coordinate. In sector $i$, set $\alpha_i=1$ and let the remaining
+seven coordinates $x_j$ range over $(0,1)$. Normalizing by
+$S=1+\sum_j x_j$ gives Jacobian $S^{-8}$, exactly cancelling
+$\mathcal K(\alpha/S)=S^8\mathcal K(\alpha)$. Therefore
+\[
+ \int_{\Delta_7}\mathcal K(\alpha)\,\dd^7\alpha
+ =\sum_{i=1}^8\int_{(0,1)^7}
+   \mathcal K(x_1,\ldots,1,\ldots,x_7)\,\dd^7x .
+\]
+The eight sectors are disjoint up to null boundaries. No edge-permutation
+symmetry is assumed and there is no extra factor $7!$.
+The simplex volume is $1/5040$.
+The predefined maps are $x_j=u_j$ and $x_j=u_j^2$; their Jacobians are
+$1$ and $\prod_j2u_j$, respectively.
+
+\section*{Evidence and limits}
+Graph proof02 checks all 36 original forest identities. Measure proof01
+independently checks 8188 nonempty edge subsets and all local Taylor orders.
+Scalar proof03 compares six full remainder integrals at 320 digits,
+requiring 200 relative digits, and adds twelve hypergeometric bubble checks.
+Native values are Arb intervals; the independent reference constructs
+original Gaussian matrices and uses a Schur solve.
+Actual process exits and source hashes remain the authority for completion.
+No graph is accepted from a symbolic proof or compilation alone.
+
+Convergence uses the massive Euclidean BPH theorem together with the
+exhaustive local checks; that theorem is not reproved by these scripts.
+Empirical sampling acceptance is not a rigorous quadrature error
+certificate. For the BPH framework see H.~van Hees,
+\emph{Introduction to Relativistic Quantum Field Theory},
+Sections 5.7--5.9,
+\url{https://itp.uni-frankfurt.de/~hees/publ/lect.pdf}.
+\end{document}

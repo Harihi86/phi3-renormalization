@@ -1,0 +1,6 @@
+{
+  "command": "phi3-ct build --output runs/ct-public",
+  "exit_code": 0,
+  "large_integrals_run": false,
+  "mac_compute_resumed": false
+}

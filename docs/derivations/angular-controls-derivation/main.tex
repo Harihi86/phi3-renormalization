@@ -1,0 +1,145 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\title{Exact angular controls for nested six-dimensional $\phi^3$ graphs}
+\author{Phi3Lab development record}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent This document records algebraic variance reduction. The original forests,
+local Taylor orders, signs and massive Euclidean conventions are unchanged.
+An integrable majorant justifies rearrangement; it is not a numerical precision certificate.
+
+\section{Full angular average for G371}
+At fixed $t=q^2$ and $v=r^2$, write $h=q\cdot r$ and
+\[
+ a=1+t+v,\qquad b=2\sqrt{tv},\qquad h=\frac b2\xi,\qquad
+ d\mu_6(\xi)=\frac{8}{3\pi}(1-\xi^2)^{3/2}\,d\xi .
+\]
+The perpendicular four-dimensional relative angle used by the complete density
+has semicircle measure $d\mu_4=(2/\pi)\sqrt{1-\xi^2}\,d\xi$.
+Thus $d\mu_6=\frac43(1-\xi^2)d\mu_4$.
+Define $R=\sqrt{(a-b)(a+b)}$ and $S=a+R$. The inverse moments are
+\begin{align*}
+ L_1&=\frac{4(a+2R)}{3S^2},&
+ L_2&=\frac4{S^2},&
+ L_3&=\frac4{RS^2},&
+ L_4&=\frac{4(a+2R)}{3R^3S^2}.
+\end{align*}
+They satisfy $L_{n+1}=-(\partial_a L_n)/n$. The mass protects the endpoint:
+$a-b=1+(\sqrt t-\sqrt v)^2>0$.
+
+Let the four non-cross host ratios times the two complete triangle factors be
+$F_0+\lambda F_1+\lambda^2F_2+\cdots$, with $P_0=F_0$.
+The two cross denominators contribute
+$[X(X+\lambda\ell+\lambda^2)]^{-1}$, where
+$X=a+2h$ and $\ell=2(q+r)\cdot(p_1+p_2)$. The quadratic coefficient is
+\[
+ P_2=\frac{F_2}{X^2}-\frac{\ell F_1+P_0}{X^3}
+       +\frac{\ell^2P_0}{X^4}.
+\]
+Rotation at fixed $(t,v,h)$ gives
+\[
+ \langle F_2\rangle=A_F+B_Fh,\quad
+ \langle\ell F_1\rangle=A_L+B_Lh,\quad
+ \langle\ell^2\rangle=\frac23(t+v+2h).
+\]
+Put $H_n=(L_{n-1}-aL_n)/2$. The complete angular mean is
+\[
+ G=A_FL_2+B_FH_2-A_LL_3-B_LH_3-P_0L_3
+       +\frac23P_0(L_3-L_4).
+\]
+Let $\mathcal F$ be the complete perpendicular-angle marginal, and
+$\mathcal P$ its pointwise quadratic marginal. If
+$w=(1-z_1)(1-z_2)$ and $M$ is the radial density, the new density is
+\[
+ \frac{M}{(1+t)^2(1+v)^2}
+       \left[w(\mathcal F-\mathcal P)+\frac G4\right].
+\]
+The factor $1/4$ is exact because $\int_0^1\int_0^1w\,dz_1dz_2=1/4$.
+This avoids sampling an already known angular average.
+
+\section{Fourth-order control for G203 and G64}
+Keep both local two-point $T^2$ operations and all vertex $T^0$ operations.
+The fourth-order coefficient below is only a zero-integral angular control.
+After analytic child integration, the physical product is
+\[
+ H(\lambda)K(V_0+\lambda L_p+\lambda^2C_p)
+ J(t+\lambda L_b+\lambda^2C_b),\qquad J(t)=\frac{B(t)}{1+t},
+\]
+where the extra denominator in $J$ is the duplicated host propagator.
+The bubble and parent derivative are
+\[
+ B(t)=\int_0^1[(1+tu(1-u))\log(1+tu(1-u))-tu(1-u)]\,du,
+ \qquad K'(V)=-\frac{x B((1-x+V)/x)}{(1+V)^2}.
+\]
+The coefficient of $\lambda^4$, denoted $P_4$, is formed by truncated power
+series, retaining every product term. No finite difference or new local
+subtraction is introduced.
+
+For a planar polynomial $f$ of degree at most four, the SO(6) mean at radius
+$\sqrt t$ is exactly
+\[
+ \langle f\rangle=\frac13f(0,0)+\frac1{12}
+  \sum_{k=0}^{7} f\left(\sqrt{t/2}\cos\frac{k\pi}{4},
+                         \sqrt{t/2}\sin\frac{k\pi}{4}\right).
+\]
+The independent reference uses twelve axis directions of weight $-1/48$
+and sixty signed pair directions of weight $1/48$ in six dimensions.
+Both rules reproduce all fifteen monomials through total degree four:
+\[
+ \langle q_x^2\rangle=\frac t6,\qquad
+ \langle q_x^4\rangle=\frac{t^2}{16},\qquad
+ \langle q_x^2q_y^2\rangle=\frac{t^2}{48}.
+\]
+The added density is
+$\mathrm{common}\,[\langle P_4\rangle/2-(1-z)P_4]$.
+Its angular integral vanishes exactly.
+
+\section{An explicit integrability bound}
+For $t\ge16$, let $L=\log(1+t)$, $d=1+V_0$ and $U=\log(d/x)$.
+The simplex representation yields
+\[
+ |B^{(j)}(t)|\le\frac{(j-2)!}{6t^{j-1}}\quad(j\ge2),\qquad
+ B\le\frac{tL}{6},\quad B'\le\frac L6.
+\]
+Consequently the $\lambda^n$ coefficient of $J$ is bounded by
+$3^nL/t^{n/2}$ for $0\le n\le4$, and the host coefficient is bounded by
+$\binom{n+2}{2}3^n/t^{n/2}$.
+For the parent,
+\[
+ \frac{|K^{(n)}(V_0)|}{n!}\le\frac{1+U}{d^n}\quad(1\le n\le4).
+\]
+The endpoint-safe inequality is
+$x+(d-x)u(1-u)\ge d\,u(1-u)$.
+Together with $|L_p|^2\le4V_0C_p$ and $C_p\le1/3$, this bounds its
+positive-order $\lambda^j$ coefficient by $3^j(1+U)/d^{j/2}$.
+
+For these two routed graphs, $V_0=t\xi(1-\xi)$ with $\xi=(1-x)y$.
+The two parameter moments needed are $\pi/2<2$ and $\pi\log2<3$.
+Thus a positive-order parent coefficient integrates to at most
+$8\,3^jL/\sqrt t$, while the zeroth-order term integrates to at most $L^2/6$.
+Summing the fourth-order product gives
+\[
+ \int |P_4|\,d\text{(parent parameters)}
+ \le \frac{22680L^2}{\sqrt t}+\frac{945L^3}{2t^2}
+ <\frac{23153L^3}{\sqrt t}.
+\]
+After the host radial measure, mean-minus-point and the previous control,
+a valid whole-tail majorant is $50000(1+\log t)^3/t^{3/2}$.
+For $T\ge16$, its integrated tail is
+\[
+ \frac{100000}{\sqrt T}
+ [\,\ell^3+6\ell^2+24\ell+48\,],\qquad \ell=1+\log T.
+\]
+Massive continuity and the integrable $\log x$ endpoint cover finite radii.
+
+\section{Evidence and acceptance}
+Proofs rebuild the original forests, verify exact identities and retain
+all source hashes. Native ball arithmetic is compared with independently
+differentiated scalar references and direct auxiliary quadratures.
+Every production request must be replayed before accounting.
+The empirical acceptance gates and sample allocation remain fixed.
+The actual job receipts, not the existence of this document, determine status.
+\end{document}

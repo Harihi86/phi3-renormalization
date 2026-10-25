@@ -1,0 +1,349 @@
+\section{Nested triangle insertions}
+\label{sec:nested-triangle}
+
+The three graphs L2E3G2, L2E3G3, L2E3G5 have one logarithmically divergent
+proper triangle. They use the same massive Euclidean zero-momentum BPH
+conditions as the rest of the atlas. The standard kernel below distinguishes
+the physical leg $p_1$ attached to that triangle; the other two legs may be
+exchanged. For the catalog graphs its arguments are, respectively,
+$(s_1,s_2,s_3)$, $(s_2,s_1,s_3)$, and $(s_3,s_1,s_2)$.
+
+\subsection{Standard routing and the four recursive terms}
+
+All momenta are incoming, $p_1+p_2+p_3=0$. Set
+\[
+ a(k)=D(k)D(k+p_2)D(k-p_1),\qquad
+ h(k,q)=D(q)D(q+k)D(q+k-p_1).
+\]
+The subgraph Taylor operator sets its independent external momenta
+$(k,p_1)$ to zero at fixed $q$, so its counterterm is $-D(q)^3$.
+The overall operator sets the physical $(p_1,p_2)$ to zero at fixed
+$(k,q)$. Both orders are zero. Thus
+\begin{align*}
+ RI={}&a(k)\{h(k,q)-D(q)^3\}\\
+ &-D(k)^3\{D(q)D(q+k)^2-D(q)^3\}.
+\end{align*}
+These four terms are the direct recursive BPH expression, not a change to
+an MS finite prescription. In a standard fixed-label realization the
+propagator-order edges are
+$(1,3),(1,2),(2,4),(3,4),(0,3),(0,4)$, and external labels $1,2,3$ attach
+to vertices $0,1,2$. This identifies the distinguished physical leg without
+relying on a symmetric momentum example.
+
+\subsection{Six common Schwinger labels and Gaussian integration}
+
+At positive cutoff replace every propagator by $D_\eta$ before Taylor
+subtraction. The four terms retain the same six original Schwinger labels
+and common domain $\alpha_e\ge\eta$. Split the parameters into outer sum
+$A$ and inner sum $C$, and later impose $A+C=1$. Let the outer fractions be
+$(a,b,c)$ and the inner fractions $(u,v,w)$, with each triple nonnegative
+and summing to one, in the propagator orders displayed above. Write
+\begin{align*}
+ H&=u(1-u),& B&=uvw,& D_*&=A+CH,\\
+ U_{\rm raw}&=CD_*,& U_{\rm ct}&=CA,\\
+ k_0&=cp_1-bp_2,&
+ W&=ab s_2+ac s_1+bc s_3,\\
+ G&=uv|k_0|^2+uw|k_0-p_1|^2+vw s_1,\\
+ \delta&=\frac{C(AG+CBs_1)}{D_*}.
+\end{align*}
+The notation $D_*$ is a parameter denominator, not a propagator.
+Completing the $q$ square first and then the $k$ square gives external
+variance $AW+\delta$ for the raw graph and $AW$ for its subgraph
+counterterm. In particular
+\[
+ F_{\rm raw}=U_{\rm raw}\{M(A+C)+AW+\delta\}.
+\]
+These identities hold before normalizing $A+C$, and may be verified by
+independent spanning-tree and two-forest polynomials.
+
+For the grouped parameters, the original six-edge measure is
+\[
+ A^2C^2\,dA\,dC\,da\,db\,du\,dv,
+\]
+with $c=1-a-b$, $w=1-u-v$. On the common projective simplex the remaining
+factor is $A^2C^2\,dA$ times the two fraction-simplex measures. The radial
+six-parameter measure is $\rho^5d\rho$, and the two six-dimensional
+Gaussian factors supply $\rho^{-6}$. Consequently the overall subtraction
+produces the logarithmic kernel
+\[
+ L(z)=\log(1+z/M).
+\]
+At positive cutoff it is instead
+\[
+ L_T(z)=\int_T^\infty\frac{d\rho}{\rho}
+           e^{-M\rho}(1-e^{-z\rho}),\qquad
+ T=\eta/\min_e x_e,
+\]
+and
+\[
+ 0\le L_T(z)\le L(z),\qquad
+ 0\le L_T'(z)\le\frac1{M+z}.
+\]
+The same $T$ occurs in both paired terms. The candidate finite integral is
+\begin{align*}
+ J_{\mathrm{tr}}
+ &=\int_0^1dA\int_{\Delta_o}da\,db\int_{\Delta_i}du\,dv\,\mathcal F,\\
+ \mathcal F
+ &=\frac{A^2}{C}
+       \left\{\frac{L(AW)}{A^3}
+                    -\frac{L(AW+\delta)}{D_*^3}\right\},\qquad C=1-A.
+\end{align*}
+
+\subsection{Exact pairing at the subdivergent face}
+
+The two terms must be paired before $C\to0$ or the common regulator is
+removed. Define $\ell(z)=\log(1+z)/z$, with $\ell(0)=1$. Then
+\begin{align*}
+ \mathcal F={}&
+ \frac{H(D_*^2+AD_*+A^2)}{D_*^3}
+       \frac WM\ell(AW/M)\\
+ &-\frac{A^2(AG+CBs_1)}{D_*^4(M+AW)}
+                       \ell\left(\frac\delta{M+AW}\right).
+\end{align*}
+There is no $1/C$ left in this stable expression. For estimates write it
+as $P_+-P_-$, where the following two quantities are nonnegative:
+\begin{align*}
+ P_+&=\frac{A^2}{C}(A^{-3}-D_*^{-3})L(AW),\\
+ P_-&=\frac{A^2}{CD_*^3}\{L(AW+\delta)-L(AW)\}.
+\end{align*}
+The identical decomposition with $L_T$ has the same nonnegative signs.
+Mean-value estimates using $L_T'\le1/(M+z)$ give all the same majorants.
+Thus the pairing remains uniform for the actual common cutoff, rather than
+being an algebraic manipulation of separately divergent unregulated integrals.
+
+\subsection{Four unit-cube sectors and their Jacobians}
+
+There can also be joint faces $A,u\to0$ or $A,1-u\to0$. Split the inner
+$u$ interval into two halves and parameterize them by
+\[
+ u=r/2\quad\hbox{or}\quad u=1-r/2,
+ \qquad v=(1-u)z,\quad w=(1-u)(1-z).
+\]
+The inner Jacobian is $(1-u)/2$. Set
+\[
+ V=1-u,\qquad h_0=\frac{1-r/2}{2},\qquad
+ H=rh_0,\qquad \frac14\le h_0\le\frac12.
+\]
+Also put $b_0=B/r$ by continuity; in the lower and upper halves respectively,
+\[
+ b_0=\tfrac12V^2z(1-z),\qquad
+ b_0=\tfrac14ur\,z(1-z).
+\]
+In each half split the $(A,r)$ square into $A\le r$ and $r\le A$.
+For $A\le r$, let $A=rt$; the Jacobian is $r$, and
+\[
+ D_*=rd,\quad d=t+(1-rt)h_0\ge\frac14,\quad
+ N=tG+Cb_0s_1,\quad \delta=CN/d.
+\]
+Including the $rV/2$ Jacobian, the two positive chart densities are
+\begin{align*}
+ \widehat P_+&=\frac{rVh_0}{2}
+       \frac{d^2+td+t^2}{d^3}\frac WM\ell(AW/M),\\
+ \widehat P_-&=\frac{Vt^2N}{2d^4(M+AW)}
+                  \ell\left(\frac{\delta}{M+AW}\right).
+\end{align*}
+For $r\le A$, let $r=At$; the Jacobian is $A$, and
+\[
+ D_*=Ad,\quad d=1+Ct h_0\ge1,\quad
+ N=G+Ct b_0s_1,\quad\delta=CN/d.
+\]
+The corresponding positive densities are
+\begin{align*}
+ \widehat P_+&=\frac{AVt h_0}{2}
+       \frac{d^2+d+1}{d^3}\frac WM\ell(AW/M),\\
+ \widehat P_-&=\frac{VN}{2d^4(M+AW)}
+                  \ell\left(\frac{\delta}{M+AW}\right).
+\end{align*}
+Finally, $a=x$, $b=(1-x)y$, $c=(1-x)(1-y)$ has outer Jacobian $1-x$.
+The two inner halves and the two order sectors therefore give four
+five-dimensional unit-cube integrals. All explicit radial poles are
+cancelled, and the reduced denominators have the positive lower bounds
+shown above. These are exact finite coordinate maps; no numerical accuracy
+claim is needed for their derivation.
+
+\subsection{An explicit linear parameter-norm bound}
+
+Let $S=\max(s_1,s_2,s_3)$. The vector $k_0$ is a subconvex combination
+of $p_1,-p_2$, and $k_0-p_1=-ap_1+bp_3$. Therefore their squared norms
+are at most $S$, and
+\[
+ 0\le W\le S/3,\qquad 0\le G\le S/3.
+\]
+Furthermore
+\[
+ HG-Bs_1=|Hk_0-uwp_1|^2\ge0,
+ \qquad 0\le\delta\le CG.
+\]
+We bound $P_+$ and $P_-$ separately, which controls the absolute value of
+their paired difference at every parameter point.
+
+Since $D_*\ge\max(A,H)$, the stable positive term obeys $P_+\le3W/M$.
+Using
+$\int_{\Delta_o}W\,da\,db=(s_1+s_2+s_3)/24$ and
+$\operatorname{vol}(\Delta_i)=1/2$, its integral is at most
+$3S/(16M)$. For the negative term use
+\[
+ AG+CBs_1\le S\{AH+(A+Cu)vw\},\qquad
+ \frac{A^3H}{D_*^4}\le1,
+ \qquad (A+Cu)(1-u)\le D_*.
+\]
+The $AH$ contribution is at most $S/(4M)$ after integrating the two
+fraction simplexes. The other contribution is at most $(S/(12M))I$,
+where $1/12$ is the outer simplex volume $1/2$ times
+$\int_0^1z(1-z)\,dz=1/6$, and
+\[
+ I=\int_0^1\int_0^1
+ \frac{A^2(1-u)^2}{\{A+(1-A)u(1-u)\}^3}\,dA\,du.
+\]
+For $u\le1/2$, $A\le1/2$, use $D_*\ge A+u/4$ and extend the
+$u$ integral to infinity. This part is at most
+$\int_0^{1/2}2\,dA=1$. For $u\le1/2$, $A\ge1/2$, use $D_*\ge A$,
+which gives $(7/24)\log2$. For $u\ge1/2$, put $v=1-u$. Since
+\[
+ D_*\ge\frac{A+v}{2},\qquad
+ \frac{A^2v^2}{(A+v)^4}\le\frac1{16},
+\]
+the remaining integral is at most
+$\int_0^1\int_0^{1/2}(A+v)/2\,dv\,dA=3/16$. Hence
+\[
+ I\le\frac{19}{16}+\frac7{24}\log2.
+\]
+Adding the three contributions gives the explicit parameter $L^1$ bound
+\[
+ \int|\mathcal F|\le C_N\frac SM,\qquad
+ C_N=\frac{103}{192}+\frac{7\log2}{288}.
+\]
+The same pointwise nonnegative majorants hold for the common-cutoff paired
+density. They prove parameter dominated convergence at all the individual
+and joint UV faces, not merely at a chosen momentum point.
+
+\subsection{A global logarithmic-square bound}
+
+Set $T_0=S/(3M)$, $L=\log(1+T_0)$, and
+\[
+ f(T_0)=\int_0^{T_0}\frac{\log(1+t)}{t}\,dt
+            \le L+\frac12L^2.
+\]
+For completeness the derivative of the difference on the right is
+$(T_0-\log(1+T_0))/(T_0(1+T_0))\ge0$, and the difference vanishes at zero.
+The first positive term is bounded by
+\[
+ P_+\le\frac3A\log(1+AT_0).
+\]
+The two simplex volumes are each $1/2$, so its integral is at most
+$3f(T_0)/4\le3L/4+3L^2/8$.
+
+For the second term use $\delta\le CS/3$ and
+\[
+ \int_{\Delta_i}\frac{A^2}{D_*^3}\,du\,dv
+       \le\min\left(\frac1C,\frac1{2A}\right).
+\]
+The $1/(2A)$ bound follows immediately from $D_*\ge A$ and inner volume
+$1/2$. For the $1/C$ bound, symmetrize the factor $1-u$ and use
+$u(1-u)\ge u/2$ on $u\le1/2$; the resulting half-interval integral is
+bounded by $\int_0^\infty A^2/(A+Cu/2)^3\,du=1/C$.
+It follows that the second term integrates to at most
+\[
+ \frac12\int_0^1\frac{\log(1+CT_0)}C
+                \min\left(\frac1C,\frac1{2A}\right)dA.
+\]
+Split at $A=1/2$. The first part is at most $L$, and the second at most
+$f(T_0)/2$, giving $3L/2+L^2/4$. Altogether
+\[
+ |J_{\mathrm{tr}}|\le\int|\mathcal F|
+ \le\min\left\{C_N\frac SM,\frac94L+\frac58L^2\right\}.
+\]
+This is compact-uniform when $S\le P^2$, $M\ge m_0^2>0$, and it has
+at most logarithmic-square growth at a large common external scale. It is
+a parameter amplitude bound, not a quadrature error or an original
+momentum $L^1$ constant.
+
+\subsection{Independent original-momentum absolute convergence}
+
+Put $P=\max_i|p_i|$, $\Lambda=1+P/m$. On the physical ray
+$p_1\mapsto tp_1$, $p_2\mapsto tp_2$, denote the factors by $a_t,h_t$.
+The complete overall remainder is
+\[
+ RI=\int_0^1\{a_t'(h_t-D(q)^3)+a_t h_t'\}\,dt.
+\]
+The cancellation is made before taking absolute values. Use the uniform
+propagator and first-derivative bounds of Section~\ref{sec:scheme}.
+
+\paragraph{Hard inner loop.}
+If $|q|\ge2(|k|+P+m)$, telescoping propagator differences gives
+\begin{align*}
+ |h_t-D(q)^3|&\le128(|k|+P)\langle q\rangle^{-7},\\
+ |h_t'|&\le64P\langle q\rangle^{-7},\\
+ |a_t|&\le\Lambda^4\langle k\rangle^{-6},\qquad
+ |a_t'|\le4P\Lambda^5\langle k\rangle^{-7}.
+\end{align*}
+Thus
+\[
+ |RI|\le P(512\Lambda^6+64\Lambda^4)
+                      \langle k\rangle^{-6}\langle q\rangle^{-7}.
+\]
+The hard $q$ tail is at most $1/(2\langle k\rangle)$, and
+$\int_k\langle k\rangle^{-7}=8/(15m)$. This proves a finite norm in
+the region that contains the logarithmically divergent inner triangle
+before subtraction.
+
+\paragraph{Hard outer loop.}
+If $|k|\ge2(|q|+P+m)$, direct estimates on the first-order physical
+remainder give
+\[
+ |RI|\le3072P\langle k\rangle^{-11}\langle q\rangle^{-2}
+            +128P\langle k\rangle^{-7}\langle q\rangle^{-6}.
+\]
+The two hard tail integrals are bounded respectively by
+$1/(160\langle q\rangle^5)$ and $1/(2\langle q\rangle)$.
+The remaining $q$ integral in both cases is bounded by
+$\int_q\langle q\rangle^{-7}=8/(15m)$.
+
+\paragraph{Comparable loops, including a soft sum.}
+On the remaining region let $K=\max(|k|,|q|)\ge K_0=8(P+m)$.
+Then $|k|,|q|\ge K/4$, and the shifted outer momenta are at least
+$K/8$. Retain $l=k+q$ as a possibly soft variable. Uniformly in $t$,
+\begin{align*}
+ |a_t'(h_t-D(q)^3)+a_t h_t'|
+ \le{}&4P\,8^9K^{-9}D(l)D(l-tp_1)\\
+          &+2P\,8^8K^{-8}D(l)\langle l-tp_1\rangle^{-3}
+            +4P\,8^{13}K^{-13}.
+\end{align*}
+Integrating this inequality over $0\le t\le1$ bounds $|RI|$; the same
+bounds below are uniform in $t$. On a dyadic shell $K\in[K_n,2K_n]$,
+the $k$ ball volume is at most $64K_n^6/6$, and $|l|\le4K_n$.
+Shift comparison and radial integration give
+\begin{align*}
+ \int_{|l|\le4K_n}D(l)D(l-tp_1)\frac{d^6l}{\pi^3}
+        &\le8\Lambda^2K_n^2,\\
+ \int_{|l|\le4K_n}D(l)\langle l-tp_1\rangle^{-3}
+                                  \frac{d^6l}{\pi^3}
+        &\le4\Lambda^3K_n.
+\end{align*}
+The purely hard last term uses product ball volume at most
+$4096K_n^{12}/36$. Hence each shell is bounded by $P/K_n$ times the
+explicit constant
+\[
+ \frac{1024}{3}8^9\Lambda^2
+       +\frac{256}{3}8^8\Lambda^3+\frac{4096}{9}8^{13}.
+\]
+Since $\sum_nK_n^{-1}=2/K_0$, this region is absolutely integrable,
+including $k\simeq-q$ where the two inner shifted lines are soft.
+
+\paragraph{Compact remainder and uniform cutoff removal.}
+For $K\le K_0$, positive mass gives $|RI|\le10Pm^{-13}$ and product
+ball volume at most $K_0^{12}/36$. Combining the compact bound with the
+three large-momentum regions proves absolute convergence in the original
+twelve dimensions. This is an independent proof, not an inference from the
+parameter integral.
+
+The telescoping difference estimates and all first derivatives remain valid
+for $D_\eta$, because its positive Schwinger moments are bounded by the
+zero-cutoff moments. Thus these momentum majorants are uniform in $\eta$.
+Momentum dominated convergence gives $\int RI_\eta\to\int RI$, while
+the common-cutoff parameter pairing and the integrable majorants above give
+the same left side tending to $J_{\mathrm{tr}}$. The two limits coincide.
+If external momenta are bounded and $m\ge m_0>0$, use $m_0$ in the
+majorants from the start to obtain compact-uniform control. The proven
+result is this family of three massive Euclidean graphs, with its fixed
+finite BPH scheme and physical leg mappings.

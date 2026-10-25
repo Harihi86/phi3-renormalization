@@ -1,0 +1,19 @@
+.......                                                                  [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\_pytest\pathlib.py:102
+  <redacted-local-path> PytestWarning: (rm_rf) unknown function <built-in function scandir> when removing \\?\<redacted-local-path>
+  <class 'PermissionError'>: [WinError 5] �ܾ����ʡ�: '\\\\?\\<redacted-local-path>'
+    warnings.warn(
+
+.venv\Lib\site-packages\_pytest\pathlib.py:102
+  <redacted-local-path> PytestWarning: (rm_rf) unknown function <built-in function scandir> when removing \\?\<redacted-local-path>
+  <class 'PermissionError'>: [WinError 5] �ܾ����ʡ�: '\\\\?\\<redacted-local-path>'
+    warnings.warn(
+
+.venv\Lib\site-packages\_pytest\pathlib.py:102
+  <redacted-local-path> PytestWarning: (rm_rf) unknown function <built-in function scandir> when removing \\?\<redacted-local-path>
+  <class 'PermissionError'>: [WinError 5] �ܾ����ʡ�: '\\\\?\\<redacted-local-path>'
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+7 passed, 3 warnings in 58.28s

@@ -1,0 +1,159 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[hidelinks]{hyperref}
+\title{Complete massive triangle marginal at general Euclidean invariants}
+\author{Phi3Lab isolated precision development}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+The convention is mass squared one and one loop measure \(d^6k/\pi^3\).
+Coupling and graph symmetry factors are not part of this scalar marginal.
+Define
+\[
+ L(a,b,c)=\int_{x,y\geq0,\;x+y\leq1}\log F(x,y)\,dx\,dy,\qquad
+ F=1+ax+by-ax^2-by^2+(c-a-b)xy .
+\]
+For \(a,b,c>0\), assume the strict Euclidean Gram condition
+\(G=ab-(a+b-c)^2/4>0\).
+The renormalized triangle is \(-L\). The simplex volume \(1/2\) is
+already included in \(L\); it must not be multiplied a second time.
+
+\section*{Boundary reduction}
+Put \(d=(a+b-c)/2\), \(x_*=b(a-d)/(2G)\),
+\(y_*=a(b-d)/(2G)\), and
+\(\Delta=1+(ax_*+by_*)/2\).
+The exact polynomial identity
+\[
+ (x-x_*)F_x+(y-y_*)F_y=2(F-\Delta)
+\]
+and the divergence theorem give
+\[
+ L=\frac{x_*E(b)+y_*E(a)+(1-x_*-y_*)E(c)}{2}
+      -\frac12+\Delta J,\qquad
+ J=\int_{\text{simplex}}\frac{dx\,dy}{F},
+\]
+where
+\[
+ E(t)=\int_0^1\log(1+t u(1-u))\,du
+ =2\sqrt{\frac{t+4}{t}}\operatorname{arsinh}\frac{\sqrt t}{2}-2,
+ \qquad E(0)=0.
+\]
+This is an identity for the full marginal, with no numerical quadrature
+used in its closed evaluation.
+
+\section*{Rationalized inverse triangle}
+Let
+\[
+ \alpha=(a-b)^2-2c(a+b)+c^2=-4G,\quad
+ \beta=2c(a+b-c),\quad r=\sqrt{c(c+4)}.
+\]
+For \(0\leq u\leq1\), define
+\[
+ R(u)^2=r^2+\beta u+\alpha u^2,\quad
+ d(u)=c+u(a-b-c),\quad e(u)=c-u(a-b+c).
+\]
+Direct integration of the remaining simplex coordinate gives
+\[
+ J=\int_0^1\frac{du}{R(u)}
+ \log\frac{(R+e)(R+d)}{(R-e)(R-d)} .
+\]
+Every logarithm argument is positive: exactly
+\[
+ R^2-d^2=4c[1+bu(1-u)],\qquad
+ R^2-e^2=4c[1+au(1-u)] .
+\]
+With \(z=(R-r)/u\),
+\[
+ u=\frac{\beta-2rz}{z^2-\alpha},\qquad
+ \frac{du}{R}=-\frac{2\,dz}{z^2-\alpha}.
+\]
+Write \(\kappa=\sqrt{-\alpha}\), \(z_0=\beta/(2r)\),
+\(q_1=\sqrt{(a-b)^2+4c}\), and
+\[
+ \delta=z_1-z_0
+ =\frac{4r^2\alpha-\beta^2}
+        {2r(2r q_1+2r^2+\beta)}<0,\qquad z_1=q_1-r .
+\]
+This expression avoids subtracting nearly equal endpoint coordinates.
+
+For \((\ell,s)=(a-b-c,b)\) or \((-a+b-c,a)\), and
+\(\sigma\in\{1,-1\}\), factor
+\[
+ N_{\ell,\sigma}(z)
+ =(r+\sigma c)(z^2-\alpha)+(\beta-2rz)(z+\sigma\ell).
+\]
+Its leading coefficient is \(\sigma c-r\), its middle coefficient
+is \(\beta-2r\sigma\ell\), and its discriminant is
+\(16c^2s(s+4)\).
+The two roots \(\rho_{\ell,\sigma,\pm}\) are real and lie outside the
+integration path. Set
+\[
+ B=\frac{\delta}{z_0-i\kappa},\qquad
+ A_\rho=\frac{\delta}{z_0-\rho}.
+\]
+Then \(A_\rho\) is real and \(1+A_\rho>0\).
+
+\section*{Dilogarithms and branches}
+Define
+\[
+ {\cal P}(A,B)=\log(1-A/B)\log(1+B)
+ -\operatorname{Li}_2\!\left(\frac{A(1+B)}{A-B}\right)
+ +\operatorname{Li}_2\!\left(\frac{A}{A-B}\right).
+\]
+For real \(A\) with \(1+A>0\) and nonreal \(B\), this is
+\[
+ {\cal P}(A,B)=\int_0^1\frac{B\log(1+Av)}{1+Bv}\,dv .
+\]
+The branch justification is explicit. For
+\(Z(v)=A(1+Bv)/(A-B)\),
+\[
+ \operatorname{Im}Z(v)
+ =\frac{A\,\operatorname{Im}B\,(1+Av)}{|A-B|^2},\qquad
+ (1-A/B)(1-Z(v))=1+Av>0 .
+\]
+The dilogarithm segment stays off its cut for nonzero \(A\), and the
+principal logarithms combine without an untracked multiple of \(2\pi i\).
+At \(A=0\), \({\cal P}=0\) by exact evaluation.
+The result is
+\[
+ J=-\frac{2}{\kappa}\operatorname{Im}\left[
+ 2\log\frac{r+c}{r-c}\log(1+B)
+ +\sum_{\ell,\sigma,\pm}
+     \sigma\,{\cal P}(A_{\rho_{\ell,\sigma,\pm}},B)\right].
+\]
+The imaginary part implements the exact conjugate-pole identity; it is
+not a rule for discarding a numerical error.
+
+\section*{Degenerate limits and graph subtraction}
+The exact case \(c=0,\ a=b\) is evaluated separately:
+\(L(a,a,0)=E(a)/2\), including \(L(0,0,0)=0\).
+The implementation rejects other degenerate or invalid inputs.
+It does not clip a negative Gram determinant or replace a nearly
+degenerate triple by the exact degenerate formula.
+
+In a parent graph, a child's local \(T^0\) acts on all its boundary
+momenta. After that child is renormalized, an overall \(T^0\) acts on
+the physical external momenta and retains the host loop momenta.
+These operations must not be interchanged or conflated.
+For a unit external invariant and a single retained host momentum
+of squared norm \(t\), the latter baseline is \(-E(t)/2\).
+
+\section*{Reproducible validation and scope}
+The proof job \texttt{triangle-complete-general-proof-01} completed
+with exit zero under its independent supervisor.
+Symbolic checks cover divergence, conic rationalization, all four
+root discriminants, the endpoint identity, and the branch identity.
+Nine scalar cases, including very small and very large invariants,
+were compared with eighteen independent 180-digit integrals to
+90 relative digits. Twenty-nine permutation checks, four unit-invariant
+regressions, four exact degenerate cases and five invalid-domain
+rejections passed.
+
+The complete scalar identity is distinct from an acceptance of a
+whole graph. Whole-graph results require their routed forest proof,
+measure and integrability checks, interval implementation, independent
+reference, fixed production policy and stored-request audit.
+An empirical integration gate is not a rigorous quadrature-error
+certificate.
+\end{document}

@@ -1,0 +1,144 @@
+// Complete disjoint-triangle forests on a common radial chart.
+#include "disjoint-control-residual-native-v2/frozen_moments.hpp"
+#include "fmpq.h"
+namespace disjoint_triangle {
+using arb_cw::Real;using arb_cw::precision;using fourier_e2_root::interval;
+namespace Pow=disjoint_v_integrated;
+struct Rat {
+    fmpq_t v;
+    Rat(){fmpq_init(v);}
+    explicit Rat(long x){fmpq_init(v);fmpq_set_si(v,x,1);}
+    explicit Rat(const std::string&s){fmpq_init(v);if(fmpq_set_str(v,s.c_str(),10)||fmpz_sgn(fmpq_denref(v))<=0){fmpq_clear(v);throw std::invalid_argument("rational with positive denominator required");}fmpq_canonicalise(v);}
+    Rat(const Rat&o){fmpq_init(v);fmpq_set(v,o.v);}
+    Rat& operator=(const Rat&o){fmpq_set(v,o.v);return *this;}
+    ~Rat(){fmpq_clear(v);}
+    std::string str()const{char*p=fmpq_get_str(nullptr,10,v);std::string s(p);flint_free(p);return s;}
+};
+Rat operator+(const Rat&a,const Rat&b){Rat z;fmpq_add(z.v,a.v,b.v);return z;}
+Rat operator-(const Rat&a,const Rat&b){Rat z;fmpq_sub(z.v,a.v,b.v);return z;}
+Rat operator*(const Rat&a,const Rat&b){Rat z;fmpq_mul(z.v,a.v,b.v);return z;}
+Rat operator/(const Rat&a,const Rat&b){if(fmpq_is_zero(b.v))throw std::runtime_error("zero rational divisor");Rat z;fmpq_div(z.v,a.v,b.v);return z;}
+bool operator<(const Rat&a,const Rat&b){return fmpq_cmp(a.v,b.v)<0;}
+Real real(const Rat&q){Real z;arb_set_fmpq(z.v,q.v,precision);return z;}
+Rat read_rational(){std::string n,d;if(!(std::cin>>n>>d)||n.size()>10000||d.size()>10000)throw std::invalid_argument("bounded rational input required");return Rat(n+"/"+d);}
+struct Graph{std::string id,sha;int L=0,k=0,count=0;std::vector<std::vector<int>> routes,groups;std::vector<std::vector<std::vector<int>>> delta;std::vector<std::pair<int,int>> U,F;};
+#include "disjoint_triangle_data.hpp"
+using Cube=std::vector<Real>;
+using Matrix=std::vector<std::vector<Cube>>;
+Real sq(const Real&x){Real y;arb_sqr(y.v,x.v,precision);return y;}
+Real root(const Real&x){Real y;arb_sqrt(y.v,x.v,precision);return y;}
+void pos(const Real&x,const char*s){if(!arb_is_positive(x.v))throw std::runtime_error(s);}
+Real logarithm(const Real&x){Real y;arb_log(y.v,x.v,precision);return y;}
+Real stable_log1p(const Real&x){Real y;arb_log1p(y.v,x.v,precision);return y;}
+Real exponential(const Real&x){Real y;arb_exp(y.v,x.v,precision);return y;}
+Real exprel(const Real&x){
+    if(!arb_contains_zero(x.v)){Real y;arb_expm1(y.v,x.v,precision);return y/x;}
+    Real y,zero(0);arb_union(y.v,x.v,zero.v,precision);arb_exp(y.v,y.v,precision);return y;
+}
+Real divided_log(const Real&t,const Real&positive,const Real&negative){
+    if(arb_contains_zero(t.v)){Real h,zero(0);arb_union(h.v,t.v,zero.v,precision);pos(1+h,"positive divided-log hull");return 1/(1+h);}
+    Real ab;arb_abs(ab.v,t.v);Real quarter=Real(1)/4;
+    if(arb_lt(ab.v,quarter.v))return stable_log1p(t)/t;
+    pos(positive,"positive logarithm product");pos(negative,"negative-parity product is positive");
+    return (logarithm(positive)-logarithm(negative))/t;
+}
+int pop(int mask){return __builtin_popcount(unsigned(mask));}
+Cube constant(const Real&value,int k){Cube out(1<<k);out[0]=value;return out;}
+Cube add(const Cube&a,const Cube&b){Cube out(a.size());for(size_t i=0;i<a.size();++i)out[i]=a[i]+b[i];return out;}
+Cube sub(const Cube&a,const Cube&b){Cube out(a.size());for(size_t i=0;i<a.size();++i)out[i]=a[i]-b[i];return out;}
+Cube scale(const Cube&a,const Real&v){Cube out(a.size());for(size_t i=0;i<a.size();++i)out[i]=a[i]*v;return out;}
+struct Algebra{
+    int k,n;std::vector<Real> r,w;
+    explicit Algebra(const std::vector<Real>&v):k(int(v.size())),n(1<<k),r(v),w(n){
+        w[0]=Real(1);for(int m=1;m<n;++m){int i=__builtin_ctz(unsigned(m));w[m]=w[m^(1<<i)]*r[i];}}
+    Cube mul(const Cube&a,const Cube&b)const{Cube out(n);for(int i=0;i<n;++i)if(!arb_is_zero(a[i].v))for(int j=0;j<n;++j)if(!arb_is_zero(b[j].v))out[i|j]=out[i|j]+a[i]*b[j]*w[i&j];return out;}
+    Real vertex(const Cube&a,int mask)const{Real out;for(int i=0;i<n;++i)if((i&mask)==i)out=out+a[i]*w[i];return out;}
+    Cube restrict(const Cube&a,int mask)const{Cube out=a;for(int i=0;i<n;++i)if((i&mask)!=i)out[i]=Real(0);return out;}
+    Cube inverse(const Cube&a)const{Cube out(n);pos(a[0],"positive host cube inverse");out[0]=1/a[0];
+        for(int degree=1;degree<=k;++degree)for(int mask=1;mask<n;++mask)if(pop(mask)==degree){Real numerator;
+            for(int b=0;b<n;++b)if(b!=mask&&(b&mask)==b)for(int c=0;c<n;++c)if((c&mask)==c&&(c|b)==mask)numerator=numerator+a[c]*out[b]*w[c&b];
+            Real denominator=vertex(a,mask);pos(denominator,"positive inverse cube corner");out[mask]=-numerator/denominator;}
+        return out;}
+    Cube power(const Cube&a,int degree)const{Cube out=constant(Real(1),k);for(int i=0;i<degree;++i)out=mul(out,a);return out;}
+    Cube log(const Cube&a)const{Cube out(n);pos(a[0],"positive cube logarithm");out[0]=logarithm(a[0]);
+        for(int mask=1;mask<n;++mask){Cube prod[2]={constant(Real(1),k),constant(Real(1),k)};Real value[2]={Real(1),Real(1)};
+            for(int part=0;part<n;++part)if((part&mask)==part){int parity=(pop(mask)-pop(part))%2;prod[parity]=mul(prod[parity],restrict(a,part));value[parity]=value[parity]*vertex(a,part);}
+            pos(value[1],"positive cube log denominator");Real factor=(prod[0][mask]-prod[1][mask])/value[1],t=w[mask]*factor;
+            out[mask]=factor*divided_log(t,value[0],value[1]);}
+        return out;}
+};
+Cube determinant(const Matrix&m,const Algebra&A){int n=int(m.size());std::vector<int>p(n);for(int i=0;i<n;++i)p[i]=i;Cube out=constant(Real(0),A.k);
+    do{int inversions=0;Cube term=constant(Real(1),A.k);for(int i=0;i<n;++i){for(int j=i+1;j<n;++j)if(p[i]>p[j])++inversions;term=A.mul(term,m[i][p[i]]);}out=add(out,scale(term,Real(inversions%2?-1:1)));}while(std::next_permutation(p.begin(),p.end()));return out;}
+Matrix minor(const Matrix&m,const std::vector<int>&rows,const std::vector<int>&cols){Matrix out;for(int i:rows){std::vector<Cube>r;for(int j:cols)r.push_back(m[i][j]);out.push_back(r);}return out;}
+Matrix gaussian(const Graph&g,const std::vector<Real>&alpha,const std::vector<std::array<Real,3>>&child,const Algebra&A){
+    Matrix out(g.L+2,std::vector<Cube>(g.L+2,constant(Real(0),g.k)));static const int ij[3][2]={{0,1},{0,2},{1,2}};
+    for(int a=0;a<g.L+2;++a)for(int b=0;b<g.L+2;++b){
+        for(int e=0;e<g.count;++e)out[a][b][0]=out[a][b][0]+alpha[e]*Real(g.routes[e][a]*g.routes[e][b]);
+        for(int c=0;c<g.k;++c)for(int j=0;j<3;++j)out[a][b][1<<c]=out[a][b][1<<c]+child[c][ij[j][0]]*child[c][ij[j][1]]*Real(g.delta[c][j][a]*g.delta[c][j][b]);}
+    return out;}
+std::pair<Cube,Cube> gaussian_polynomials(const Graph&g,const Matrix&m,const Algebra&A){std::vector<int>loop;for(int j=0;j<g.L;++j)loop.push_back(j);
+    Cube U=determinant(minor(m,loop,loop),A),F=constant(Real(0),g.k);
+    for(int i=0;i<2;++i)for(int j=0;j<2;++j){auto rows=loop,cols=loop;rows.push_back(g.L+i);cols.push_back(g.L+j);F=add(F,scale(determinant(minor(m,rows,cols),A),i==j?Real(1):-Real(1)/2));}
+    return {U,F};}
+Cube polynomial(const Graph&g,const std::vector<std::pair<int,int>>&rows,const std::vector<Real>&alpha,const std::vector<std::array<Real,3>>&child,const Algebra&A,const std::array<Real,3>&a,bool mean){
+    static const int ij[3][2]={{0,1},{0,2},{1,2}};Cube out=constant(Real(0),g.k);
+    for(const auto&entry:rows){int mask=entry.first,bits=0;Real term(entry.second);
+        if(!mean){for(int e=0;e<g.count;++e)if(mask&(1<<e))term=term*alpha[e];}
+        else if(g.L==1){int degree=pop(mask&7),factorial=1;for(int j=2;j<=degree+2;++j)factorial*=j;term=term*2/factorial;}
+        else for(int j=0;j<3;++j){int degree=0;for(int e:g.groups[j])if(mask&(1<<e))++degree;if(degree==1)term=term*a[j]/2;else if(degree==2)term=term*sq(a[j])/6;}
+        for(int c=0;c<g.k;++c){int degree=0;for(int j=0;j<3;++j)if(mask&(1<<(g.count+3*c+j))){++degree;term=term*child[c][ij[j][0]]*child[c][ij[j][1]];}
+            if(degree){bits|=1<<c;for(int j=1;j<degree;++j)term=term*A.r[c];}}
+        out[bits]=out[bits]+term;}
+    return out;}
+Cube gaussian_mean(const Graph&g,const Matrix&point,const Matrix&center,const Algebra&A,const std::array<Real,3>&a){
+    Cube mean=gaussian_polynomials(g,center,A).second;
+    if(g.L==1)mean[0]=mean[0]-Real(1)/12;
+    else for(int j=0;j<3;++j){int e=g.groups[j][0],v=g.routes[e][0],w=g.routes[e][1];
+        Cube form=add(scale(point[1][1],Real(v*v)),scale(point[0][0],Real(w*w)));form=sub(form,scale(add(point[0][1],point[1][0]),Real(v*w)));
+        mean=sub(mean,scale(form,sq(a[j])/12));}
+    return mean;}
+Real forest(Cube U,Cube F,Cube mean,const Real&mass,const Algebra&A,bool control){Cube inverse=A.inverse(U);
+    Cube logs=sub(A.log(add(U,scale(F,1/mass))),A.log(U));logs[0]=stable_log1p(F[0]/(mass*U[0]));
+    Cube value=A.mul(A.power(inverse,3),logs);
+    if(control)value=add(value,scale(A.mul(sub(mean,F),A.power(inverse,4)),1/mass));
+    return -value.back();}
+std::array<Real,3> simplex(const Real&u,const Real&v){Real s=root(1-u);return {u/(1+s),s*v,s*(1-v)};}
+Real density(const Graph&g,bool original,bool control,int reflection,int transport,const std::array<Rat,11>&input){
+    std::array<Real,11>p;for(int j=0;j<11;++j)p[j]=real(input[j]);std::array<int,3>order={0,1,2};Real total;int orders=g.L==2?6:1;
+    do{std::array<Real,3>a;std::vector<Real>alpha(g.count),central(g.count);Real tropical(1),M;int base;
+        if(g.L==2){a[order[0]]=Real(1);a[order[1]]=p[0];a[order[2]]=p[0]*root(p[1]);tropical=a[order[0]]*a[order[1]];base=5;
+            for(int j=0;j<3;++j){int e=g.groups[j][0],f=g.groups[j][1];alpha[e]=a[j]*p[2+j];alpha[f]=a[j]*(1-p[2+j]);central[e]=central[f]=a[j]/2;}}
+        else{auto x=simplex(p[0],p[1]);for(int e=0;e<3;++e){alpha[e]=x[e];central[e]=Real(1)/3;}base=2;}
+        for(const auto&v:alpha)M=M+v;
+        std::vector<std::array<Real,3>>child;for(int i=0;i<g.k;++i)child.push_back(simplex(p[base+2*i],p[base+2*i+1]));
+        Real host[2][2];for(int e=0;e<g.count;++e)for(int i=0;i<g.L;++i)for(int j=0;j<g.L;++j)host[i][j]=host[i][j]+alpha[e]*Real(g.routes[e][i]*g.routes[e][j]);
+        Real U0=g.L==1?host[0][0]:host[0][0]*host[1][1]-host[0][1]*host[1][0];pos(U0,"positive host determinant");
+        std::vector<Real>shape;if(g.k==2)shape={p[9],1-p[9]};else{auto y=simplex(p[8],p[9]);shape={y[0],y[1],y[2]};}
+        Real ell;std::vector<Real> childell(g.k);static const int ij[3][2]={{0,1},{0,2},{1,2}};
+        for(int c=0;c<g.k;++c)for(int j=0;j<3;++j){int v=g.delta[c][j][0],w=g.L==2?g.delta[c][j][1]:0;Real cov;
+            if(g.L==1)cov=Real(v*v)/U0;else cov=(Real(v*v)*host[1][1]+Real(w*w)*host[0][0]-Real(v*w)*(host[0][1]+host[1][0]))/U0;
+            childell[c]=childell[c]+child[c][ij[j][0]]*child[c][ij[j][1]]*cov;}
+        if(transport==2){Real denominator;for(int c=0;c<g.k;++c){pos(childell[c],"positive individual child variance");denominator=denominator+1/(shape[c]*childell[c]);}ell=1/denominator;}
+        else for(int c=0;c<g.k;++c)ell=ell+shape[c]*childell[c];
+        pos(ell,"positive common radial loop variance");Real h=logarithm(M*ell);
+        for(int branch=0;branch<reflection;++branch){Real u=branch?1-p[10]:p[10],radial=M*u/(1-u),derivative=M/sq(1-u);
+            if(transport){Real eu=exprel(u*h),ev=exprel((1-u)*h);radial=M*u/(1-u)*eu/(exponential(u*h)*ev);derivative=radial*exprel(h)/(u*(1-u)*eu*ev);}
+            std::vector<Real>r;for(const auto&y:shape)r.push_back(radial*y);Algebra A(r);Cube U,F,mean;
+            if(original){auto m=gaussian(g,alpha,child,A),centralmatrix=gaussian(g,central,child,A);auto polys=gaussian_polynomials(g,m,A);U=polys.first;F=polys.second;if(control)mean=gaussian_mean(g,m,centralmatrix,A,a);}
+            else{U=polynomial(g,g.U,alpha,child,A,a,false);F=polynomial(g,g.F,alpha,child,A,a,false);if(control)mean=polynomial(g,g.F,alpha,child,A,a,true);}
+            U=scale(U,1/U0);F=scale(F,1/U0);if(control)mean=scale(mean,1/U0);
+            Real jac=Pow::power(radial,g.k-1)*derivative/(g.k==3?2:1),volume=Real(1)/((1<<g.k)*(g.L==1?2:1));
+            total=total+Real(g.L==2?3:1)*Pow::power(tropical/U0,3)*forest(U,F,mean,M+radial,A,control)*jac*volume/(orders*reflection);
+        }
+        if(g.L==1)break;
+    }while(std::next_permutation(order.begin(),order.end()));
+    if(!arb_is_finite(total.v))throw std::runtime_error("finite common radial density required");return total;}
+Graph recipe(const char*path){std::ifstream in(path);std::string id,sha,extra;if(!(in>>id>>sha)||(in>>extra))throw std::invalid_argument("bounded graph recipe required");auto g=load_graph(id);if(sha!=g.sha)throw std::invalid_argument("frozen graph identity required");return g;}
+}
+int main(int argc,char**argv){try{using namespace disjoint_triangle;
+    if(argc!=2)throw std::invalid_argument("one recipe required");auto g=recipe(argv[1]);std::string mode;unsigned bits,control,reflection,transport,count;
+    if(!(std::cin>>mode>>bits>>control>>reflection>>transport>>count)||(mode!="closed"&&mode!="original")||bits<512||bits>2048||control>1||reflection<1||reflection>2||transport>2||count<1||count>256)throw std::invalid_argument("bounded native request required");precision=bits;
+    std::cout<<"{\"id\":\""<<g.id<<"\",\"mode\":\""<<mode<<"\",\"bits\":"<<bits<<",\"control\":"<<control<<",\"reflection\":"<<reflection<<",\"transport\":"<<transport<<",\"count\":"<<count<<",\"values\":[";
+    for(unsigned i=0;i<count;++i){std::array<Rat,11>p;for(auto&q:p){q=read_rational();if(!(Rat(0)<q)||!(q<Rat(1)))throw std::invalid_argument("strict open eleven cube required");}if(i)std::cout<<',';interval(density(g,mode=="original",bool(control),reflection,int(transport),p));}
+    std::string extra;if(std::cin>>extra)throw std::invalid_argument("no trailing input");std::cout<<"]}\n";return 0;
+}catch(const std::exception&e){std::cerr<<e.what()<<'\n';return 1;}}

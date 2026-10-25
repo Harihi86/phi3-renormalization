@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\usepackage[T1]{fontenc}
+\title{Exact face orders from equivalent BPH forest pairings}
+\author{Phi3Lab precision development}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent
+This construction changes an importance proposal, not the integrand, its
+counterterms, normalization, external momenta or acceptance criteria.
+
+\section{Polynomial orders at a proper face}
+For a proper nonempty edge set $S$, replace $\alpha_e$ by
+$\lambda\alpha_e$ for $e\in S$. For a nonzero polynomial $P$,
+let $\nu_S(P)$ denote the least total $S$-degree of a nonzero monomial.
+Signed coefficients are combined exactly before taking this minimum.
+It is a conservative order after a positive numerical substitution;
+accidental cancellation can raise, but cannot lower, the order.
+
+For a forest pair $b,z$, compute the exact polynomials
+\[
+ D_U=U_b-U_z,\qquad D_{FU}=F_bU_z-F_zU_b .
+\]
+Products of square-free monomials are represented by their union and
+intersection: an edge in the intersection has exponent two.
+Discarding that intersection gives an incorrect face order.
+
+Write
+\[
+ u_b=\nu_S(U_b),\quad u_z=\nu_S(U_z),\quad
+ z=\nu_S(F_z)-u_z .
+\]
+In the checked graph families $\nu_S(F_w)\geq\nu_S(U_w)$.
+Because $S$ is proper, $M=\sum_e\alpha_e$ has order zero.
+The positive quantity $1+F_z/(MU_z)$ also has order zero.
+Set
+\begin{align}
+ a&=\nu_S(D_U)+2\min(u_b,u_z)-3u_b-3u_z,\\
+ d&=\nu_S(D_{FU})-u_b-u_z .
+\end{align}
+The first formula uses
+$U_b^3-U_z^3=(U_b-U_z)(U_b^2+U_bU_z+U_z^2)$;
+the second factor has positive coefficients. The relative argument
+$x=(r_b-r_z)/(1+r_z)$ has order $d\geq0$.
+Its limiting value is greater than $-1$ for a fixed positive substitution.
+
+\section{Bounds for the paired remainders}
+For the three-point pair, a conservative order is
+\[
+ \kappa_3(S)=\min\{a+z,\,-3u_b+d\}.
+\]
+For the two-point remainder
+$\varphi(x)=(1+x)\log(1+x)-x$, use
+$\varphi(x)=O(x^2)$ at zero. This yields
+\[
+ \kappa_2(S)=\min\{a+2z,\,-3u_b+d+z,\,-3u_b+2d\}.
+\]
+An identically zero numerator removes its associated term exactly.
+Unmatched original forests remain, with orders
+\[
+ -3\nu_S(U_w)+r\,[\nu_S(F_w)-\nu_S(U_w)],
+ \qquad r=1\ \text{or}\ 2.
+\]
+For a complete matching representation, take the minimum over all its
+paired and unmatched contributions.
+
+\section{Different witnesses for different faces}
+The program tries all subgraph-priority permutations of a declared
+augmenting-path matcher and both forward and reverse left-vertex traversals.
+Each deduplicated result is checked to contain every original forest
+exactly once. This is not an enumeration of every possible matching.
+
+If matching $j$ proves order $\kappa_j(S)$ for the same density, then
+\[
+ \kappa(S)=\max_j\kappa_j(S)
+\]
+is also a valid lower bound for that density. The program stores an attaining
+matching for each improved face. It does not switch the physical integrand
+according to a face or omit unmatched overlap terms.
+
+The completed second proof checked 13 freshly recompiled original graphs,
+120 complete matching partitions and 5468 scalar witnesses. Relative to
+the original individual-forest estimates, all 104 nonpositive face scores
+became positive. The score is
+\[
+ \gamma(S)=|S|+\kappa(S).
+\]
+These separate-face estimates do not, by themselves, establish a joint
+multiscale integrability theorem, a variance bound or a rigorous quadrature
+error.
+
+\section{Two exact positive proposals}
+The two new shapes are
+\[
+ \beta_c(S)=\min(\gamma(S),c),\qquad c=2,3 .
+\]
+All shapes are positive integers. The ratio map and its Jacobian are
+\[
+ t=\frac{\beta u}{1+(\beta-1)u},\qquad
+ \frac{\mathrm{d}t}{\mathrm{d}u}
+ =\frac{\beta}{[1+(\beta-1)u]^2},\qquad 0<u<1.
+\]
+No quadratic or quartic critical branch is used in these candidates.
+
+Define rational subset weights by
+\[
+ W(\varnothing)=1,\qquad
+ W(S)=\frac{\sum_{e\in S}W(S\setminus\{e\})}{\beta_c(S)}
+ \quad (S\text{ proper}).
+\]
+Multiplication by a common denominator makes all weights integral.
+For $c\leq3$, a crude denominator bound is $6^{n-1}$ and a corresponding
+normalizer bound is $n!6^{n-1}<2^{62}$ for $n\leq12$.
+Actual tables are checked exactly, including positive conditional
+probabilities, normalization and all $n!$ paths by subset recurrence.
+
+The original density, all projective charts and the Jacobian/probability
+importance weight are retained. New-map native preflight, fixed diagnostics,
+fresh-seed production and independent evidence replay remain required.
+No new whole-integral acceptance follows from this face analysis alone.
+\end{document}

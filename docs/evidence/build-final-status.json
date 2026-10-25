@@ -1,0 +1,5 @@
+{
+  "exit_code": 0,
+  "mac_compute_resumed": false,
+  "command": "python -m build"
+}

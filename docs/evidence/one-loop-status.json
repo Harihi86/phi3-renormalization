@@ -1,0 +1,5 @@
+{
+  "command": "phi3-ct one-loop --output runs/one-loop",
+  "high_loop_acceptance_added": 0,
+  "exit_code": 0
+}

@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "phi3-renormalization"
-version = "0.1.0"
-description = "Phi3 renormalization"
+version = "0.2.0"
+description = "Exact graph-generated BPH and independent counterterm-action correspondence"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
@@ -14,9 +14,12 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.12,<1", "build>=1,<2"]
+numerics = ["numpy>=1.26", "scipy>=1.12", "mpmath>=1.3", "sympy>=1.12"]
 
 [project.scripts]
 phi3-demo = "phi3_public.demo:main"
+phi3-ct = "phi3_public.counterterms:main"
+phi3lab = "phi3lab.__main__:run"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -27,7 +30,7 @@ addopts = "-ra"
 
 [tool.ruff]
 line-length = 100
-exclude = ["legacy"]
+extend-exclude = ["src/phi3lab", "research", "tests/test_imported_*.py"]
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "I"]

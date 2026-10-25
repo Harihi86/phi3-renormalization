@@ -1,0 +1,283 @@
+\section{Nested bubble insertions}
+\label{sec:nested-bubble}
+
+This chapter covers L2E2G2 and L2E3G4, L2E3G6, L2E3G7, with the fixed-leg
+maps of Section~\ref{sec:scheme}. The internal bubble is subtracted through
+second order in its external momentum. Integrating that already subtracted
+subgraph does not change its finite Taylor conditions. In particular, its
+finite kinetic Taylor term must be retained.
+
+\subsection{The finite one-loop bubble}
+
+Choose the inserted-edge momentum $k$ without physical external-momentum
+dependence, and let $q$ be the bubble loop variable. Put $r=k^2$. Then
+\begin{align*}
+ B_R(r)&=\int_q(1-t_k^2)[D(q)D(q+k)]\\
+ &=\int_0^1\left\{(M+hr)\log\left(1+\frac{hr}{M}\right)-hr\right\}\,dx,
+ \qquad h=x(1-x).
+\end{align*}
+This formula follows with a common two-edge Schwinger cutoff: write the
+parameters as $\rho(1-x),\rho x$. Their Jacobian is $\rho$ and the
+Gaussian factor is $\rho^{-3}$. The Taylor-subtracted radial kernel is
+\[
+ \int_{T(x)}^\infty\frac{d\rho}{\rho^2}e^{-M\rho}
+       (e^{-hr\rho}-1+hr\rho),\qquad
+ T(x)=\frac{\eta}{\min(x,1-x)}.
+\]
+It is nonnegative and is controlled by its zero-cutoff value
+$K(hr)$, where
+\[
+ K(z)=(M+z)\log(1+z/M)-z.
+\]
+The parameter regulator limit is therefore legitimate. Independent momentum
+absolute convergence and its relation to this formula are proved below.
+
+The finite conditions and second derivative are
+\[
+ B_R(0)=B_R'(0)=0,\qquad
+ B_R''(r)=\int_0^1\frac{h^2}{M+hr}\,dx.
+\]
+These conditions uniquely fix $B_R$. In particular the term
+$-r\int_0^1h\,dx=-r/6$ is part of the original finite BPH subtraction;
+discarding it would change the two-loop answer. An equivalent closed form is
+\[
+ B_R(r)=\frac{(r+4M)^{3/2}}{3\sqrt r}
+            \operatorname{arsinh}\sqrt{\frac r{4M}}
+                -\frac{4M}{3}-\frac{4r}{9},
+\]
+with the continuous value at zero. For $|r|<4M$ the convergent expansion is
+\[
+ \frac{B_R(r)}M=
+ \sum_{n\ge2}\frac{(-1)^n(r/M)^n(n!)^2}
+                         {n(n-1)(2n+1)!},
+\]
+whose first term is $(r/M)^2/60$. Since
+$0\le K(z)\le z\log(1+z/M)$, $h\le1/4$, and $\int_0^1h\,dx=1/6$,
+\[
+ 0\le B_R(r)\le\frac r6\log\left(1+\frac r{4M}\right)
+                    \le\frac r6\log\left(1+\frac rM\right).
+\]
+
+\subsection{A uniform original-momentum subgraph norm}
+
+Write $K=|k|$. The explicit bound required for Fubini at two loops is
+\[
+ \int_q\left|(1-t_k^2)[D(q)D(q+k)]\right|
+ \le K^2\left\{218+5\log\left(1+\frac{4K}{m}\right)\right\}.
+\]
+We give its derivation, rather than relying only on power counting.
+For $K\le m$, the third-order Taylor integral remainder, the derivative
+constant $c_3=72$, and
+$\langle q+tk\rangle\ge\langle q\rangle/2$ imply the pointwise bound
+\[
+ \left|(1-t_k^2)[D(q)D(q+k)]\right|
+       \le384K^3\langle q\rangle^{-7}.
+\]
+The factor $384$ is $(72/6)2^5$. Since
+\[
+ \int_q\langle q\rangle^{-7}=\frac8{15m},
+\]
+the norm is at most $(1024/5)K^3/m\le(1024/5)K^2<218K^2$.
+
+For $K\ge m$, split at $R_*=2(K+m)$. On $|q|\ge R_*$ the same remainder
+bound integrates to
+$384K^3/R_*\le192K^2$. In the ball $|q|\le R_*$, use the following
+separate integrable bounds, which are allowed on this finite region:
+\begin{align*}
+ \int_{|q|\le R_*}D(q)D(q+k)
+ &\le\frac{R_*(R_*+K)}2\le10K^2,\\
+ \int_{|q|\le R_*}D(q)^2&\le\frac{R_*^2}{2}\le8K^2,\\
+ \int_{|q|\le R_*}|D(q)\,k\cdot\nabla D(q)|
+ &\le2KR_*\le8K^2.
+\end{align*}
+The first estimate is Cauchy--Schwarz, with the shifted ball enclosed in
+radius $R_*+K$. The quadratic Taylor term is bounded by
+\begin{align*}
+ 5K^2\int_0^{R_*}\frac{Q^5\,dQ}{(Q^2+m^2)^3}
+ &\le\frac52K^2\log\left(1+\frac{16K^2}{m^2}\right)\\
+ &\le5K^2\log\left(1+\frac{4K}{m}\right).
+\end{align*}
+Here $\operatorname{area}(S^5)=\pi^3$, so the normalized radial measure
+really is $Q^5dQ$. Adding $192+10+8+8$ proves the constant $218$.
+
+\subsection{Original twelve-dimensional convergence and the regulator bridge}
+
+At fixed $k$, the subgraph remainder is independent of physical external
+momenta. The whole-graph Taylor operator therefore acts only on the shifted
+outer propagators. For the two-point insertion the remaining factor is
+\[
+ E_2(k,p)=D(k)^2(1-t_p^2)D(k+p).
+\]
+If $K\ge2|p|$, the third-order remainder gives
+\[
+ |E_2(k,p)|\le384|p|^3\langle k\rangle^{-9}.
+\]
+For the three-point insertion, with adjacent momenta $P,Q$, the outer
+factor is
+\[
+ E_3(k;P,Q)=D(k)^2\{D(k+P)D(k+Q)-D(k)^2\}.
+\]
+If $K\ge2\max(|P|,|Q|)$, a first-order physical-ray remainder gives
+\[
+ |E_3(k;P,Q)|\le64(|P|+|Q|)\langle k\rangle^{-9}.
+\]
+Multiplying either bound by the subgraph $q$-norm just proved, and using
+the outer radial measure $K^5dK$, bounds the tail by a constant times
+$K^{-2}\log K$. It is integrable. On every finite $K$ interval, positive
+mass bounds the denominators and the displayed subgraph norm is finite.
+Thus the complete original twelve-dimensional recursive expression is
+absolutely integrable.
+
+All these controls also hold for $D_\eta$, including the Taylor remainder
+and the finite-ball bounds. The positive Schwinger moment estimates in
+Section~\ref{sec:scheme} give the same constants uniformly in $\eta$.
+At positive cutoff, Fubini permits the $q$ integration first. Its limit is
+$B_R(k^2)$ by the one-loop parameter formula above; the two-loop majorant
+permits the same limit under the remaining integral. Equivalently,
+momentum dominated convergence gives the original ordinary $RI$ integral,
+and the subgraph parameter limit gives the reduced formula. They coincide.
+No separate unregulated divergent bare or counterterm integral is used.
+The argument is uniform on bounded external momenta and $m\ge m_0>0$,
+by using $m_0$ in every majorant from the outset.
+
+This factorization is routing-sensitive. If one changes to
+$k'=k+\alpha p$, the overall Taylor derivatives must also act on
+$B_R((k'-\alpha p)^2)$ and on every other resulting external-momentum
+dependence. Substituting $B_R(k'^2)$ instead loses finite local Taylor
+terms. Similarly a subgraph loop shift applies to the complete subtracted
+combination. The catalog routings can be put in the present form by
+external-momentum-independent loop changes with absolute determinant one.
+
+\subsection{Two-point insertion: positive one-dimensional integral}
+
+Put $s=p^2$, $r=k^2$, and
+\[
+ R=r+M,\qquad A=R+s,\qquad W=\sqrt{(R-s)^2+4Ms}.
+\]
+Normalized six-dimensional angular averaging uses the density
+$\frac8{3\pi}(1-z^2)^{3/2}dz$ on $-1\le z\le1$. Direct integration gives
+\[
+ \langle D(k+p)\rangle_{S^5}
+        =\frac{4(A+2W)}{3(A+W)^2}.
+\]
+The odd Taylor term averages to zero, and
+$\langle(k\cdot p)^2\rangle=rs/6$. Define
+\begin{align*}
+ F_2(r,s)&=\langle D(k+p)\rangle_{S^5}-\frac1R
+                    -s\left(-\frac1{R^2}+\frac{2r}{3R^3}\right),\\
+ J_{\mathrm{b},2}(s;M)
+       &=\frac12\int_0^\infty\frac{r^2B_R(r)}{R^2}F_2(r,s)\,dr.
+\end{align*}
+The radial Jacobian is $K^5dK=\frac12r^2dr$.
+
+For a manifestly stable sign, set $\mu=M/R$, $\sigma=s/R$, and
+\[
+ d=\frac{\sigma-1+\sqrt{(1-\sigma)^2+4\mu\sigma}}2,
+ \qquad 0\le d\le\sigma.
+\]
+Algebra using $d^2+(1-\sigma)d-\mu\sigma=0$ yields
+\[
+ F_2(r,s)=\frac{d^2\{(1+2\mu)d^2+6\mu d+3\mu\}}
+                     {3R(1+d)^2(d+\mu)}\ge0.
+\]
+Moreover,
+\begin{align*}
+ &3(1+d)^2(d+\mu)-\{(1+2\mu)d^2+6\mu d+3\mu\}\\
+ &\hspace{25mm}=3d^3+(5+\mu)d^2+3d\ge0.
+\end{align*}
+Consequently $F_2\le d^2/R\le s^2/R^3$. The exact radial constant is
+\[
+ \int_0^\infty\frac{z^3\log(1+z)}{(1+z)^5}\,dz=\frac{25}{48}.
+\]
+For example, it is the logarithmic derivative of the beta integral
+$B(4,1)=1/4$. Combining it with the bound on $B_R$ proves
+\[
+ 0\le J_{\mathrm{b},2}(s;M)\le\frac{25s^2}{576M}.
+\]
+The mass dimension is two:
+$J_{\mathrm{b},2}(s;M)=M J_{\mathrm{b},2}(s/M;1)$.
+It vanishes with its first $s$ derivative at zero, as required by the
+overall second-order momentum subtraction.
+
+A stronger large-scale estimate uses
+\[
+ \frac1R-\langle D(k+p)\rangle_{S^5}
+   =\frac{\sigma+2d+3d^2}{3R(1+d)^2}\ge0,
+ \qquad F_2\le\frac{s}{R^2}.
+\]
+Split the radial integral at $r=s$. On the lower part use $F_2\le s/R^2$,
+and on the upper part use $F_2\le s^2/R^3$. With
+$r^3/R^4\le1/R$, $r^3/R^5\le1/R^2$, and
+$L=\log(1+s/M)$, direct integration gives
+\[
+ J_{\mathrm{b},2}(s;M)\le
+ \min\left\{\frac{25s^2}{576M},
+       \frac{sL^2}{24}+\frac{s^2(L+1)}{12(M+s)}\right\}.
+\]
+This is at most of order $s\log^2s$ at a large common external scale.
+
+\subsection{Three-point insertion: exact angular reduction and its bound}
+
+Let $a=P^2$, $b=Q^2$, $c=(P-Q)^2$; $a,b$ are adjacent to the inserted
+edge and $c$ is opposite it. The three fixed-label graphs use
+$(P,Q)=(p_1,-p_2),(p_1,-p_3),(p_2,-p_3)$, respectively. Their physical
+domain is $a,b,c\ge0$ and $ab-(a+b-c)^2/4\ge0$.
+The ordinary finite integral is
+\[
+ J_{\mathrm{b},3}(a,b,c;M)
+ =\int_k D(k)^2\{D(k+P)D(k+Q)-D(k)^2\}B_R(k^2).
+\]
+Use a Feynman parameter $u\in[0,1]$ and put
+\[
+ S=ua+(1-u)b,\qquad T=u(1-u)c.
+\]
+The parameter Jacobian is one and
+\[
+ D(k+P)D(k+Q)
+ =\int_0^1\frac{du}{\{(k+uP+(1-u)Q)^2+M+T\}^2}.
+\]
+For $r=k^2$, let $R=r+M$, $A=R+S$, and
+\[
+ W=\sqrt{(R-S)^2+4MS+4rT}.
+\]
+The exact angular identity
+\[
+ \left\langle\frac1{(A+B\cos\theta)^2}\right\rangle_{S^5}
+   =\frac4{(A+\sqrt{A^2-B^2})^2},\qquad
+ B^2=4r(S-T),
+\]
+can also be obtained by differentiating the preceding first-power angular
+integral at fixed $B$. It gives the two-dimensional finite representation
+\[
+ J_{\mathrm{b},3}
+ =\frac12\int_0^\infty\frac{r^2B_R(r)}{R^2}
+       \int_0^1\left\{\frac4{(A+W)^2}-\frac1{R^2}\right\}\,du\,dr.
+\]
+The Gram condition gives $S-T=|uP+(1-u)Q|^2\ge0$, and $0\le T\le S$.
+Thus $2R\le A+W\le2(R+S)$, whence
+\[
+ 0\le\frac1{R^2}-\frac4{(A+W)^2}\le\frac{2S}{R^3}.
+\]
+Using the same radial constant $25/48$ and
+$\int_0^1S\,du=(a+b)/2$, we obtain
+\[
+ -\frac{25(a+b)}{576M}\le J_{\mathrm{b},3}(a,b,c;M)\le0.
+\]
+This kernel has mass dimension zero. Adjacent exchange $a\leftrightarrow b$
+is a symmetry, whereas moving the opposite leg generally changes the value.
+
+The nonnegative angular average also bounds the difference by $1/R^2$.
+Let $H=\max(a,b)$, $L=\log(1+2H/M)$. Split at $r=2H$, use $1/R^2$
+below and $2H/R^3$ above, and integrate as in the two-point case. The
+result is
+\[
+ |J_{\mathrm{b},3}|\le
+ \min\left\{\frac{25(a+b)}{576M},
+        \frac{L^2}{24}+\frac{H(L+1)}{6(M+2H)}\right\}.
+\]
+At $H=0$, the physical Gram domain forces all momenta to vanish and the
+continuous bound is zero. At large common scale it grows at most as
+$\log^2$. Both insertion bounds are compact-uniform for bounded external
+momenta and positive mass lower bound. Their sharp constants refer to the
+fixed-sign angularly reduced densities; the original momentum $L^1$ proof
+uses the separate, coarser subgraph estimate given above.

@@ -1,0 +1,102 @@
+\section{Independent computations and actual modern native execution}
+\subsection{The extreme common-scale reference point}
+The following unweighted scalar values use $s_i=1$ and $M=10^{-308}$.
+For a two-point graph this means $s=1$, so the printed $J/s$ equals its
+numerical value in these units. Weights $1/S_G$ and couplings remain separate.
+\begin{center}\begin{tabular}{lr}\toprule Topology & value\\\midrule
+Primitive $K_{2,3}$ & $-353.71682789094$\\
+Triangle insertion & $+62526.9953379894$\\
+Bubble insertion, three points & $-20803.1744697245$\\
+Overlapping two-point, $J/s$ & $-41520.3361869395$\\
+Bubble-inserted two-point, $J/s$ & $+6897.24036075190$\\\bottomrule
+\end{tabular}\end{center}
+These numbers are accompanied by explicitly recorded orders and independent
+comparisons. A common ratio $S/M=10^{308}$ is not represented as an enormous
+coordinate domain. The dimensionless triangle implementation also evaluates
+$S=10^{308},M=10^{-308}$, whose ratio cannot be formed in binary64: its value
+is approximately $250793.2203921006$.
+
+\subsection{Different methods and different error objects}
+The production exact-$A$ triangle uses standard-library real dilogarithms
+or optional NumPy evaluations of the same kernel. A separate SciPy implementation
+uses \texttt{spence}, adaptive QUADPACK logarithmic moments, and different
+endpoint coordinates. Direct adaptive integration of the original paired
+$A$ density checks the analytic primitive at fixed remaining fractions.
+A further independent massless shape representation calculates the
+constant and linear coefficient, and the preceding explicit bound controls
+its finite-mass truncation. The inserted-zero-leg shape additionally has an
+independent one-dimensional momentum representation evaluated with mpmath.
+Thus matching two implementations of the same finite kernel is not the sole
+check at extreme scales.
+
+For bubbles, an 80-digit implementation evaluates the original elementary
+one-loop bubble and angular averages, using adaptive QUADPACK rather than
+production Gaussian panels or the positive Taylor-remainder rearrangement.
+At $S/M=10^{308}$ the two-point comparison differs by about
+$2\times10^{-12}$ and the symmetric three-point comparison by about
+$1.5\times10^{-11}$. The overlap has an independent scale-free shape
+constant computed with SciPy nodes and different endpoint maps; its final
+$J/s$ differs by about $7\times10^{-11}$. Its explicitly bounded finite-mass
+remainder is negligible at that scale. These coefficient/node differences
+remain numerical diagnostics. The analytic radial-tail and finite-mass
+remainder bounds have their separately stated, narrower meanings.
+
+\subsection{Full original-graph pySecDec checks in this finite BPH scheme}
+The official pySecDec 1.6.6 source was actually used to generate and compile
+two original six-edge graphs: the primitive vertex and the subdivergent
+nested triangle. Actual native Qmc runs were made at common ratios
+$10^{12},10^{30},10^{100},10^{308}$, with an independent-seed repeat at the
+largest ratio and an additional asymmetric triangle point. This is not a
+claim that every topology has been separately integrated by that backend.
+
+Let $\mu=1/\lambda$, $L=\log\lambda$, $c_{\rm off}(\mu)$ be the bare finite
+Laurent coefficient of the normalized off-shell graph, and $c_0$ its
+zero-point finite coefficient at $M=1$. The primitive graph has exact
+residue $1/4$, and
+\[
+ J_{\rm primitive}=c_{\rm off}(\mu)-c_0-\tfrac12 L.
+\]
+For the nested triangle start directly from
+$C_\gamma=-\Gamma(\epsilon)M^{-\epsilon}/2$,
+$\bar R=I+C_\gamma T_{\rm outer}$ and $R=\bar R(s)-\bar R(0)$.
+The zero-point bare poles are
+\[
+ \frac1{8\epsilon^2}
+ +\frac{1/16-\gamma_E/4}{\epsilon}.
+\]
+Put $a_r(\mu)=\int_\Delta\log^r(\mu+W)$, evaluated independently with
+adaptive SciPy. Exact regulated recursion and pole scaling then give
+\[
+ J_{\rm triangle}=\frac{L^2}{8}
+ +\left(\frac{a_1}2-\frac18\right)L
+ +c_{\rm off}(\mu)-c_0-\gamma_Ea_1-\frac{a_2}4.
+\]
+The exact pole coefficients prevent a stochastic pole error from being
+multiplied by $L^2$. All finite Taylor terms are retained. Neither bare MS
+poles nor a bare finite coefficient alone is called a BPH amplitude.
+Recorded native triangle comparisons differ from the new core by at most
+about $2.2\times10^{-9}$, consistent with reported stochastic uncertainties;
+the primitive high-scale comparison also exposes and verifies the repair of
+the previous endpoint-quadrature bias. All original series, seeds, library
+hashes and input metadata are retained. A cached-native comparison explicitly
+keeps the original execution date and identifies the later core comparison;
+it does not claim a fresh upstream execution on every rebuild.
+
+\subsection{Reproduction and primary sources}
+Core computations use Python's standard library. NumPy, SciPy, mpmath and
+full pySecDec are optional independent verification tools. Exact commands,
+versions and evidence freshness are in the software report and JSON records.
+\begin{itemize}
+\item G. Heinrich et al., \emph{Numerical Scattering Amplitudes with pySecDec},
+\url{https://arxiv.org/abs/2305.19768}.
+\item Official executed release:
+\url{https://github.com/secdec-research/secdec/releases/tag/v1.6.6}.
+\item SciPy adaptive integration and dilogarithm definitions:
+\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html},
+\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.spence.html}.
+\end{itemize}
+The new algebra and implementation were produced in this collaboration.
+A student should independently reproduce the relevant derivations before
+reporting them as personally completed work. No general arbitrary-loop BPH
+theorem or universal certified quadrature-error enclosure follows from these
+finite computational checks.

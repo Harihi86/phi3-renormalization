@@ -1,0 +1,48 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\title{Two distinct bubble edges in four-loop two-point graphs}
+\author{Phi3Lab isolated development}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent Scope: original graphs L4E2G9 and L4E2G20. Each has twelve forests. The two degree-two bubble subtractions pair them into three groups of four states. Coupling and symmetry weights are excluded; the loop measure is $d^6k/\pi^3$, and $m^2=p^2=1$.
+\section*{Spectral decomposition and signs}
+For a renormalized bubble and its two original host propagators,
+\begin{align}
+ W(s)&=\frac{B(s)}{(1+s)^2},& B(s)&=\int_0^{1/4}\rho(\sigma)\frac{s^2}{1+\sigma s}\,d\sigma,
+ &\rho(\sigma)&=\frac{(1-4\sigma)^{3/2}}{6},\\
+ \frac{s^2}{(1+s)^2(1+\sigma s)}&=\frac{c_\sigma}{1+s}+\frac{h_\sigma}{(1+s)^2}+\frac{k_\sigma}{1+\sigma s},
+\end{align}
+where $c_\sigma=(\sigma-2)/(1-\sigma)^2$, $h_\sigma=1/(1-\sigma)$, and $k_\sigma=1/(1-\sigma)^2$.
+The two-edge product retains all nine terms. A doubled propagator is $-\partial_{m^2}(k^2+m^2)^{-1}$. Two such operations therefore give a positive mixed mass derivative.
+\section*{Common scale and one remaining spectral variable}
+The effective host has two loops and five edges. Write $U=\det Q$, $z=F/U$, $M=\sum_{i=1}^{5}\alpha_i$, and let $d,e$ be the two weighted-edge parameters. The ordinary scale primitive is
+\[
+ R(M,z)=(M+z)\log(1+z/M)-z,\qquad R(M,0)=R_z(M,0)=0.
+\]
+These conditions remove the constant and $p^2$ terms. Vector Taylor degree two does not remove $p^4$.
+Set $t_0=(M-d)/d$, $t_1=t_0+z/d$, $A'=B/(1+t)^2$, and $C'=tB/(1+t)^2$. The established one-edge primitive and its mass derivative are
+\begin{align}
+ J(M,d,z)&=d\{t_1[A(t_1)-A(t_0)]-[C(t_1)-C(t_0)]\},\\
+ J_M(M,d,z)&=A(t_1)-A(t_0)-\frac{z}{d}\frac{B(t_0)}{(1+t_0)^2}.
+\end{align}
+After integrating the first spectral variable, the remaining kernel is
+\[
+ K(M,d,e,z;\tau)=c_\tau J(M,d,z)-h_\tau eJ_M(M,d,z)
+ +\frac{k_\tau}{\tau}J\bigl(M+e(1/\tau-1),d,z\bigr).
+\]
+The full density is $\rho(\tau)\sum_f(-1)^{|f|}K_f/U_f^3$. All compatible vertex forests, including overlapping alternatives, remain in this sum. Individual forest integrals are not claimed to converge separately.
+\section*{Exact five-dimensional measure}
+For each possible largest Schwinger parameter, set that parameter to one and integrate the other four over $(0,1)$. All five sectors are summed. The density is homogeneous of degree $-5$ and cancels the normalized-simplex Jacobian $(1+\sum x_i)^{-5}$. There is no additional $4!$.
+Use $r=1-u^2$ and $\tau=(1-r^2)/4$. Then
+\[
+ \rho(\tau)d\tau=\frac{r^4}{12}|dr|=
+ \frac{u(1-u^2)^4}{6}\,du.
+\]
+Four projective coordinates and this spectral coordinate give five dimensions.
+\section*{Verified scope and outstanding acceptance}
+The exact graph proof checks 24 original forests, six four-state groups, 4094 edge subsets, and equality of original Gaussian, positive-polynomial and double-Schur constructions. Three deliberately altered inputs are rejected. At 260 digits, four full nine-term spectral integrals and four independent mass derivatives agree to 150 relative digits.
+
+The convergence argument uses the massive Euclidean BPH theorem together with the exhaustive local-part and Taylor-order checks; the theorem itself is not reproved here. Native interval tests, fixed diagnostics, fresh production and an independent audit remain separate stages. These derivations do not by themselves add any accepted whole-graph result or rigorous quadrature bound.
+\end{document}

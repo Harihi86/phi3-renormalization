@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\title{General triangle derivatives from simplex boundaries\\and exact quadratic rotation controls}
+\author{Phi3Lab continuation}
+\date{25 October 2026}
+\begin{document}\maketitle
+\paragraph{Scope.} These are exact identities used to reorganize the existing BPH integrand. They do not change forest coefficients, local subtraction orders, or numerical acceptance thresholds. Actual validation and execution are recorded separately.
+
+\paragraph{Scalar and domain.}
+On the simplex $\Omega=\{x,y\geq0,\ x+y\leq1\}$ define
+\[
+L(a,b,c)=\int_\Omega\log F\,dx\,dy,\qquad
+F=1+ax+by-ax^2-by^2+(c-a-b)xy .
+\]
+Require $a,b,c>0$ and $D=ab-d^2>0$, where $d=(a+b-c)/2$.
+The exact degenerate case $(a,a,0)$ has a separate formula; no Gram clipping is used. Write
+\[
+G=\begin{pmatrix}a&d\\d&b\end{pmatrix},\quad
+s=\binom{x}{y},\quad u=\tfrac12G^{-1}\binom ab,\quad
+\Delta=1+\tfrac12(a,b)u .
+\]
+Then $F=\Delta-(s-u)^TG(s-u)$.
+Let $E(t)=\int_0^1\log(1+tv(1-v))\,dv$ and $J=\int_\Omega F^{-1}$.
+The already verified complete scalar obeys
+\[
+L=\tfrac12\{u_1E(b)+u_2E(a)+(1-u_1-u_2)E(c)\}
+-\tfrac12+\Delta J .
+\]
+
+\paragraph{Moments with one denominator.}
+Integration of $\nabla\log F$ and of $\partial_j(s_i\log F)$ yields
+\begin{align*}
+M_1&=\int_\Omega s/F
+=uJ-\tfrac12G^{-1}\binom{E(c)-E(b)}{E(c)-E(a)},\\
+B&=\tfrac12\begin{pmatrix}E(c)&E(c)-E(a)\\E(c)-E(b)&E(c)\end{pmatrix},\\
+M_2&=\int_\Omega ss^T/F
+=\tfrac12\{M_1(a,b)+LI-B\}G^{-1}.
+\end{align*}
+Both coordinate boundaries and the slanted boundary are included. In particular, $M_2$ must be symmetric.
+
+\paragraph{Moments with two denominators.}
+Put $N_{mn}=\int_\Omega x^my^n/F^2$ and $M_{mn}=\int_\Omega x^my^n/F$.
+The divergence identity
+\[
+\nabla\cdot((s-u)/F)=2\Delta/F^2
+\]
+gives
+\[
+N_{00}=\frac{u_1j(b)+u_2j(a)+(1-u_1-u_2)j(c)}{2\Delta},
+\quad
+j(t)=\frac{4\operatorname{arsinh}(\sqrt t/2)}{\sqrt{t(t+4)}} .
+\]
+For $P=x^my^n$, let $C=(C_x,C_y)^T$ denote the oriented boundary integrals of $P/F$:
+\begin{align*}
+C_x&=\int_0^1\frac{(1-v)^m v^n}{1+cv(1-v)}\,dv
+-\mathbf1_{m=0}\int_0^1\frac{v^n}{1+bv(1-v)}\,dv,\\
+C_y&=\int_0^1\frac{v^m(1-v)^n}{1+cv(1-v)}\,dv
+-\mathbf1_{n=0}\int_0^1\frac{v^m}{1+av(1-v)}\,dv .
+\end{align*}
+Then
+\[
+\binom{N_{m+1,n}}{N_{m,n+1}}
+=uN_{mn}+\tfrac12G^{-1}
+\left[C-\binom{mM_{m-1,n}}{nM_{m,n-1}}\right].
+\]
+A term with zero multiplier is omitted. Taking $m+n\leq3$ supplies every required moment through degree four. Redundant paths provide independent consistency checks.
+The edge moments $e_k(t)=\int_0^1v^k/[1+tv(1-v)]\,dv$ are
+\[
+e_0=j,\quad e_1=j/2,\quad e_2=j/2+(j-1)/t,\quad
+e_3=j/2+3(j-1)/(2t).
+\]
+
+\paragraph{Invariant and physical derivatives.}
+With
+\[
+w_a=x-x^2-xy,\quad w_b=y-xy-y^2,\quad w_c=xy,
+\]
+we obtain
+\[
+L_i=\int_\Omega w_i/F,\qquad L_{ij}=-\int_\Omega w_iw_j/F^2 .
+\]
+For physical momenta scaled by $\lambda$, write
+$a_i(\lambda)=a_i+\lambda\ell_i+\lambda^2c_i$.
+The subtracted triangle factor is $-L$, so its first three coefficients are
+\[
+-L,\qquad-\sum_iL_i\ell_i,\qquad
+-\sum_iL_ic_i-\tfrac12\sum_{ij}L_{ij}\ell_i\ell_j .
+\]
+The quadratic coefficient retains $1/2!$. Each $\ell_i$ uses the full original loop and external momentum dot product.
+
+\paragraph{Whole graph control.}
+For G244 and G370 form $F(\lambda)$ from all six host propagator ratios and both triangle factors by formal coefficient convolution.
+The original antipodal remainder is
+\[
+\frac{F(1)+F(-1)}2-F(0).
+\]
+Subtract $C=F''(0)/2$ and return its exact common rotation mean at fixed $q^2,r^2,q\cdot r$:
+\[
+\big\langle (u_i\cdot p_a)(u_j\cdot p_b)\big\rangle
+=\frac{(u_i\cdot u_j)(p_a\cdot p_b)}6 .
+\]
+An independent reference differentiates the verified scalar and averages 24 six-dimensional frames. G370 explicitly uses $r_{\rm old}=-r$; its two differently shifted cross propagators are both included.
+
+\paragraph{Measure and integrability.}
+The normalized orientation density is $3(1-z)\sqrt{1-Z}$; the relative-angle density is $\frac83\sin^4(\pi v)$.
+Only the point residual is multiplied by the orientation density. The complete rotation mean is returned uniformly in those four coordinates.
+All three unimodular charts and the $D_{\rm excluded}^3$ partition remain intact.
+Let $D_{\min}=1+\min(q^2,r^2,(q+r)^2)$ and $M=256\log(2+\max(q^2,r^2,(q+r)^2))$.
+The proved derivative bounds give $|C|\leq116M^2/D_{\min}$.
+The new full-density majorant constant is
+$294516+2(116)=294748<883548$, hence the prior absolute-integrability proof applies.
+This is not a precision certificate.
+
+\paragraph{Reproduction and evidence.}
+The scalar proof is \texttt{verify\_triangle\_general\_jets\_v1.py};
+the graph proof is \texttt{verify\_general\_angular\_route\_v1.py}.
+Read their actual supervisor and worker exits, source hashes, and summaries.
+Kernel tests, fixed diagnostics, independent production and full stored-request replay are separate gates. A prepared script or successful compilation does not establish numerical acceptance.
+\end{document}

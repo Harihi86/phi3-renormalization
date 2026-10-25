@@ -1,0 +1,30 @@
+{
+  "dimension": 6,
+  "signature": "Euclidean",
+  "mass_squared": "m^2 > 0",
+  "action": "S = integral [ (partial phi)^2/2 + m^2 phi^2/2 + g phi^3/3! + a phi + delta_m2 phi^2/2! + delta_Z (partial phi)^2/2 + delta_g phi^3/3! ]",
+  "functional": "Z[J] = exp(-sum lambda_r/r! integral (delta/delta J)^r) exp(J D J/2); normalized by Z[0]",
+  "connected": "W[J] = log(Z[J]/Z[0]); differentiate first, set J=0 afterwards",
+  "amputation": "Strip one external free propagator per differentiated source; does not remove internal bridges",
+  "one_pi": "Connected and no internal propagator bridge; external labels 1,2,3 fixed pointwise",
+  "bare_vertex": "-g",
+  "counterterm_vertex": "negative of its coefficient in the action",
+  "positive_weight": "1/S; NOT the signed amplitude coefficient",
+  "bare_two_loop_three_point": "(-g)^5/S times I_G = -g^5 I_G/S",
+  "loop_measure": "d^6q/pi^3 per loop, matching retained numerical core",
+  "two_point_taylor": "total degree <=2 in the independent vector p; not degree 2 in p^2",
+  "three_point_taylor": "degree 0 in two independent vectors p1,p2; p3=-p1-p2",
+  "subgraph_momenta": "Taylor scale applies only inside the selected subgraph. Its loop momenta remain fixed; outer loops acting as boundary momenta are scaled only in the subgraph factors.",
+  "tadpoles": "Retained in Z and in enumeration. No normal ordering or zero-VEV assumption. Linear finite counterterm remains unspecified; C1 hosts cannot enter this amputated 1PI three-point table because of an internal bridge.",
+  "local_symbols": {
+    "C1": "Formal one-point local vertex; finite linear condition unspecified. It is structurally absent from the target 1PI family.",
+    "C2m": "vertex -g^2 K_m/2; K_m = integral D(q)^2",
+    "C2z": "vertex -g^2 K_z p^2/2; K_z = integral [-D(q)^3 + (4/6) q^2 D(q)^4]",
+    "C3": "vertex +g^3 K_3; K_3 = integral D(q)^3",
+    "C3L2": "vertex -delta_g^(2); fixed as -T0 of path B bare + lower-CT action diagrams"
+  },
+  "tensor_reduction": "For two-point local coefficients, odd linear terms integrate to zero under q -> -q; q_mu q_nu integrates to delta_mu_nu q^2/6 in a rotationally invariant common UV regulator.",
+  "symbolic_integrals": "K_m,K_z,K_3 and two-loop projected integrals remain regulated symbolic objects; this build computes exact combinatorics, not their numerical integrals",
+  "external_reference": "pending_external_graph_by_graph_comparison; no missing reference image has been inferred",
+  "precision_162": "Research ledger: 24 strict analytic, 48 empirical dual-kernel, 90 unresolved. This exact build performs no precision acceptance or large integration"
+}

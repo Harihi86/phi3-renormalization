@@ -1,0 +1,130 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[colorlinks=true]{hyperref}
+\title{Two independent bubble subtractions and a triangle\\Exact three-dimensional reduction}
+\author{Phi3Lab continuation}
+\date{25 October 2026}
+\begin{document}\maketitle
+
+\paragraph{Original graphs.}
+The cohort is G204, G253, G411 and G465 in the four-loop three-point ledger. Each graph has two disjoint one-loop two-point children and one disjoint one-loop triangle.
+All eight forests are reconstructed from original edge routings.
+The Gaussian quadratic matrix, positive polynomials, and Schur complement constructions of $U,F$ agree exactly.
+Each local bubble retains $T^2$; the triangle retains $T^0$.
+The overall $T^0$ acts on physical external momenta at fixed remaining loop momentum $q$.
+The normalization is $d^6q/\pi^3$; symmetry factors and coupling are outside this integral.
+
+\paragraph{Mass and kinetic subtraction.}
+For $t\geq0$ define
+\[
+B(t)=\int_0^1\!\left[(1+x(1-x)t)\log(1+x(1-x)t)-x(1-x)t\right]dx .
+\]
+The positive sign follows from the complete local two-point Schwinger remainder.
+The identities $B(0)=B'(0)=0$ track the mass and kinetic subtraction independently.
+With
+\[
+E(t)=2\sqrt{\frac{t+4}{t}}\operatorname{arsinh}\frac{\sqrt t}{2}-2,\qquad
+j_0(t)=\frac{4\operatorname{arsinh}(\sqrt t/2)}{\sqrt{t(t+4)}},
+\]
+the exact scalar and its derivatives are
+\begin{align*}
+B(t)&=\frac{t+4}{6}E(t)-\frac t9,\\
+B'(t)&=\frac{E(t)}6+\frac{(t+4)(1-j_0(t))}{6t}-\frac19,\\
+B''(t)&=\frac1{6t}-\frac{1-j_0(t)}{t^2}.
+\end{align*}
+Each bubble absorbs one \emph{retained} host propagator carrying its exact boundary momentum:
+\[
+J(t)=\frac{B(t)}{1+t},\quad
+J'=\frac{B'}{1+t}-\frac B{(1+t)^2},\quad
+J''=\frac{B''}{1+t}-\frac{2B'}{(1+t)^2}+\frac{2B}{(1+t)^3}.
+\]
+If two boundary momenta coincide, two different propagators are still retained.
+The original graph has five host propagators before this regrouping and three afterwards.
+
+\paragraph{Complete three-dimensional density.}
+The triangle factor is $T=-L(a,b,1)$, including simplex volume $1/2$.
+For the physical scaling parameter $\lambda$, let
+\[
+f(\lambda)=H(\lambda)J(t_1(\lambda))J(t_2(\lambda))T(\lambda),
+\qquad
+H(\lambda)=\prod_{e\in\text{three remaining hosts}}
+\frac{1+t}{1+|\epsilon_e q+\lambda b_e|^2}.
+\]
+At zero physical momentum, $f(0)=J(t)^2[-E(t)/2]$, with $t=q^2$ retained.
+The full forest sum is represented by
+\[
+\frac{f(1)+f(-1)}2-f(0).
+\]
+No constituent forest is discarded.
+Set $t=(s/(1-s))^2$, with $s,z,\theta\in(0,1)$.
+The full density is the antipodal remainder times
+\[
+\frac{2}{s(1-s)}\left(\frac{t}{1+t}\right)^3(1-z).
+\]
+The radial measure after angular normalization is
+$t^2\,dt/[2(1+t)^3]$.
+
+\paragraph{Quadratic control and factorial.}
+For a routed bubble invariant $t_b(\lambda)=t+\lambda\ell+\lambda^2c$,
+its Taylor coefficients through degree two are
+\[
+J(t),\quad J'(t)\ell,\quad J'(t)c+\tfrac12J''(t)\ell^2.
+\]
+The coefficient $\ell=2\epsilon q\cdot b$ uses the complete original boundary momentum.
+All three host ratios, both bubble factors and the triangle are convolved before taking the quadratic coefficient $C=f''(0)/2$.
+Subtract $C(q)$ and return its exact six-dimensional angular mean:
+\[
+\langle(q\cdot p_a)(q\cdot p_b)\rangle=\frac{t}{6}(p_a\cdot p_b).
+\]
+In cube coordinates the added density is
+\[
+\frac{2}{s(1-s)}\left(\frac{t}{1+t}\right)^3
+\left[\frac{\langle C\rangle}{2}-(1-z)C(q)\right].
+\]
+Its integral is exactly zero. It is an integration control, not an additional physical counterterm.
+
+\paragraph{Independent representation.}
+The independent reference keeps \emph{all five original host denominators}, uses $B$ instead of $J$, and forms the complete product before the overall subtraction.
+Its common radial factor has an additional $(1+t)^{-2}$.
+That reference computes Taylor coefficients by formal convolution and the angular mean by twelve axial directions; the native kernel uses an explicit covariance matrix.
+These are distinct implementations of the regrouping and angular control.
+
+\paragraph{Absolute integrability.}
+For $t\geq16$, write $r=\sqrt t$, $L=\log(1+t)$.
+All shifts satisfy $|b|\leq1$, so
+$t/2\leq|q+\lambda b|^2\leq2t$ for $|\lambda|\leq1$.
+From
+\[
+0\leq B(s)\leq sB'(s),\qquad
+B'(s)\leq\tfrac16\log(1+s),\qquad B''(s)\leq(6s)^{-1}
+\]
+one obtains
+\[
+|J|\leq L,\quad|\partial_\lambda J|\leq2L/r,\quad
+|\partial_\lambda^2J|\leq40L/t .
+\]
+The already proved triangle bounds are $|T|\leq L$, $|T'|\leq4/r$, $|T''|\leq16L/t$.
+For $P=J_1J_2T$ this gives $|P'|\leq6L^3/r$ and $|P''|\leq120L^3/t$.
+The three-host ratio satisfies
+$|H|\leq8$, $|H'|\leq120/r$, $|H''|\leq2496/t$.
+Consequently $|f''|\leq4896L^3/t$.
+The antipodal remainder and the mean-return control yield the absolute radial bound
+\[
+\frac{3672\log^3(1+t)}{t^2}.
+\]
+For $T\geq16$ its integrated tail is bounded by
+\[
+\frac{3672}{T}\left[\log^3(2T)+3\log^2(2T)+6\log(2T)+6\right].
+\]
+On $0\leq t\leq16$, an explicit bound $5570t^2$ covers the origin and compact region.
+These bounds establish absolute integrability over the whole axis; they do not certify a numerical precision target.
+
+\paragraph{Evidence.}
+The original factor proof is
+\texttt{verify\_disjoint\_mixed\_three\_children\_v1.py}.
+The control and whole-axis proof is
+\texttt{verify\_disjoint\_mixed\_three\_control\_v1.py}.
+Read actual supervisor and worker exits and their frozen source hashes.
+Kernel interval checks, independent direct child integration, fixed diagnostics, independent production and full stored-request replay are required before accounting.
+\end{document}

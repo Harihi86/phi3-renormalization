@@ -1,0 +1,22 @@
+{
+  "m_squared": 1,
+  "external_invariants": 1,
+  "loop_measure": "d^6q/pi^3",
+  "coupling_and_symmetry_weight_included": false,
+  "rows": [
+    {
+      "graph": "bubble",
+      "order32": 0.015592809572239052,
+      "order64": 0.015592809572239047,
+      "refinement_difference": 5.204170427930421e-18
+    },
+    {
+      "graph": "triangle",
+      "order32": -0.1108759019797492,
+      "order64": -0.11087590197974906,
+      "refinement_difference": 1.3877787807814457e-16
+    }
+  ],
+  "rigorous_quadrature_error_bound": false,
+  "high_loop_acceptance_added": 0
+}

@@ -1,0 +1,87 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\title{Exact transport of a complete Hepp-sector sum}
+\author{Phi3Lab: independent computation and stored replay}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+Let $F:[0,1]^5\to\mathbb R$ be the already assembled density, including
+all 720 Hepp orders, the original BPH forests, the common-scale
+primitive, and both external momenta. The transport below changes
+coordinates only. No discrete-order averaging factor is introduced.
+
+For $r\in\{1,2\}$ set $n=2r+1$ and define
+\[
+ \phi_r(u)=\sum_{k=r+1}^{n}\binom nk u^k(1-u)^{n-k},
+ \qquad
+ \phi'_r(u)=\frac{(2r+1)!}{(r!)^2}u^r(1-u)^r .
+\]
+The binomial-tail form is used by the independent replay. The runtime
+uses the expanded polynomials:
+\[
+\begin{array}{c|c|c}
+r&\phi_r(u)&\phi'_r(u)\\\hline
+1&3u^2-2u^3&6u(1-u)\\
+2&10u^3-15u^4+6u^5&30u^2(1-u)^2
+\end{array}
+\]
+Both maps are strictly increasing on $(0,1)$, take endpoints to
+endpoints, and satisfy $\phi_r(1-u)=1-\phi_r(u)$. Thus, for integrable
+$F$, the ordinary change-of-variables theorem gives
+\[
+ \int_{[0,1]^5}F(x)\,dx
+ =
+ \int_{[0,1]^5}
+ F\!\left(\phi_r(u_1),\ldots,\phi_r(u_5)\right)
+ \prod_{j=1}^5\phi'_r(u_j)\,du .
+\]
+The positive Jacobian is a product, not a sum; there is no additional
+factor $1/720$ or $1/6$. For every nonnegative integer $k$,
+\[
+ \int_0^1\phi_r(u)^k\phi'_r(u)\,du=\frac1{k+1}.
+\]
+These identities test both the coordinate and its measure. For example,
+omitting the Jacobian for $r=1,k=2$ gives $13/35$ instead of $1/3$.
+A constant-density check alone would fail to detect that omission.
+
+All input coordinates, transformed coordinates, and Jacobians are
+rational numbers. If a native interval encloses $F(\phi_r(u))$ as
+$[L,U]$, exact scaling produces $[JL,JU]$, where
+$J=\prod_j\phi'_r(u_j)>0$. Stored replay reconstructs $J$, the request,
+the native interval and the weighted interval independently, and checks
+exact equality. It imports neither the runtime transform nor the
+production statistics implementation.
+
+At the midpoint, $\phi_r(1/2)=1/2$ and
+\[
+ J_1(1/2,\ldots,1/2)=(3/2)^5,\qquad
+ J_2(1/2,\ldots,1/2)=(15/8)^5.
+\]
+Eight native midpoint cases reuse previously verified independent
+references. An asymmetric case additionally compares both native
+formulations with a fresh 640-digit reference built from the unreduced
+720-order rational Gaussian calculation. Nine stored transport requests
+and eighteen corrupted variants passed the independent replay tests.
+These are local evaluation checks, not integral error certificates.
+
+The map's vanishing endpoint derivatives do not alone establish
+smoothness of the composed density. As a one-dimensional illustration,
+if $F(x)\sim x^{-a}$ near zero, then
+\[
+ F(\phi_r(u))\phi'_r(u)
+ \asymp u^{(r+1)(1-a)-1}.
+\]
+This expression is square-integrable at zero only if
+$a<1-\{2(r+1)\}^{-1}$. This observation is not a proof for correlated
+multivariate UV limits of the actual graph.
+
+The predeclared diagnostic compares two sector powers and two transport
+orders, with four scrambled 512-point replicates per variant and graph.
+Across two graphs the budget is 16,384 native points in 64 requests.
+Any selected method requires fresh production seeds, two independently
+constructed native kernels, four 8192-point replicates per kernel, and
+independent stored replay. Only the highest predeclared production
+prefix decides acceptance. Arithmetic and empirical error gates remain
+unchanged. No additional graph has been accepted by this derivation.
+\end{document}

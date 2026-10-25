@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,hyperref}
+\title{A nested bubble inside a two-loop vertex\\Complete nine-dimensional reduction}
+\author{Phi3Lab continuation}
+\date{25 October 2026}
+\begin{document}\maketitle
+Mass is one; each loop measure is $d^6q/\pi^3$. Coupling and graph symmetry weights are excluded.
+Graphs G53,G91,G94,G211,G372 have an additional three-loop vertex parent.
+Graphs G18,G69,G319 have only the nested bubble and its two-loop vertex.
+The former have eight forests each, the latter four: 52 forests in total.
+
+\section*{Exact local reduction}
+The bubble boundary is the inner child loop $h$. It is not physical external momentum
+or a remaining host loop. The two-loop vertex contains
+$\Delta(h)^2\Delta(h+a)\Delta(h+b)$, where $\Delta(h)=(1+h^2)^{-1}$.
+Its Feynman weights are $(2,1,1)$. With $0<x,y<1$, put
+\begin{align}
+ V={}&x(1-x)y\,|a|^2+x(1-x)(1-y)\,|b|^2
+       +(1-x)^2y(1-y)\,|a-b|^2,\\
+ B(t)={}&\int_0^1\big[(1+t u(1-u))\log(1+t u(1-u))-t u(1-u)\big]\,du,\\
+ K(x,V)={}&-\int_{(1-x)/x}^{(1-x+V)/x}\frac{B(t)}{(1+t)^2}\,dt.
+\end{align}
+The two child loops are integrated analytically, leaving measure $(1-x)\,dx\,dy$.
+$B$ includes the total-degree-two bubble subtraction. The lower endpoint of $K$
+includes the zero-degree vertex subtraction.
+
+Without a three-loop parent the remaining expression is
+\[
+ (1-T_p^0)\,H_6(q,k,p)\,K(x,V).
+\]
+With such a parent it is
+\[
+ (1-T_p^0)\,H_o(q,p)
+ \left[H_m(q,k,p)K(x,V)-\Delta(k)^3K(x,V_{\rm parent\,0})\right].
+\]
+Parent $T^0$ retains $k$ in $V_{\rm parent\,0}$. In general
+$K(x,V_{\rm parent\,0})\ne K(x,0)$. Overall $T_p^0$ sets only $p_1,p_2$ to zero
+and retains both host loops. Parent branches remain combined before integration.
+
+The exact proof compares all 52 original Gaussian, positive-polynomial and
+Schur-complement $U,F$ constructions and the Feynman completion. It also
+independently enumerates all $4095$ nonempty edge subsets of each graph, checking
+every 1PI nonnegative-degree subgraph and subtraction order.
+Massive Euclidean BPH convergence is an external mathematical input, not
+machine-reproved; see
+\href{https://itp.uni-frankfurt.de/~hees/publ/lect.pdf}{van Hees}, sections 5.7--5.9.
+
+\section*{An integrable quadratic rotation control}
+Let $C$ be the $\lambda^2$ coefficient of the complete expression under
+$p\mapsto\lambda p$. Subtract $\chi C$ and return its exact rotational mean, with
+\[
+ \chi=\left[1+\left((q^2+k^2)/64\right)^4\right]^{-3}.
+\]
+The fixed constant 64 is selected before diagnostics. Put
+$a_0=-\log x$, $D=1+V$, $R=1+q^2+k^2$, and $\ell=\log(3R)$.
+The primitive bounds
+\[
+ 0\leq B(t)\leq\frac{t\log(1+t)}6,\qquad
+ 0\leq B'(t)\leq\frac{\log(1+t)}6
+\]
+give
+\begin{align}
+ |K|&\leq\frac{\log^2D+2a_0\log D}{12},\\
+ |K_V|&\leq\frac{a_0+\log D}{6D},&
+ |K_{VV}|&\leq\frac{a_0+\log D}{2D^2}.
+\end{align}
+The exact derivative formulas used by the native implementation are
+\[
+ K_V=-\frac{xB(z)}{D^2},\qquad
+ K_{VV}=\frac{2xB(z)}{D^3}-\frac{B'(z)}{D^2},\qquad
+ z=\frac{1-x+V}{x}.
+\]
+The independent reference differentiates the scalar dilogarithm representation
+automatically and checks direct primitive integrals.
+
+Verified route bounds give $V_0\leq2R/3$, $V_{\rm physical}\leq1/3$ and
+$|V_{\rm linear}|^2\leq4V_0V_{\rm physical}$.
+Writing $F=(1+a_0)\ell^2$, conservative child Taylor bounds are
+$(64F,64\sqrt R F,64RF)$. Six host propagators give quadratic bound $13312RF$,
+and the optional three-host parent term gives $3456RF$. Thus
+\[
+ |C|\leq16768RF<2^{15}RF.
+\]
+The auxiliary endpoint is integrable:
+\[
+ \int_0^1(1-x)(1-\log x)\,dx=\frac54.
+\]
+After integrating the radial ratio, the two-loop radial measure is $T^5dT/120$
+with $T=q^2+k^2$. For $T\geq64$, an integrable majorant after the auxiliary
+integration is
+\[
+ \frac{2^{17}64^{12}}{120}T^{-6}\log^2(6T).
+\]
+Its tail integral follows from
+\[
+ \int_A^\infty T^{-6}\log^2(6T)\,dT
+ =A^{-5}\left(\frac{\log^2(6A)}5+
+             \frac{2\log(6A)}{25}+\frac2{125}\right).
+\]
+Positive mass controls the compact radial region.
+
+The native rotation mean uses covariance
+$\langle(q\cdot p_a)(k\cdot p_b)\rangle=(q\cdot k)(p_a\cdot p_b)/6$.
+The independent reference uses 24 explicit frames and formal Taylor convolution.
+Three unimodular charts preserve the full two-loop measure.
+
+\section*{Validation scope}
+These identities prove structural equivalence and integrability of the added
+control. They do not certify a numerical integral value. Native interval checks,
+fixed diagnostics, fresh production, independent stored-data replay and final
+accounting require separate actual exit receipts. Empirical statistical acceptance
+is distinct from a rigorous quadrature error bound.
+\end{document}

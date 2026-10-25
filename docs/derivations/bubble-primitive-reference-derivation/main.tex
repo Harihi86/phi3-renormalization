@@ -1,0 +1,147 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,hyperref}
+\title{Piecewise Analytic References for a Subtracted Bubble Primitive}
+\author{Phi3Lab development record}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+Let
+\[
+ B(t)=\frac{t^2}{60}\,{}_2F_1(1,1;7/2;-t/4),\qquad
+ A(t)=\int_0^t\frac{B(s)}{(1+s)^2}\,ds .
+\]
+These normalized scalar references do not change graph combinatorics,
+counterterm signs, external momenta, forest sums or sampling acceptance gates.
+Every bound below is an exact-real truncation bound. Floating-point rounding
+and errors in closed-form anchors require separate checks.
+
+\section{Near zero}
+Write \(B(t)=t^2\sum_{n\geq0}b_nt^n\), where
+\[
+ b_0=\frac1{60},\qquad b_{n+1}=-\frac{n+1}{4n+14}b_n.
+\]
+Set \(d_{-1}=d_{-2}=0\) and \(d_n=b_n-2d_{n-1}-d_{n-2}\). Then
+\[
+ A(t)=t^3\sum_{n\geq0}\frac{d_n}{n+3}t^n.
+\]
+Since \(|b_n|\leq4^{-n}/60\), convolution with \((1+t)^{-2}\)
+gives \(|d_n|\leq(n+1)/45\). Thus, after \(N\) terms,
+\[
+ |R_N(t)|\leq\frac{t^{N+3}}{45(1-t)},\qquad 0\leq t<1.
+\]
+The positive Euler integral also gives
+\[
+ A(t)\geq \frac{t^3}{180(1+t/4)(1+t)^2}.
+\]
+The implementation uses this series through \(t=1/8\), with a relative
+truncation target based on this lower bound.
+
+\section{Local Taylor expansion}
+The bubble satisfies
+\[
+ t^2(t+4)B''-t(t+2)B'+(t-4)B=0.
+\]
+At a rational center \(c>0\), let \(B(c+h)=\sum_{n\geq0}\beta_nh^n\).
+The initial values are the closed bubble and its analytic derivative. With
+\(a_0=c^2(c+4)\), \(a_1=3c^2+8c\), \(a_2=3c+4\),
+\(p_0=-c(c+2)\), \(p_1=-2c-2\), and \(r_0=c-4\),
+\begin{align*}
+a_0(n+2)(n+1)\beta_{n+2}={}&
+-[a_1n(n+1)+p_0(n+1)]\beta_{n+1}\\
+&-[a_2n(n-1)+p_1n+r_0]\beta_n\\
+&-[(n-1)(n-2)-(n-1)+1]\beta_{n-1}.
+\end{align*}
+For \(n=0\), the last term is omitted. Divide by \((1+c+h)^2\):
+\[
+ (1+c)^2e_n+2(1+c)e_{n-1}+e_{n-2}=\beta_n,\qquad
+ A(c+h)=A(c)+\sum_{n\geq0}\frac{e_n}{n+1}h^{n+1}.
+\]
+Use centers \(c=2^j\), \(j=-3,\ldots,4\), on
+\([2c/3,4c/3]\). Adjacent intervals meet exactly. The actual dyadic
+input selects a center by rational comparisons, without clipping.
+
+To bound the remainder, use
+\[
+ B(z)=\frac{z^2}{24}\int_0^1
+ \frac{(1-x)^{3/2}}{1+zx/4}\,dx .
+\]
+On \(|z-c|=R=c+1/2\), \(\Re z\geq-1/2\), so
+\[
+ |1+zx/4|\geq7/8,\quad |1+z|\geq1/2,\quad
+ |A'(z)|\leq M_c=\frac8{105}(2c+1/2)^2.
+\]
+Cauchy's coefficient estimate therefore implies, for \(|h|\leq c/3\),
+\[
+ \left|A(c+h)-A(c)-\sum_{n=0}^{N-1}
+ \frac{e_nh^{n+1}}{n+1}\right|
+ \leq \frac{M_c|h|(|h|/R)^N}{(N+1)(1-|h|/R)}.
+\]
+
+\section{Large arguments}
+For \(z=1/t\), write
+\[
+ B(t)=\sum_{n\geq0}t^{1-n}(a_n\log t+b_n),\qquad
+ a_0=1/6,\quad b_0=-4/9.
+\]
+The same ODE yields
+\begin{align*}
+ a_n&=-\frac{2(2n-5)}n a_{n-1},\\
+ b_n&=\frac{2a_n}n-\frac{2(2n-5)}n b_{n-1}
+                -\frac{10-8n}{n^2}a_{n-1}.
+\end{align*}
+Let \(\alpha_n=a_n-2\alpha_{n-1}-\alpha_{n-2}\), with negative
+indices zero; define \(\beta_n\) similarly from \(b_n\). Then
+\[
+ A(t)=C+\frac{\log^2z}{12}+\frac49\log z+
+ \sum_{n\geq1}z^n\left[
+ \frac{\alpha_n}{n}\log z-\frac{\alpha_n}{n^2}-\frac{\beta_n}{n}\right].
+\]
+The rational bounds
+\[
+ |a_n|\leq4^n,\quad |b_n|\leq2(n+1)4^n,\quad
+ |\alpha_n|\leq2\,4^n,\quad |\beta_n|\leq4(n+1)4^n
+\]
+imply the tail bound
+\[
+ |R_N(z)|\leq
+ (2|\log z|+10)\frac{(4z)^{N+1}}{1-4z},\qquad 0<z\leq1/16.
+\]
+The constant is calibrated at \(t=16\); the reported truncation bound
+includes the argument tail and the anchor-series tail, but excludes the
+closed anchor's numerical error.
+
+\section{Independent direct quadrature check}
+For the interval \([a,b]=[0.34,0.345]\), map \([-1,1]\) by
+\(z=m+\ell x\), with \(\ell=(b-a)/2\). The Bernstein ellipse
+\(\rho=256\) stays in \(\Re z>0\) and satisfies
+\(|B(z)/(1+z)^2|<1/100\).
+The Chebyshev tail beyond degree \(2n-1\) is at most
+\(2M\rho^{-2n}/(1-\rho^{-1})\).
+Both integration and \(n\)-point Gaussian quadrature have positive
+weight sum \(2\), and their difference annihilates this polynomial.
+Consequently,
+\[
+ |E_n|\leq\frac{8\ell M\rho^{-2n}}{1-\rho^{-1}}.
+\]
+Combining this with
+\[
+ \int_a^b\frac{B(t)}{(1+t)^2}\,dt
+ \geq\frac{(b-a)a^2}{60(1+b/4)(1+b)^2}
+\]
+proves that orders \(128\) and \(192\) suffice for the declared
+\(10^{-600}\) model-relative target.
+The failed order-\(96\) observation is retained; it is not used as a
+passing reference. Computed-node and floating arithmetic errors are
+checked numerically and are not included in this analytic bound.
+
+\section{Connection to whole-graph verification}
+The distinct weighted-edge reference retains all \(720\) projective
+orders and the spectral coordinate. It reconstructs rational Gaussian
+Schur complements and combines identical \(A\) and \(B\) arguments
+before evaluation. In particular, \(\sum_j c_j=0\) for the \(A\)
+coefficients cancels a common primitive normalization constant.
+Scalar tests alone do not establish a whole-graph precision result:
+full coefficient identities, native interval enclosures, new independent
+sampling and unchanged acceptance gates remain necessary.
+\end{document}

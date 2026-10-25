@@ -1,0 +1,88 @@
+\subsection{Analytic outer-fraction reduction and endpoint smoothing}
+\label{sec:triangle-reduction}
+
+The following coordinate refinements evaluate the same paired recursive BPH
+kernel. In this subsection scale $s_i$ by $M$ and set $M=1$. Retain
+$C=1-A$, $H=u(1-u)$, $D_*=A+CH$, and $B=uvw$. Fix the outer fraction
+$a$, put $d_o=1-a$, $b=d_oy$, $c=d_o(1-y)$. The outer Jacobian is
+$d_o$. Both $Q_c=1+AW$ and $Q_r=1+AW+\delta$ are positive concave
+quadratics in $y$. Writing $Q=1+v_0+q_1y+q_2y^2$, their coefficients are
+\begin{align*}
+ v_{0c}&=Aa d_o s_1,& q_{2c}&=-Ad_o^2s_3,\\
+ q_{1c}&=A\{a d_o(s_2-s_1)+d_o^2s_3\},&&\\
+ g_0&=s_1\{uvd_o^2+uwa^2+vw\},&
+ g_1&=(s_1+s_3-s_2)u d_o(wa-vd_o),\\
+ v_{0r}&=v_{0c}+C(Ag_0+CBs_1)/D_*,&&\\
+ q_{1r}&=q_{1c}+CAg_1/D_*,& q_{2r}&=-A^2d_o^2s_3/D_*.
+\end{align*}
+These identities follow by expanding the already proved Gaussian variances.
+In resolved sectors the factors of $D_*$ are cancelled using $D_*=rd$ or
+$D_*=Ad$ before numerical evaluation.
+
+For $b_1=q_1/(1+v_0)$, $b_2=q_2/(1+v_0)\le0$, factor
+$Q/(1+v_0)=(1+z_+y)(1+z_-y)$. Then
+\begin{gather*}
+ z_++z_-=b_1,\quad z_+z_-=b_2,\quad
+ z_+\ge0,\quad -1<z_-\le0,\\
+ \mathcal L(Q)=\int_0^1\log Q(y)\,dy
+   =\log(1+v_0)+f(z_+)+f(z_-),\\
+ f(z)=(1+1/z)\log(1+z)-1,\quad f(0)=0,\quad f(-1)=-1.
+\end{gather*}
+Compute $\Delta=\sqrt{b_1^2-4b_2}$ with a hypot formula. For $b_1\ge0$
+form $z_+=(b_1+\Delta)/2$ and recover $z_-=b_2/z_+$; for $b_1<0$
+form $z_-=(b_1-\Delta)/2$ and recover $z_+=b_2/z_-$. Zero roots use
+their continuous limits. Near zero,
+$f(z)=z/2-z^2/6+z^3/12-z^4/20+\cdots$ avoids cancellation.
+
+In either resolved sector let $\alpha,\beta$ denote the prefactors in
+the preceding chart formulas, so that its paired density before the outer
+Jacobian is
+\[
+ \alpha\frac{\log Q_c}{A}
+ -\beta\frac{N}{Q_c}\ell\left(\frac{CN}{dQ_c}\right),
+ \qquad \delta=CN/d.
+\]
+Here $N,d$ are the chart quantities already defined. Exact $y$ integration
+replaces the two factors by $\mathcal L(Q_c)/A$ and
+$\frac dC[\mathcal L(Q_r)-\mathcal L(Q_c)]$. If the latter logarithms
+nearly cancel, use their identical positive representation
+\[
+ \frac dC\{\mathcal L(Q_r)-\mathcal L(Q_c)\}
+ =\int_0^1\frac{N}{1+AW}
+       \ell\left(\frac{CN}{d(1+AW)}\right)dy.
+\]
+Thus the fallback retains the finite paired kernel and removes $C$ before
+evaluation. The generic reduction has four remaining integration variables.
+
+For a large scale $S=\max s_i$, logarithmic nodes may be assigned by
+\[
+ A(\xi)=\frac{e^{\lambda\xi}-1}{e^\lambda-1},\quad
+ A'(\xi)=\frac{\lambda e^{\lambda\xi}}{e^\lambda-1},\quad
+ \lambda=\log(1+S).
+\]
+On the $A\le r$ sector, $r=A^{1-\eta}$, $t=A^\eta$ has
+$|\partial(r,t)/\partial(A,\eta)|=-\log A$; the other sector retains
+$r=At$. Smoothing $x=\sin^2(\pi\xi/2)$ has Jacobian
+$(\pi/2)\sin(\pi\xi)$ and can be applied jointly to the remaining outer
+fraction, the logarithmic $A$ coordinate, and the inner fraction $z$.
+The upper inner half uses the exact complement $1-u=r/2$ directly.
+
+At the physical shape $s_3=0$, $s_1=s_2=s$, one has $p_2=-p_1$ and
+\[
+ W=sa(1-a),\qquad
+ G=s\{uv(1-a)^2+uwa^2+vw\}.
+\]
+Neither depends on the outer $y$. The transformation
+$(a,z)\mapsto(1-a,1-z)$ leaves the complete paired kernel invariant, so
+its outer weight $1-a$ can be replaced by $1/2$ after integration. The
+same quadratic-log primitive now integrates $a$ exactly, leaving a
+three-dimensional representation, without discarding the inner fractions.
+
+The production implementation uses the analytic reduction on its declared
+high-scale route and keeps the five-dimensional formula elsewhere. Different
+endpoint maps, observed refinement trends, and extrapolations are numerical
+diagnostics, not an accuracy theorem. Executed scale and coordinate checks
+are recorded in \texttt{docs/nested-triangle-precision.json}; the separate
+momentum-oracle evidence is in
+\texttt{results/nested\_triangle\_comparison.json}. Their source fingerprints
+and statistical or refinement qualifications remain part of that evidence.

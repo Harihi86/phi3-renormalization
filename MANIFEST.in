@@ -1,3 +1,9 @@
 include LICENSE README.md ROADMAP.md requirements-demo.txt
 recursive-include docs *.md *.json *.svg *.png
 recursive-include examples *.json *.csv
+recursive-include research *.py *.cpp *.hpp *.md *.txt
+recursive-include docs *.md *.json *.log *.tex *.svg
+recursive-include examples *.json *.csv *.svg *.tex *.md
+include README_ZH.md
+recursive-include tests *.py
+recursive-include tools *.py

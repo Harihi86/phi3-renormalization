@@ -1,0 +1,64 @@
+.EEEE......................................................              [100%]
+=================================== ERRORS ====================================
+_______ ERROR at setup of test_saved_pass_flag_cannot_hide_changed_path _______
+
+self = WindowsPath('<redacted-local-path>')
+mode = 448, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [WinError 3] ϵͳ�Ҳ���ָ����·����: '<redacted-local-path>'
+
+<redacted-local-path> FileNotFoundError
+_____________ ERROR at setup of test_existing_output_is_preserved _____________
+
+self = WindowsPath('<redacted-local-path>')
+mode = 448, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [WinError 3] ϵͳ�Ҳ���ָ����·����: '<redacted-local-path>'
+
+<redacted-local-path> FileNotFoundError
+__ ERROR at setup of test_lossless_compressed_records_support_both_spellings __
+
+self = WindowsPath('<redacted-local-path>')
+mode = 448, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [WinError 3] ϵͳ�Ҳ���ָ����·����: '<redacted-local-path>'
+
+<redacted-local-path> FileNotFoundError
+___ ERROR at setup of test_family_verifies_actual_lower_loop_source_library ___
+
+self = WindowsPath('<redacted-local-path>')
+mode = 448, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [WinError 3] ϵͳ�Ҳ���ָ����·����: '<redacted-local-path>'
+
+<redacted-local-path> FileNotFoundError
+=========================== short test summary info ===========================
+ERROR tests/test_counterterms_public.py::test_saved_pass_flag_cannot_hide_changed_path
+ERROR tests/test_counterterms_public.py::test_existing_output_is_preserved - ...
+ERROR tests/test_counterterms_public.py::test_lossless_compressed_records_support_both_spellings
+ERROR tests/test_counterterms_public.py::test_family_verifies_actual_lower_loop_source_library
+55 passed, 4 errors in 42.58s

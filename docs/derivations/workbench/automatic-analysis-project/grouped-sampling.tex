@@ -1,0 +1,201 @@
+\section{从图推导的分层重要性采样}
+\label{sec:grouped-sampling}
+
+This section changes the sampling distribution of the complete finite
+recursive BPH density, not the renormalization prescription or its kernel.
+The optional tool \texttt{tools/integrate\_bph\_groups.py} evaluates
+\texttt{compile\_bph(graph).batch\_density}.  It imports neither a specialized
+four-loop formula nor the independent momentum-space oracle.  The recursive
+Bogoliubov subtraction, including every finite quadratic bubble term, is
+therefore the same one used by the graph-driven compiler.  No unverified
+forest identity is a premise of the construction below.
+
+\subsection{Recognized structure and the change of variables}
+
+The tool first checks every proper divergent edge subgraph.  Each must be a
+two-edge, one-loop, two-point bubble of degree $\omega=2$, and their vertex
+sets must be pairwise disjoint.  After contraction of these bubbles, the
+bare complement must be a connected, one-particle-irreducible, one-loop
+quotient.  These conditions are tested from the graph and its compiled
+proper subgraphs, without selecting a formula by graph identifier.  Graphs
+outside this class are explicitly rejected.  The class includes appropriate
+two-, three-, and four-loop examples with two or three external legs.
+
+Let $b$ be the number of bubbles, $M$ the number of bare complement edges,
+and $N=2b+M$ the original number of edges.  Introduce bubble totals $r_i$,
+a single bare total $A$, bubble splits $x_i$, and bare ratios $v_j$:
+\begin{align*}
+ &r_i>0,\quad A>0,\quad \sum_{i=1}^b r_i+A=1,\\
+ &\alpha_{i,0}=r_i x_i,\qquad
+   \alpha_{i,1}=r_i(1-x_i),\qquad 0<x_i<1,\\
+ &\alpha_j=A v_j,\qquad v_j>0,\quad \sum_{j=1}^M v_j=1.
+\end{align*}
+Here the $\alpha_j$ in the last line refer only to bare complement edges.
+In the original projective simplex Lebesgue measure, the absolute
+Jacobian is
+\begin{equation}
+ d^{N-1}\alpha=
+ \left(\prod_{i=1}^b r_i\right) A^{M-1}
+ d^b(r_1,\ldots,r_b,A)\,
+ \prod_{i=1}^b dx_i\,d^{M-1}v.
+ \label{eq:hierarchical-jacobian}
+\end{equation}
+This follows by scaling the one independent coordinate of each two-edge
+simplex by $r_i$ and the $M-1$ independent bare simplex coordinates by $A$.
+It also follows directly by inserting the simplex delta functions before
+performing the group scalings.
+
+Write $G=b+1$ and sample independently
+\[
+ (r_1,\ldots,r_b,A)\sim\operatorname{Dirichlet}(a,\ldots,a),
+ \qquad v\sim\operatorname{Dirichlet}(d,\ldots,d),
+ \qquad x_i\sim\operatorname{Beta}(c,c).
+\]
+Dividing \eqref{eq:hierarchical-jacobian} by these probability densities gives
+\begin{align}
+ w={}&\frac{\Gamma(a)^G}{\Gamma(Ga)}
+       \frac{\Gamma(d)^M}{\Gamma(Md)}
+       \left[\frac{\Gamma(c)^2}{\Gamma(2c)}\right]^b
+       \left(\prod_i r_i^{2-a}\right) A^{M-a}
+       \left(\prod_j v_j^{1-d}\right)
+       \prod_i[x_i(1-x_i)]^{1-c}.
+ \label{eq:hierarchical-general-weight}
+\end{align}
+The default $a=d=1$, $c=3$ therefore has the particularly simple weight
+\begin{equation}
+ \boxed{\displaystyle
+ w=\frac{\left(\prod_i r_i\right)A^{M-1}}
+ {\Gamma(b+1)\Gamma(M)\,30^b
+  \prod_i x_i^2(1-x_i)^2}.}
+ \label{eq:hierarchical-weight}
+\end{equation}
+The implementation uses inverse Gamma transforms followed by normalization
+for the two Dirichlet levels, and inverse Beta transforms for the splits.
+There are $G+M+b=N+1$ Sobol coordinates.  The redundant coordinates in the
+normalized Gamma constructions do not change their induced distributions.
+For every compact interior integration domain the change of variables is
+exact; for an absolutely integrable finite density $\rho_G$ it gives
+\[
+ \int_{\Delta_{N-1}}\rho_G(\alpha)\,d^{N-1}\alpha
+       =\mathbb E\,[w\rho_G(\alpha)].
+\]
+This sampling identity is not a new general all-loop finiteness theorem.
+
+\subsection{Why the bare total must be sampled separately}
+
+At fixed other positive parameters, exact integration of a bubble's
+internal momentum produces the quadratic BPH remainder
+\[
+ r^{-3}e^{-m^2r}
+ \{e^{-r x(1-x)Q^2}-1+r x(1-x)Q^2\}.
+\]
+The identity
+\[
+ e^{-z}-1+z=z^2\int_0^1(1-t)e^{-tz}\,dt
+\]
+shows the factor $x^2(1-x)^2$.  At fixed external $Q$ it also gives the
+local $r^{-1}$ behavior as $r\to0$, which is compensated by the pair
+Jacobian $r$.  Other disjoint subtractions and the overall external Taylor
+operation preserve this fixed-parameter split factor.  These observations
+motivate $c=3$ and a flat density in each group total; they do not by
+themselves prove a global finite-variance bound at simultaneous UV faces.
+
+There is a second, different face.  All bare complement edges may shrink
+together, $A\to0$, while bubble totals remain positive.  For a cubic graph
+with one-loop quotient and $E$ external legs, $M=b+E$.  The term containing
+all quadratic bubble counterterms has a contracted outer Gaussian factor
+of order $A^{-3}$, and its polynomial loop moments can contribute
+$A^{-b}$.  The overall finite radial kernels start with $H$ for $E=3$
+and $H^2$ for $E=2$, with $H=O(A)$.  The resulting leading behavior can be
+\[
+ A^{-3-b}A^{4-E}=A^{-(M-1)}.
+\]
+The bare Jacobian in \eqref{eq:hierarchical-jacobian} then leaves an
+integrable contribution of order $A^0$.  Treating the $M$ bare edges as
+separate flat groups instead gives their sum a proposal density vanishing
+as $A^{M-1}$.  Such a proposal badly undersamples this important face.
+Ordinary edge-wise Dirichlet proposals can have the same problem: their
+bare sum has density proportional to $A^{M\beta-1}$ near zero.  Sampling
+$A$ as one top-level total keeps its default marginal density nonzero at
+zero.  The failed flat-group pilot is retained as evidence rather than
+discarded or described as successful variance control.
+
+\subsection{Weight checks and numerical evidence}
+
+An independent exact simplex moment is
+\begin{equation}
+ \int_{\Delta_{N-1}}\prod_e\alpha_e^{n_e}\,d^{N-1}\alpha
+ =\frac{\prod_e\Gamma(n_e+1)}{\Gamma(N+\sum_e n_e)}.
+ \label{eq:hierarchical-monomial}
+\end{equation}
+After the group substitution, the top-level powers are
+$k_i=n_{i,0}+n_{i,1}+1$ and
+$k_A=M-1+\sum_{\mathrm{bare}}n_j$.  The split Beta integrals and bare
+simplex moment cancel the corresponding top-level Gamma numerators,
+recovering \eqref{eq:hierarchical-monomial}.  The tool verifies pair
+exponents $(2,2)$ and $(3,2)$, with zero bare exponents, by factorized
+one-dimensional Gauss--Jacobi integrals at orders $32$ and $64$.  For the
+default shapes the transformed factors are polynomials, and the observed
+residual is assessed as floating-point rounding and refinement.  It also
+checks the actual sampler and inverse weight at $256$ points against
+independent Dirichlet and Beta probability-density implementations.
+
+A constant-function importance Monte Carlo test is unsuitable for the
+default split proposal: $w\sim x^{-2}$ and its second moment against
+$x^2dx$ diverges.  The chosen monomials avoid that endpoint problem.  The
+four-loop raw pilots, main and independent-seed runs, the separate
+100-digit endpoint probe, and the derivation are retained in
+\path{docs/automatic-group-sampling-evidence/}; final portable evidence is linked
+from the accompanying release documentation.  Every run records the
+actual tool hash, frozen core fingerprint, exact graph, compiled-program
+hash, seeds, replicate values, half-power differences, and precision
+fallback diagnostics.  The independent momentum-space scalar is used
+only after integration for comparison.  Reported randomized errors and
+refinement differences are numerical diagnostics, not rigorous total
+quadrature enclosures.
+
+\subsection{Recorded four-loop test of the proposal}
+
+For the selected graph $\mathrm{L4E3G205}$, there are $b=3$ bubble groups
+and $M=6$ bare edges.  Pilot variance and refinement diagnostics led to the
+choice $a=\tfrac12$, $d=1$, $c=3$ in
+\eqref{eq:hierarchical-general-weight}.  Its weight is
+\[
+ w=\frac{\pi^2}{\Gamma(6)\,30^3}
+       \frac{(r_1r_2r_3)^{3/2}A^{11/2}}
+       {\prod_{i=1}^3x_i^2(1-x_i)^2}.
+\]
+The kernel is still the unaltered generic recursive BPH sum.  At unit mass
+squared and symmetric unit external invariants, the final catalog-aligned
+tool was actually executed with $12$ scrambles of $2^{14}$ points and an
+independent seed with $8$ scrambles of $2^{13}$ points:
+\[
+\begin{array}{c|r|c|c}
+ &\text{value}&\text{reported standard error}
+             &\text{half-power difference}\\ \hline
+ \text{main}&-0.0005154702382511922&1.80923\,10^{-6}&1.18853\,10^{-6}\\
+ \text{repeat}&-0.0005116648680529154&3.69832\,10^{-6}&2.66601\,10^{-7}
+\end{array}
+\]
+The separately derived numerical momentum-space reference is
+$-0.0005158785412715456$.  The absolute gaps are
+$4.08303\,10^{-7}$ and $4.21367\,10^{-6}$, respectively, both below the
+stated numerical target $10^{-5}$.  The main and repeat differ by
+$3.80537\,10^{-6}$.  These comparisons validate this selected point
+numerically; they do not turn the reported randomized errors into rigorous
+intervals or extend the result to all higher-loop graphs.
+
+The primary raw files are
+\texttt{final-main-p14-r12.json} and
+\texttt{final-repeat-p13-r8.json} in the portable evidence directory.
+They were re-executed after the graph-numbering correction, rather than
+assigning new hashes to earlier samples.  The final tool captures its
+source hash at the start and verifies it again at the end, in addition to
+checking the frozen production-core fingerprint.  Its generated-graph
+indices agree with the public catalog; the earlier experimental ordering
+and its two-loop calibration mapping are explicitly retained with the
+historical evidence.  An independent audit checks the inverse density,
+the full simplex Jacobian, monomial moments and graph relabelling.  A
+separate $16$-case saved-record harness has one authentic positive control
+and $15$ individual-corruption negative controls.  It accepts the positive
+control and rejects all negative controls without executing any new integral.

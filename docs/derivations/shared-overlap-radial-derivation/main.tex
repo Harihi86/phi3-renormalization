@@ -1,0 +1,146 @@
+\documentclass[11pt]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb}
+\title{G48: a complete three-dimensional overlap remainder}
+\author{Phi3Lab isolated development}
+\date{25 October 2026}
+\begin{document}\maketitle
+All twelve original forests remain bound to the frozen four-loop graph.
+The three bubble-paired words have signs $+,-,-$.
+Use unit mass and $d^6k/\pi^3$ per loop, without coupling or symmetry weight.
+
+Let $s=k^2$, $h=\sqrt{s}\,c$, $D=1+s$ and $\sigma=v(1-v)$.
+Pair opposite external directions before evaluating the full remainder.
+The triangle parameters are $x=(1-z)v$, $y=(1-z)(1-v)$,
+with Jacobian $1-z$. Its quadratic is
+\[
+ P_\epsilon=1+\epsilon^2\sigma+
+ [s+\epsilon^2v(2v-1)-2\epsilon vh]z
+ -[s+\epsilon^2v^2-2\epsilon vh]z^2.
+\]
+Define $L(a,\sigma)=\int_0^1(1-z)\log[1+\sigma+(a-\sigma)z-az^2]\,dz$.
+The entire $z$ integral has a closed real-root primitive. At $\epsilon=1$,
+\[
+ F_\pm=-\frac{L(s+v^2\mp2vh,\sigma)}{D+1\mp2h}.
+\]
+The two native implementations use root factorization and a centered
+quadratic primitive; an independent reference directly integrates $z$.
+
+Put $H=\operatorname{arsinh}(\sqrt{s}/2)$ and
+\[
+ L_0=\sqrt{\frac{s+4}{s}}H-1,\quad
+ J_0=\frac{4H}{\sqrt{s(s+4)}},\quad J_{00}=\frac{2(1+J_0)}{s+4}.
+\]
+Then
+\begin{align*}
+ I_{20}&=\tfrac12J_0-(1-J_0)/s,&
+ I_{30}&=\tfrac12J_0-\tfrac{3}{2s}(1-J_0),\\
+ L_2&=vI_{20}-v^2I_{30}
+      -\frac{h^2v^2}{s^2}(1-2J_0+J_{00}),\\
+ T_0&=-L_0/D,\\
+ T_2&=-L_2/D+\frac{2h^2v(1-J_0)}{sD^2}
+      -L_0\left(\frac{4h^2}{D^3}-\frac1{D^2}\right).
+\end{align*}
+These are Taylor coefficients in the external scale $\epsilon$.
+The retained internal variable $s$ is never set to zero.
+
+The local parent insertion is distributed at the same $v$:
+\[
+ b(v)=(1+\sigma)\log(1+\sigma)-\sigma,\qquad
+ \int_0^1 b(v)\,dv=B(1).
+\]
+Thus the full scalar remainder is
+\[
+ {\cal R}(s,c,v)=\tfrac12(F_++F_-)-T_0-T_2-\frac{b(v)}{D^2}.
+\]
+With
+\[
+ B(s)=\frac{(s+4)^{3/2}}{3\sqrt{s}}
+          \operatorname{arsinh}\frac{\sqrt{s}}2-\frac49s-\frac43,
+\]
+the complete integral is
+\[
+ \int_0^\infty\frac{s^2 B(s)^2}{2(1+s)^3}\,ds
+ \int_0^1\frac83\sin^4\frac{\pi u}{2}\,du
+ \int_0^1{\cal R}\left(s,\cos\frac{\pi u}{2},v\right)\,dv.
+\]
+The radial maps $s=x/(1-x)$ and $s=x^2/(1-x^2)$ both cover the full half-axis.
+
+\paragraph{Actual validation and remaining precision.}
+Seventeen scalar checks agreed to 110 relative digits with 180-digit
+arithmetic. The compiled native kernels passed 36 interval comparisons
+against 18 independent 640-digit references, two complete triangle
+quadratures, and 13 deliberate mutations.
+The fixed three-dimensional diagnostic did not pass the original
+precision selector. No production run or acceptance is inferred.
+Tail probes motivate further exact control of the sign-changing
+$\log(s)/s^3$ coefficient. Such a control must preserve its joint
+angular and parameter mean; pointwise agreement alone is insufficient.
+\paragraph{Exact joint-mean controls.}
+The newly proved asymptotic coefficients satisfy
+\[
+ {\cal R}(s,c,v)=\frac{A(c,v)\log s+C(c,v)}{s^3}+o(s^{-3}).
+\]
+With $\ell=\log(1+\sigma)$,
+\begin{align*}
+ A={}&-\tfrac12(1-12c^2+16c^4)
+       -\sigma[(v^2+1)(4c^2-1)+4vc^2]-\tfrac12\sigma^2,\\
+ C={}&c^4(2v^4+\tfrac83v^3+4v^2+8v+16)\\
+ &+c^2[(-4v^4+4v^2+8v+4)\ell-8v^4+v^2-4v-12]\\
+ &+(\tfrac32v^4-2v^3-\tfrac12v^2-\tfrac12)\ell
+       +\tfrac12v^4+\tfrac12v^3+\tfrac14v^2-\tfrac12v+1.
+\end{align*}
+The normalized six-dimensional angular moments are
+$\langle c^2\rangle=1/6$ and $\langle c^4\rangle=1/16$.
+In particular, $\langle A\rangle=v(v-1)^2(2-5v)/6$ is not
+identically zero. Only its joint angular and $v$ mean vanishes.
+Exact integration by parts gives
+\[
+ \int_0^1\langle C\rangle\,dv
+ =M=-\frac{16}{27}+\frac{5\sqrt5}{9}\operatorname{arsinh}\frac12
+ \simeq0.00519760319074635030939800872769.
+\]
+Therefore the complete controlled remainder
+\[
+ {\cal R}_{\rm ctl}={\cal R}
+ -\frac{s^2}{(1+s)^5}[A\log(1+s)+C-M]
+\]
+has exactly the same integral at every fixed radial $s$, after the
+joint angular/parameter average. It retains the physical $M/s^3$ tail.
+The radial damping is independent of $c,v$ and is smooth at the origin.
+The control is absolutely integrable: the full radial measure grows
+as $s\log^2s$, so the control is bounded by an integrable
+$O(\log^3s/s^2)$ tail; the angular and parameter factors are bounded.
+No Taylor coefficient of the actual physical external momentum is omitted.
+
+The exact coefficient and joint-mean proof, eight large-radius checks,
+and three coefficient mutations passed. The new compiled kernel passed
+36 intervals, 18 independent 640-digit references, two complete
+triangle quadratures and 13 mutations. A fresh fixed diagnostic uses
+seed base 7410244001; its whole-integral result requires separate acceptance.
+\paragraph{Full angular averaging and completed numerical audit.}
+That controlled diagnostic and the subsequent radial-only diagnostic
+both failed selection and remain retained. The successful new method
+uses $s=x/(1-x)^3$, equal averaging of $v$ and $1-v$, and the angular
+orbit $\theta\mapsto\theta+k\pi/8$, $k=0,\ldots,7$.
+The complete measure-weighted remainder is even in $\cos\theta$ and
+has period $\pi$. This finite orbit therefore preserves its full
+integral exactly. Fourier coefficients show that the measure-weighted
+$\cos^{2j}\theta$ terms become constants for $j\leq5$.
+At an exactly vanishing angular measure, the finite massive integrand
+contributes its exact zero weighted limit; this case is explicitly tested.
+
+The new native test passed forty intervals against twenty independent
+640-digit references, two full triangle quadratures and thirteen
+mutations. The selected eight-point orbit then completed fresh production
+and independent replay of 256 requests and 65,536 nodes. All five
+statistical levels were recomputed exactly, with sixteen independent
+640-digit remainder references and thirteen evidence mutations.
+The empirical pooled value is approximately
+$2.8714345947808336\times10^{-5}$ and the unchanged strong gate ratio
+is $0.000878343027813$.
+It awaits the ordered accounting update and is not a rigorous
+quadrature enclosure. An earlier audit failed because sorted JSON keys
+changed the replay kernel order; the new audit explicitly uses the
+predeclared root/center order and replays the same immutable production.
+\end{document}

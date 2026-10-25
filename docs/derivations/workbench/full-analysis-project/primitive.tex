@@ -1,0 +1,266 @@
+\section{The primitive two-loop three-point graph}
+\label{sec:primitive}
+
+This chapter treats L2E3G1, the graph $K_{2,3}$ with one fixed-label external
+leg at the midpoint of each of its three length-two branches. Use the common
+mass and normalized measures of Section~\ref{sec:scheme}. All momenta are
+real Euclidean and incoming, with $p_1+p_2+p_3=0$ and $s_i=p_i^2$.
+The formulas cover every such three-point configuration, including
+degenerate Gram matrices and the zero point.
+
+\subsection{Routing and subtraction}
+
+Choose branch flows $t_1=k$, $t_2=q$, $t_3=-k-q$. The integrand is
+\[
+ I(p_1,p_2)=D(k)D(k+p_1)D(q)D(q+p_2)
+             D(k+q)D(k+q-p_3).
+\]
+Every proper loop-containing 1PI subgraph has at least four internal edges;
+its one-loop degree is at most $6-8=-2$. There are no proper UV-divergent
+subgraphs, whereas $L=2$, $I=6$ gives overall degree zero. Therefore
+\[
+ \overline R I=I,\qquad RI=I(p_1,p_2)-I(0,0).
+\]
+The scalar answer below does not include the graph weight $1/S_G=1/2$.
+
+\subsection{Gaussian minimization and the exact parameter polynomials}
+
+Let the two parameters on branch $i$ be $a_i,b_i>0$, and put
+$A_i=a_i+b_i$, $r_i=b_i/A_i$. Then
+\[
+ a_it_i^2+b_i(t_i+p_i)^2
+ =A_i(t_i+r_ip_i)^2+A_ir_i(1-r_i)s_i.
+\]
+The constraint $\sum_i t_i=0$ makes the sum of the completed-square
+vectors equal to $\sum_i r_ip_i$. Minimizing their weighted squared norm
+gives the extra cost
+\[
+ \frac{|\sum_i r_ip_i|^2}{\sum_i A_i^{-1}}.
+\]
+Write $(A_1,A_2,A_3)=(A,B,C)$ and $(r_1,r_2,r_3)=(u,v,w)$. The first
+Symanzik polynomial and the effective external scale are
+\begin{align*}
+ U&=AB+AC+BC,\\
+ \Omega_p&=Au(1-u)s_1+Bv(1-v)s_2+Cw(1-w)s_3\\
+ &\quad+\frac{ABC}{U}|(u-w)p_1+(v-w)p_2|^2,\\
+ F&=U\{M(A+B+C)+\Omega_p\}.
+\end{align*}
+Here $\Omega_p$ denotes an external scale, not the superficial UV degree.
+The final square can equally be written
+\[
+ s_1(u-w)^2+s_2(v-w)^2
+ +(s_3-s_1-s_2)(u-w)(v-w).
+\]
+It is nonnegative exactly on the physical Gram domain. These expressions
+are homogeneous before imposing any projective normalization. An independent
+spanning-tree and two-forest construction of $U,F$ can therefore be checked
+against them without using the same Gaussian derivation.
+
+\subsection{Common cutoff and the finite projective integral}
+
+Apply the same lower cutoff $\alpha_e\ge\eta$ to all six original edge
+parameters and subtract the zero-momentum regulated graph first. Set
+$\alpha_e=\rho x_e$, $\sum_e x_e=1$. The six-parameter Jacobian contributes
+$\rho^5$, while the two six-dimensional Gaussian integrals contribute
+$\rho^{-6}$. The remaining radial measure is $d\rho/\rho$, with the
+same lower limit $T(x)=\eta/\min_e x_e$ for both terms.
+Define
+\[
+ L_T(z)=\int_T^\infty\frac{d\rho}{\rho}
+                  e^{-M\rho}(1-e^{-z\rho}).
+\]
+For $z\ge0$,
+\[
+ 0\le L_T(z)\le\log(1+z/M),\qquad
+ L_T(z)\longrightarrow\log(1+z/M).
+\]
+Within a branch, $da_i\,db_i=A_i\,dA_i\,dr_i$. On $A+B+C=1$ the full
+projective measure is consequently
+$ABC\,dA\,dB\,du\,dv\,dw$. Thus the candidate finite formula is
+\begin{align*}
+ J_{\mathrm{pr}}(s_1,s_2,s_3;M)
+ =-&\int_{\substack{A,B\ge0\\A+B\le1}}dA\,dB
+       \int_{[0,1]^3}du\,dv\,dw\\
+ &\times\frac{ABC}{(AB+AC+BC)^3}
+           \log\left(1+\frac{\Omega_p}{M}\right),
+ \qquad C=1-A-B.
+\end{align*}
+The density is nonpositive; its parameter $L^1$ norm equals
+$-J_{\mathrm{pr}}$. Its finiteness and the regulator limit follow from
+the next estimates, rather than from separately integrating divergent terms.
+
+For comparison only, in bare dimensional regularization with
+$d=6-2\epsilon$, the radial Gamma factor is $\Gamma(2\epsilon)$. The
+projective period computed below is $1/2$, giving the unweighted simple
+pole $1/(4\epsilon)$. There is no extra factor of $1/2$ multiplying the
+finite BPH logarithm, since
+\[
+ \Gamma(2\epsilon)
+ \bigl(F^{-2\epsilon}-F_0^{-2\epsilon}\bigr)
+ \longrightarrow-\log(F/F_0).
+\]
+The finite Taylor scheme is not replaced by the bare Laurent finite part.
+
+\subsection{Exact period, compact control, and global scale behavior}
+
+The trial branch currents $t_i=-p_i/2$ obey $\sum_i t_i=0$. The Gaussian
+minimum cannot exceed their value. On $A+B+C=1$ this proves
+\[
+ 0\le\Omega_p\le\frac{As_1+Bs_2+Cs_3}{4}
+                    \le\frac{s_{\max}}4,
+ \qquad s_{\max}=\max_i s_i.
+\]
+The weight $ABC/U^3$ is homogeneous of degree $-3$. Put
+$A=x/(1+x+y)$, $B=y/(1+x+y)$, $C=1/(1+x+y)$. Its projective Jacobian is
+$(1+x+y)^{-3}$, so its period is exactly
+\begin{align*}
+ \mathcal P
+ &=\int_{A+B+C=1}\frac{ABC}{(AB+AC+BC)^3}\,dA\,dB\\
+ &=\int_0^\infty\int_0^\infty
+             \frac{xy\,dx\,dy}{(xy+x+y)^3}\\
+ &=\int_0^\infty\frac{dy}{2(1+y)^2}=\frac12.
+\end{align*}
+The successive integrations are justified by Tonelli's theorem. They prove
+integrability at every parameter face as well as fixing the normalization.
+It follows that
+\[
+ |J_{\mathrm{pr}}|=\int|\text{parameter density}|
+ \le\frac12\log\left(1+\frac{s_{\max}}{4M}\right)
+ \le\frac{s_{\max}}{8M}.
+\]
+The same integrable weight times this constant controls $L_T$, uniformly
+in $\eta$. Parameter dominated convergence therefore removes the common
+cutoff. If $|p_i|\le P$ and $M\ge m_0^2>0$, the common bound is
+\[
+ |J_{\mathrm{pr}}|\le
+ \frac12\log\left(1+\frac{P^2}{4m_0^2}\right).
+\]
+Unlike a fixed-point finiteness assertion, the logarithmic estimate also
+controls arbitrarily large common external scales.
+
+Along the ray $s_i\mapsto\lambda s_i$, $\Omega_p$ is linear in $\lambda$.
+At $\lambda=1$, differentiation under the positive integrable weight gives
+\[
+ \left|\frac{d^nJ_{\mathrm{pr}}}{d\lambda^n}\right|
+ \le\frac{(n-1)!}{2}
+       \min\left\{\left(\frac{s_{\max}}{4M}\right)^n,1\right\},
+ \qquad n\ge1.
+\]
+The first derivative is nonpositive and the second nonnegative. If the
+shape is fixed and $s_{\max}$ itself is the scale variable, the bound is
+$\frac12(n-1)!\min\{(4M)^{-n},s_{\max}^{-n}\}$ away from zero,
+with the continuous small-scale bound at zero.
+
+For independent vectors $z=(p_1,p_2)$, write $\Omega_p=z^TQz$. The trial
+bound implies $Q\ge0$ and $\|Q\|\le1/2$, hence
+\[
+ |\nabla\Omega_p|^2\le2\Omega_p,\qquad
+ \|\nabla^2\Omega_p\|\le1.
+\]
+The period is $1/2$, and elementary maximization of the differentiated
+logarithm gives, with $P^2=s_{\max}$,
+\begin{align*}
+ \|\nabla_{(p_1,p_2)}J_{\mathrm{pr}}\|
+ &\le\min\left\{\frac{P}{\sqrt2 M},
+                         \frac1{2\sqrt{2M}}\right\},\\
+ \|\nabla^2_{(p_1,p_2)}J_{\mathrm{pr}}\|
+ &\le\frac3{4M}.
+\end{align*}
+These are analytic amplitude and derivative bounds, not discretization
+error estimates.
+
+\subsection{Independent absolute convergence in the original twelve dimensions}
+
+Parameter absolute integrability after Gaussian integration alone does not
+prove the original momentum $L^1$ statement. We now prove the latter.
+Put $P=\max_i|p_i|$, $\Lambda=1+P/m$. The first directional derivative
+bound is $|\partial D|\le2\langle r\rangle^{-3}$. Along the physical ray,
+\[
+ RI=\int_0^1\frac{d}{d\tau}I(\tau p_1,\tau p_2)\,d\tau.
+\]
+There are three terms, one for the shifted propagator on each branch.
+All estimates below are uniform in $\tau\in[0,1]$.
+
+\paragraph{One soft branch.}
+Consider $|k|\ge2(|q|+P+m)$. Both lines on the $k$ and $k+q$ branches are
+hard and comparable with $\langle k\rangle$. Derivatives on the soft branch
+are bounded by
+$512P\Lambda^3\langle k\rangle^{-8}\langle q\rangle^{-5}$;
+the sum of the two hard-branch derivatives is bounded by
+$2048P\Lambda^2\langle k\rangle^{-9}\langle q\rangle^{-4}$.
+Since $\langle q\rangle\le\langle k\rangle$, both are controlled by
+\[
+ |RI|\le P C_h(\Lambda)
+       \langle k\rangle^{-8}\langle q\rangle^{-5},\qquad
+ C_h(\Lambda)=512\Lambda^3+2048\Lambda^2.
+\]
+The normalized angular factor in a six-dimensional radial integral is one.
+Consequently
+\begin{align*}
+ \int_{|k|\ge2(|q|+P+m)}\langle k\rangle^{-8}\frac{d^6k}{\pi^3}
+ &\le\frac1{8\langle q\rangle^2},\\
+ \int_{\mathbb R^6}\langle q\rangle^{-7}\frac{d^6q}{\pi^3}
+ &=\frac8{15m}.
+\end{align*}
+Permuting the three branch flows, or making a loop-variable linear change
+with absolute determinant one, gives three such soft-branch regions.
+Their union has absolute integral at most $PC_h/(5m)$, even if they overlap.
+One of them is the soft $k+q$ region, so the channel $k\simeq-q$ is
+explicitly included.
+
+\paragraph{Comparable large branch flows.}
+Let $K=\max(|k|,|q|,|k+q|)$ and $K_0=8(P+m)$. Outside the soft-branch
+hierarchies, if $K\ge K_0$, all three base flows are at least $K/4$;
+their physical shifts are at least $K/8$. Therefore
+\[
+ |RI|\le6P\,8^{13}K^{-13}.
+\]
+For a dyadic shell $K\in[K_n,2K_n]$, $K_n=2^nK_0$, the product of the
+$k,q$ ball volumes is at most $(1024/9)K_n^{12}$. The shell integral is
+bounded by a constant times $P/K_n$. Summing
+$\sum_{n\ge0}K_n^{-1}=2/K_0$ gives the explicit bound
+\[
+ \frac{4096}{3}\frac{P\,8^{13}}{K_0}.
+\]
+This argument does not assume all six line momenta are independently large.
+
+\paragraph{Compact remainder.}
+For $K\le K_0$, positive mass bounds the derivative sum by $6Pm^{-13}$.
+The product ball volume is at most $K_0^{12}/36$. Thus, for example,
+\[
+ \int_k\int_q |RI|
+ \le\frac{PC_h(\Lambda)}{5m}
+       +\frac{4096P\,8^{13}}{3K_0}
+       +\frac{P K_0^{12}}{6m^{13}}<\infty.
+\]
+This deliberately coarse momentum norm differs from the much smaller
+post-Gaussian parameter norm. Its controls are uniform when $P$ is bounded
+and $m\ge m_0>0$.
+
+The same propagator and first-derivative estimates hold for $D_\eta$, by
+the positive Schwinger moment argument in Section~\ref{sec:scheme}. The
+three regions therefore provide a uniform momentum majorant and prove
+$\int RI_\eta\to\int RI$. Parameter dominated convergence identifies this
+same left side with the logarithmic formula above. This completes the
+equivalence to the ordinary absolutely convergent BPH momentum integral.
+
+\subsection{A finite unit-cube parameterization}
+
+Partition the branch-sum simplex according to the largest branch and the
+order of the other two. On one of the six ordered sectors take
+\[
+ A=\frac{rt}{1+r+rt},\qquad
+ B=\frac r{1+r+rt},\qquad
+ C=\frac1{1+r+rt},\qquad 0\le r,t\le1.
+\]
+The exact measure transformation is
+\[
+ \frac{ABC}{U^3}\,dA\,dB
+       =\frac{t}{(1+t+rt)^3}\,dr\,dt.
+\]
+Together with $u,v,w\in[0,1]$, this gives six finite five-dimensional
+unit-cube integrals. The remaining reduced denominator is at least one,
+and the logarithm is bounded by the already proved physical scale bound.
+The six invariant permutations must be summed; equal permutations may be
+combined by multiplicity. Any subsequent numerical refinement diagnostic
+remains distinct from the analytic claims established here.

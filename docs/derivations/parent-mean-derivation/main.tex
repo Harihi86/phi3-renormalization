@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,geometry}
+\geometry{margin=24mm}
+\newcommand{\dd}{\,\mathrm d}
+\title{Exact parent-parameter integration of a quadratic angular control}
+\author{Phi3Lab development record}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent This derivation concerns unresolved G203 and G64. It preserves all
+16 original forest terms, both two-point \(T^2\) operations, the parent \(T^0\),
+and the overall \(T^0\). It makes no precision acceptance claim.
+
+\section*{Original routing and coordinates}
+The parent boundary invariants are \((q+P)^2,P^2,q^2\), with
+\[
+ P=-p_2\quad(\mathrm{G203}),\qquad
+ P=p_1+p_2\quad(\mathrm{G64}),\qquad P^2=1.
+\]
+The external Gram matrix has \(p_1^2=p_2^2=1\),
+\(p_1\cdot p_2=-1/2\). Although the two \(P^2\) agree, their mixed projections
+with host and bubble shifts must retain these different directions.
+
+Put \(\xi=(1-x)y\), \(X=1-\xi\), \(t=q^2\), and \(\ell=\xi X\).
+Then
+\[
+ (1-x)\dd x\dd y=\dd x\dd\xi,\qquad 0<\xi<1,\quad 0<x<X.
+\]
+Direct substitution into the routed parent variance gives
+\[
+ V(\lambda)=\ell t+2\lambda x\xi(q\cdot P)+\lambda^2x(1-x).
+\]
+The complete bubble and parent functions are
+\begin{align*}
+ B(u)&=\frac{(u+4)^{3/2}}{3\sqrt u}
+       \operatorname{arsinh}\frac{\sqrt u}{2}-\frac{4u}{9}-\frac43,\\
+ A'(u)&=\frac{B(u)}{(1+u)^2},\qquad A(0)=0,\\
+ K(x,V)&=-A\!\left(\frac{1-x+V}{x}\right)
+             +A\!\left(\frac{1-x}{x}\right).
+\end{align*}
+The disjoint bubble remains \(J(t)=B(t)/(1+t)\), retaining its repeated host
+propagator. In particular \(B(0)=B'(0)=0\).
+
+\section*{Four exact definite integrals}
+Define \(d=1+\ell t\), \(a=d/X-1\), \(b=1/X-1\), and
+\[
+ T_n(a)=\int_a^\infty\frac{B(u)}{(1+u)^n}\dd u,\qquad n=3,4,5.
+\]
+Integration by parts and \(u=d/x-1\) yield
+\begin{align*}
+ I_0&=\int_0^X K(x,\ell t)\dd x
+     =-X[A(a)-A(b)]-dT_3(a)+T_3(b),\\
+ I_1&=\int_0^X xK_V(x,\ell t)\dd x=-dT_4(a),\\
+ I_c&=\int_0^X x(1-x)K_V(x,\ell t)\dd x
+       =-dT_4(a)+d^2T_5(a),\\
+ I_2&=\int_0^X x^2K_{VV}(x,\ell t)\dd x
+       =\frac{dB(a)}{(1+a)^4}-2dT_5(a).
+\end{align*}
+For checking, at fixed \(d\),
+\[
+ K_V=-\frac{xB(d/x-1)}{d^2},\qquad
+ K_{VV}=\frac{2xB(d/x-1)}{d^3}
+             -\frac{B'(d/x-1)}{d^2}.
+\]
+Differentiating each \(I\) with respect to \(X\) reproduces its displayed
+integrand at \(X\). The lower-limit terms vanish by the logarithmic
+asymptotic growth of \(A\) and \(B(u)=O(u\log u)\).
+
+The integrated parent Taylor jet is
+\[
+ \left(I_0,\ 2\xi(q\cdot P)I_1,\
+ I_c+2\xi^2(q\cdot P)^2 I_2\right).
+\]
+Convolve this jet with those of the full three-host ratio and \(J\).
+The degree-two coefficient is then averaged in six dimensions,
+\(\langle(q\cdot a)(q\cdot b)\rangle=t(a\cdot b)/6\).
+This eliminates \(x\) from the returned control mean exactly.
+
+\section*{Closed bubble tails}
+With \(r=\sqrt{u/(u+4)}\),
+\[
+ \frac{B(u)\dd u}{(1+u)^n}
+ =\frac{32}{3}\frac{(1-r^2)^{n-3}}{(1+3r^2)^n}
+       \left(\operatorname{artanh}r-r-\frac{r^3}{3}\right)\dd r.
+\]
+Set \(z=i/\sqrt3\). Write the rational prefactor as
+\[
+ R_n(r)=\sum_{j=1}^n\left[
+ \frac{c_{nj}}{(r-z)^j}+\frac{\overline{c_{nj}}}{(r+z)^j}\right].
+\]
+The exact coefficients are
+\[
+\begin{array}{c|ccccc}
+ n\backslash j&1&2&3&4&5\\ \hline
+3&-2i\sqrt3/3&-2/3&4i\sqrt3/27&&\\
+4&-14i\sqrt3/27&-14/27&4i\sqrt3/27&8/81&\\
+5&-4i\sqrt3/9&-4/9&32i\sqrt3/243&8/81&-16i\sqrt3/729
+\end{array}
+\]
+These are exact partial-fraction identities, not fitted coefficients.
+
+For the simple pole, use
+\[
+ F_\sigma(r)=\log(1+\sigma z)\log(r-z)
+       -\operatorname{Li}_2\!\left(\frac{-\sigma(r-z)}{1+\sigma z}\right),
+ \qquad \sigma=\pm1,
+\]
+whose derivative is \(\log(1+\sigma r)/(r-z)\).
+Thus the \(\operatorname{artanh}\) integral is half the difference of the
+two \(F_\sigma\) endpoint differences. The principal branches are continuous
+on \(0\le r<1\), and the endpoint value involving \(\operatorname{Li}_2(1)\)
+is inserted exactly.
+
+Higher poles require only logarithms and rational functions. With lower
+endpoint \(r_0\), let
+\begin{align*}
+ L_1&=\log(1-z)-\log(r_0-z),\\
+ L_m&=\frac{(1-z)^{1-m}-(r_0-z)^{1-m}}{1-m}\quad(m>1),\\
+ J_0&=\log\frac{2}{1+r_0},\qquad J_m=\frac{L_m-J_{m-1}}{1+z},\\
+ v_k(r)&=\frac{(r-z)^{-k}-(1-z)^{-k}}{-k}.
+\end{align*}
+Since \(v_k(1)=0\), integration by parts gives the finite expression
+\[
+ \int_{r_0}^1\frac{\operatorname{artanh}r}{(r-z)^{k+1}}\dd r
+ =-v_k(r_0)\operatorname{artanh}r_0+
+       \frac1k\sum_{m=1}^k(1-z)^{m-k-1}J_m.
+\]
+The remaining \(r\) and \(r^3/3\) terms are elementary polynomial moments.
+This representation introduces no inner sampling or truncated tail.
+
+\section*{Density identity and checks}
+Subtract the original pointwise quadratic control from the complete
+sign-averaged density, then return its angular mean integrated over \(x\),
+uniformly over the sampled \(x\) coordinate. The matched radial map depends
+only on \(\xi\); it therefore commutes with this conditional average.
+Conditional averaging contracts the absolute integral, so the previously
+proved full-axis majorant remains valid. This is an integrability result,
+not a quadrature-error certificate.
+
+The native calculation uses explicit tensor coefficients. The independent
+reference uses the original routes, formal Taylor convolution, a twelve-axis
+angular rule, and direct parent-parameter quadrature. Exact partial fractions,
+upper-limit derivatives, direct scalar integrals, interval tests, fixed
+diagnostics, production, and independent replay are recorded separately.
+A first route assertion incorrectly equated the two external directions;
+that failed record is retained and the corrected proof binds each graph.
+
+\noindent The principal dilogarithm convention is the integral definition in
+NIST DLMF 25.12.2:
+\(\operatorname{Li}_2(z)=-\int_0^z \log(1-u)\dd u/u\).
+\end{document}

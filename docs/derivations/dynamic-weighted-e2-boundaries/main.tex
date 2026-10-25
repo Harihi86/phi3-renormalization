@@ -1,0 +1,49 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\title{Parent Taylor projections and bubble boundary momenta}
+\author{Phi3Lab: L4E2G1, L4E2G8, L4E2G17}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+The following table is transcribed from the exact original-forest records in
+\texttt{dynamic-weighted-e2-factor-proof-01/boundaries.json}.
+Here \(q,r\) are the two retained host-loop variables and \(p\) is the physical external momentum. Child indices \(0,1\) label the two degree-two bubbles; indices \(2,3\) label the overlapping vertex counterterms. The displayed parent word omits the independently selected bubble subtractions.
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Graph & Parent word & Bubble 0 boundary & Bubble 1 boundary\\
+\midrule
+L4E2G1 & \(\varnothing\) & \(q+r\) & \(-q-r\)\\
+       & \(\{2\}\) & \(q\) & \(-q\)\\
+       & \(\{3\}\) & \(r\) & \(-r\)\\
+\midrule
+L4E2G8 & \(\varnothing\) & \(r-p\) & \(q+r\)\\
+       & \(\{2\}\) & \(r-p\) & \(q\)\\
+       & \(\{3\}\) & \(r\) & \(r\)\\
+\midrule
+L4E2G17 & \(\varnothing\) & \(-q\) & \(q-p\)\\
+        & \(\{2\}\) & \(-q\) & \(q-p\)\\
+        & \(\{3\}\) & \(-q\) & \(q\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Each row represents four child states
+\[
+  w,\quad w\cup\{0\},\quad w\cup\{1\},\quad w\cup\{0,1\},
+\]
+with relative signs \(+,-,-,+\). The parent group contributes the additional factor
+\((-1)^{|w|}\). The incompatible word \(\{2,3\}\) is absent. The table therefore accounts for all \(3\times 4=12\) forests per graph and all 36 forests across these three graphs.
+
+\paragraph{Which variable is Taylor expanded?}
+A child's boundary is first treated as an independent vector \(P\). Its \(T_P^2\) acts only on that child's integrand; the adjacent host propagators are held fixed. The stored scaled routing retains this child's Taylor variable and the full host-loop dependence. Once its local coefficients are obtained, \(P\) is replaced by the corresponding vector in the table. A parent \(T^0\) can change that vector, but cannot remove the surviving host-loop variables \(q,r\).
+
+\paragraph{Edge identity is separate from momentum equality.}
+G1 has three equal-momentum host propagators already before the parent projection. Its shared edge is \(B(s)^2/(1+s)^3\).
+G8 and G17 each have two distinct bubble-bearing edge identities, with two propagators per bubble. Even when the parent word \(\{3\}\) makes their momenta equal up to sign, the two edge parameters and all four propagators must remain. Merging them into G1's triple-propagator formula would change the graph and the coefficient.
+
+\paragraph{Exact and numerical verification.}
+The exact proof reconstructs the original Gaussian and independently generated positive polynomials for every forest, checks both inner Schur eliminations and all 6141 nonempty edge subsets, and rejects twelve deliberate sign, Taylor-order, missing-forest and parent-routing mutations. The graph identity fixes which shared or distinct weighted scalar kernel is used. Subsequent interval references, fixed diagnostics, independent production and stored-request audits are required before complete-integral acceptance. This exact boundary table alone does not assert a numerical precision result.
+\end{document}

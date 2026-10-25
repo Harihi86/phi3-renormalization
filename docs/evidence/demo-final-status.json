@@ -1,0 +1,5 @@
+{
+  "command": "phi3-demo --output runs/demo-public-final",
+  "exit_code": 0,
+  "mac_compute_resumed": false
+}

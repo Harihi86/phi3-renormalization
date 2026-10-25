@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\title{A shared double-bubble edge in six-dimensional \(\phi^3\)}
+\author{Phi3Lab: isolated continuation, graph L4E2G48}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+The mass is one, with measure \(d^6k/\pi^3\) per loop. Coupling and graph symmetry factors are excluded from this numerical kernel. All twelve original forests are retained. Their four bubble-subtraction states form three compatible vertex-forest groups. The two overlapping vertex alternatives cannot appear together.
+
+\paragraph{Shared momentum and local subtraction.}
+Both bubbles carry the same boundary momentum \(P\), with \(s=P^2\). Each bubble undergoes the complete degree-two Taylor subtraction in its own boundary vector, with the host held fixed. After the inner integrations the renormalized bubble is
+\[
+ B(s)=\int_0^1\{[1+x(1-x)s]\log[1+x(1-x)s]-x(1-x)s\}\,dx .
+\]
+It also has the positive spectral representation
+\[
+ B(s)=s^2\int_0^{1/4}\frac{\rho(\sigma)}{1+\sigma s}\,d\sigma,\qquad
+ \rho(\sigma)=\frac{(1-4\sigma)^{3/2}}6 .
+\]
+The three host propagators with this momentum give the single effective edge
+\[
+ W(s)=\frac{B(s)^2}{(1+s)^3}.
+\]
+The host factors must not be reduced to a squared propagator.
+
+\paragraph{Exact common-scale remainder.}
+For each compatible vertex forest, let \(U\) and \(F\) be its effective two-loop, five-edge Gaussian polynomials. Write \(M=\sum_e\alpha_e\), \(d=\alpha_{\rm shared}\), and \(z=F/U\).
+If \(W(s)=\int_0^\infty e^{-s t}w(t)\,dt\), the common-scale Taylor remainder is characterized by
+\[
+ J(0)=J'(0)=0,\qquad
+ J''(z)=\int_0^\infty e^{-(M+z-d)\lambda}w(d\lambda)\,d\lambda
+       =\frac1d W\!\left(\frac{M+z-d}{d}\right).
+\]
+The formula can be established spectrally even when an inverse Laplace weight is interpreted distributionally. Consequently,
+\[
+ J(M,d,z)=d^2z^2\int_0^1
+ \frac{(1-v) B((M+vz-d)/d)^2}{(M+vz)^3}\,dv .
+\]
+Both the constant and \(P^2\) terms have been removed. The \(v\) integral is complete, including both endpoints by continuity.
+
+\paragraph{Independent spectral check.}
+For distinct \(0<\sigma,\tau\leq1/4\), put
+\[
+ f(x)=\frac{x^4}{(1+\sigma x)(1+\tau x)},\quad
+ c_3=f(-1),\quad c_2=f'(-1),\quad c_1=\tfrac12f''(-1),
+\]
+\[
+ c_\sigma=\frac1{(\sigma-1)^3(\sigma-\tau)},\qquad
+ c_\tau=\frac1{(\tau-1)^3(\tau-\sigma)} .
+\]
+Then, as an exact rational identity,
+\[
+ \frac{x^4}{(1+x)^3(1+\sigma x)(1+\tau x)}
+ =\frac{c_1}{1+x}+\frac{c_2}{(1+x)^2}
+  +\frac{c_3}{(1+x)^3}+\frac{c_\sigma}{1+\sigma x}
+  +\frac{c_\tau}{1+\tau x}.
+\]
+With \(R(M,z)=(M+z)\log(1+z/M)-z\), its scale primitive is
+\[
+ c_1R-c_2dR_M+\frac{c_3d^2}{2}R_{MM}
+ +\frac{c_\sigma}{\sigma}R(M+d(\sigma^{-1}-1),z)
+ +\frac{c_\tau}{\tau}R(M+d(\tau^{-1}-1),z).
+\]
+The factor \(1/2\) for a triple propagator and the minus sign for a double propagator are explicit. Differentiation twice in \(z\), with zero initial data, proves equality to the complete remainder above. The spectral diagonal is a removable singularity of this decomposition; the numerical kernel uses continuous \(B^2\).
+
+\paragraph{Five-dimensional measure and verification.}
+The integrand is the signed sum of \(J/U^3\) over the three groups, of homogeneity \(-5\). Sum all five sectors in which one \(\alpha_e=1\) is largest and the other four range over \([0,1]\). The normalized simplex Jacobian cancels the homogeneity; no extra \(4!\) is present. The remaining integration coordinates are these four projective variables and \(v\).
+
+Exact checks reconstruct the original twelve forests, all 2047 nonempty edge subsets, the original Gaussian matrices, independently generated positive polynomials, and both inner Schur eliminations. Native interval kernels use Gaussian determinants and positive minors separately. Independent references solve the original effective Gaussian Schur system and compute \(B\) from
+\[
+ B(s)=\frac{s^2}{60}\,{}_2F_1(1,1;7/2;-s/4),
+\]
+with full Feynman parameter integration as a further check. Pointwise arithmetic verification is separate from complete-integral statistical acceptance. No rigorous quadrature bound or completed graph acceptance is asserted by this derivation alone.
+\end{document}

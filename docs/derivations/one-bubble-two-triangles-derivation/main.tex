@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,geometry}
+\geometry{margin=25mm}
+\title{One bubble and two disjoint triangles: an exact three-dimensional representation}
+\author{Phi3Lab}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent Graphs \(G249,G404\) have four loops and three external legs.
+The measure is \(\mathrm d^6k/\pi^3\) per loop, \(m^2=1\), and all
+three external invariants are one. Symmetry weights and coupling
+powers remain outside these scalar kernels.
+
+\section*{Original forests and retained propagators}
+Each graph has three disjoint primitive children, hence eight
+forests with sign \((-1)^{|F|}\). The bubble retains its degree-two
+Taylor variable; each triangle uses degree zero. All original
+Gaussian, positive-polynomial and Schur-complement constructions
+of \(U,F\) are compared exactly.
+
+Write
+\[
+ B(t)=\int_0^1[(1+x(1-x)t)\log(1+x(1-x)t)-x(1-x)t]\,\mathrm dx,
+ \quad J(t)=\frac{B(t)}{1+t}.
+\]
+Then \(B(0)=B'(0)=0\), recording both mass and kinetic subtraction.
+Of the four original host propagators, precisely one matching
+the bubble boundary is absorbed into \(J\). The other three remain.
+Each triangle is \(T_i=-L(a_i,b_i,1)\), including simplex volume
+\(1/2\). At zero physical momentum, \(T_i=-E(t)/2\), where
+\[
+ E(t)=2\sqrt{\frac{t+4}{t}}\operatorname{arsinh}\frac{\sqrt t}{2}-2,
+ \qquad B(t)=\frac{t+4}{6}E(t)-\frac t9.
+\]
+Thus the complete product is \(HJT_1T_2\), with baseline
+\(J(t)[-E(t)/2]^2\). Overall Taylor subtraction sets only physical
+external momenta to zero; the host loop remains integrated.
+
+\section*{Three-dimensional density}
+Let \(t=[s/(1-s)]^2\), with \(s,z,\theta\in(0,1)\). Choose
+\[
+ q\cdot p_1=\sqrt{tz}\cos(\pi\theta),\qquad
+ q\cdot p_2=\frac{\sqrt{tz}}2[-\cos(\pi\theta)+\sqrt3\sin(\pi\theta)].
+\]
+The common radial factor is
+\[
+ W(s)=\frac{2}{s(1-s)}\left(\frac{t}{1+t}\right)^3,
+\]
+and the orientation density is \(1-z\). Normalize the three
+remaining host ratios at zero physical momentum. If \(F(\lambda)\)
+is their product with \(J,T_1,T_2\), with only physical momenta
+scaled by \(\lambda\), define
+\[
+ A=\frac{F(1)+F(-1)}2-F(0),\qquad C=\frac{F''(0)}2.
+\]
+The direct and controlled densities are respectively
+\[
+ W(1-z)A,\qquad W\{(1-z)(A-C)+\tfrac12\langle C\rangle\}.
+\]
+The half is required because \(\int_0^1(1-z)\,\mathrm dz=1/2\).
+The six-dimensional mean uses
+\(\langle(q\cdot p_a)(q\cdot p_b)\rangle=t(p_a\cdot p_b)/6\).
+This is a zero-integral control, without a new physical counterterm.
+
+The independent reference keeps all four original host propagators
+and uses \(B\), independently differentiated scalar functions,
+factorwise Taylor convolution including \(1/2!\), and twelve axial
+directions. It does not share the native regrouping or covariance
+calculation.
+
+\section*{Whole-axis bound}
+For \(t\geq16\), set \(L=\log(1+t)\). The previously verified scalar
+bounds give \(J,T_i\leq L\) in absolute value, first physical
+derivatives bounded by \(2L/\sqrt t\), and second derivatives
+bounded by \(40L/t,16L/t,16L/t\), respectively.
+Their product therefore has second derivative bounded by
+\(96L^3/t\). This is below the previous mixed-family constant
+\(120\), so the radial majorant
+\[
+ 3672\,\frac{\log^3(1+t)}{t^2}
+\]
+still applies, including the zero-integral control.
+
+For \(0\leq t\leq16\), the bounds for
+\((J,J',J'')\) are \((1,10,502)\), and for each triangle
+\((2,2,5)\). The three-child product has bounds \((4,48,2196)\).
+Combining the host factors yields
+\[
+ 1206\cdot4+2\cdot30\cdot48+2196=9900
+\]
+times \((1+t)^3\), hence the compact radial bound \(7425t^2\).
+These estimates establish absolute integrability, not numerical
+integration accuracy.
+
+\section*{Evidence}
+The earlier authenticated bubble proof supplies four exact
+derivative identities and fifteen direct 180-digit parameter
+integrals; these checks are inherited, not claimed as rerun.
+The new original forests, native tests, fixed diagnostics,
+independent production and complete stored-request replay each
+require their own recorded successful exits. Empirical gates
+remain unchanged and are not rigorous quadrature certificates.
+\end{document}

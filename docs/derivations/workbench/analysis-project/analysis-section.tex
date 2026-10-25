@@ -1,0 +1,267 @@
+\section{Recursive BPH subtraction of the overlapping two-loop graph}
+We consider one particular massive Euclidean six-dimensional graph, rather
+than infer a general BPH theorem from a finite computation. Write
+\[
+ D(r)=\frac1{r^2+M},\qquad M=m^2>0,\qquad s=p^2\geq0,
+ \qquad d\mu(k)=\frac{d^6k}{\pi^3}.
+\]
+The unweighted integral has integrand
+\[
+ I=D(k)D(p-k)D(q)D(p-q)D(k-q).
+\]
+The two proper divergent subgraphs are the overlapping triangles
+\(\gamma_1=\{a,b,e\}\) and \(\gamma_2=\{c,d,e\}\), each of Taylor degree zero.
+The graph itself has Taylor degree two. Bogoliubov's recursion gives
+\begin{align}
+ \bar R I&=I-T_1I-T_2I,\\
+ T_1I&=D(k)^3D(q)D(p-q),&
+ T_2I&=D(q)^3D(k)D(p-k),\\
+ RI&=(1-t_G^2)\bar R I.
+\end{align}
+The independent external inputs of the first triangle are \((q,p)\); its
+loop momentum \(k\) is held fixed by \(T_1\). The second operation is symmetric.
+The two triangles cannot belong to one disjoint spinney, so there is no
+\(T_1T_2\) product. Expanding the recursion produces six terms, but none is
+to be integrated separately without a common regulator.
+
+\subsection{A common regulator and the finite parameter representation}
+For every original edge use
+\[
+ D_\eta(r)=\int_\eta^\infty e^{-\alpha(r^2+M)}\,d\alpha,
+ \qquad\eta>0.
+\]
+Apply the subgraph and overall Taylor operations to the regulated propagators
+before Gaussian integration. Counterterms retain all five original Schwinger
+labels, so the integration domain \(\alpha_e\geq\eta\) is common to all terms.
+In the order \(D(k),D(p-k),D(q),D(p-q),D(k-q)\), call these labels
+\(a,b,c,d,e\). Gaussian integration gives
+\begin{align}
+ U&=(a+b)(c+d)+e(a+b+c+d),\\
+ V&=ab(c+d)+cd(a+b)+e(a+c)(b+d),&w&=V/U,\\
+ U_1&=(a+b+e)(c+d),&w_1&=cd/(c+d),\\
+ U_2&=(a+b)(c+d+e),&w_2&=ab/(a+b).
+\end{align}
+Set \(\alpha_e=\rho x_e\), \(\sum x_e=1\). The five-parameter measure
+contributes \(\rho^4\), while the two-loop Gaussian contributes
+\(\rho^{-6}\). The overall subtraction replaces \(e^{-s\rho w}\) by
+\(e^{-s\rho w}-1+s\rho w\). Its common radial lower limit is
+\(T(x)=\eta/\min_e x_e\). Define
+\begin{align}
+ K_T(z)&=\int_T^\infty\rho^{-2}e^{-M\rho}
+              (e^{-z\rho}-1+z\rho)\,d\rho,\\
+ K(z)=K_0(z)&=(M+z)\log(1+z/M)-z.
+\end{align}
+Uniformly for all \(T\geq0\) and \(z\geq0\),
+\begin{equation}\label{eq:kernel-bounds}
+ 0\leq K_T(z)\leq\frac{z^2}{2M},\qquad
+ 0\leq K_T'(z)\leq\log(1+z/M)\leq\frac zM,\qquad
+ 0\leq K_T''(z)\leq\frac1{M+z}.
+\end{equation}
+These inequalities will provide a regulator-independent integrable majorant;
+the limit \(\eta\downarrow0\) will therefore follow from dominated convergence.
+
+On the simplex write
+\[
+ a=Au,\quad b=A(1-u),\quad c=Bv,\quad d=B(1-v),\quad e=E,
+ \qquad A+B+E=1.
+\]
+The Jacobian is \(AB\,dA\,dB\,du\,dv\), with \(u,v\in[0,1]\). Let
+\(h(t)=t(1-t)\). Then
+\begin{align}
+ U&=AB+E(A+B),& U_1&=B(A+E),& U_2&=A(B+E),\\
+ x&=Ah(u),& y&=Bh(v),& z&=\frac{EAB}{U}(u-v)^2,\\
+ w&=x+y+z.&&&
+\end{align}
+The finite representation is
+\begin{equation}\label{eq:finite-overlap}
+ J_R(s,M)=\int_{A,B\geq0,\ A+B\leq1}\!dA\,dB
+       \int_0^1du\int_0^1dv\;AB\,H,
+ \quad
+ H=\frac{K(sw)}{U^3}-\frac{K(sy)}{U_1^3}-\frac{K(sx)}{U_2^3}.
+\end{equation}
+No symmetry weight, coupling, or \((4\pi)^{-6}\) loop-measure factor is
+included in \(J_R\).
+
+\subsection{An explicit absolute majorant for every parameter UV face}
+Because \(EAB/U\leq AB/(A+B)\), the weighted variance identity implies
+\[
+ 0\leq w\leq\frac{A+B}{4}.
+\]
+On the half-domain \(A\leq B\),
+\[
+ 0\leq w-y\leq A,
+\]
+since \(z/A\leq(u-v)^2\) and \(h(u)+(u-v)^2\leq1\).
+Pair the bare contribution with the first counterterm on this half-domain.
+With \(r=A+E\), \(U=U_1+AE\), so
+\[
+ 0\leq U_1^{-3}-U^{-3}\leq3AE/U_1^4.
+\]
+Using the mean value theorem and \eqref{eq:kernel-bounds} gives
+\begin{equation}\label{eq:majorant}
+ AB|H|\leq\frac{s^2}{M}(\mathcal B_1+\mathcal B_2+\mathcal B_3),
+\end{equation}
+where
+\[
+ \mathcal B_1=\frac{A^2(A+B)}{4B^2(A+E)^3},\qquad
+ \mathcal B_2=\frac{3A^2E}{32B(A+E)^4},\qquad
+ \mathcal B_3=\frac{B}{32(B+E)^3}.
+\]
+The \(u,v\) intervals have unit volume. To integrate the remaining two
+parameters, set \(A=rt\), \(E=r(1-t)\), \(B=1-r\). The upper limit of
+\(t\) is \(\min(1,(1-r)/r)\). Direct antiderivatives give
+\begin{align}
+ \int_{A\leq B}\mathcal B_1\,dA\,dB&=\frac{\log2}{6}-\frac1{96},\\
+ \int_{A\leq B}\mathcal B_2\,dA\,dB&=\frac{\log2}{16}-\frac9{256},\\
+ \int_{A\leq B}\mathcal B_3\,dA\,dB&=\frac1{128}.
+\end{align}
+The other half-domain follows by exchanging the loops. Consequently
+\begin{equation}\label{eq:quadratic-bound}
+ \int AB|H|\leq C\frac{s^2}{M},\qquad
+ C=\frac{11\log2}{24}-\frac{29}{384}
+   =0.242171624423308\ldots.
+\end{equation}
+This explicitly controls the triangle UV faces, their adjacent corners and
+the overall radial limit. It is not just superficial power counting.
+
+The same majorant also controls the Gaussian-integrated Schwinger expression
+before radial integration: write the bare-minus-counterterm pair as
+\[
+ U^{-3}[E_\rho(sw)-E_\rho(sy)]
+ -(U_1^{-3}-U^{-3})E_\rho(sy),\qquad
+ E_\rho(z)=e^{-\rho z}-1+\rho z.
+\]
+The first bracket, inverse-cube difference, and \(E_\rho\) are nonnegative.
+Take the triangle inequality first, and then integrate each positive piece
+radially. They produce exactly the \(K\)-differences and \(K\)-values above.
+Thus absolute control does not depend on cancellation after the radial
+integral has already been performed.
+
+\subsection{Uniform external-scale and derivative bounds}
+For large external momentum a purely quadratic bound in \(s\) is unnecessarily
+weak. Let \(L=\log(1+s/(4M))\). Use \(K'\leq L\) and
+\(K(sy)\leq sBL/4\) in the same pair. The two resulting half-domain integrals
+are respectively \(1/2\) and \(1/8\), so their sum contributes at most
+\(5sL/8\). The remaining counterterm obeys
+\[
+ \int_0^{1/2}\frac{K(sA/4)}{A^2}\,dA
+ \leq\frac s4\left(\ell+\frac{\ell^2}{2}\right),\qquad
+ \ell=\log(1+s/(8M))\leq L.
+\]
+For example, integrate by parts and use
+\[
+ \int_0^T\frac{\log(1+t)}t\,dt
+ \leq\log(1+T)+\frac12\log^2(1+T).
+\]
+The derivative of the right side minus the left side is nonnegative because
+\(\log(1+T)\leq T\). Reflecting both half-domains yields
+\begin{equation}\label{eq:global-bound}
+ |J_R|\leq\int AB|H|
+ \leq\min\left\{\frac{Cs^2}{M},\quad
+          s\left(\frac74L+\frac14L^2\right)\right\}.
+\end{equation}
+Thus the global growth is at most \(s\log^2s\). For \(|p|\leq P\) and
+\(m^2\geq m_0^2>0\), replacing \(s\) by \(P^2\) and \(M\) by \(m_0^2\)
+gives a compact-uniform bound.
+
+Differentiation under the parameter integral is justified by replacing
+\(K(sw)\) with \(w\log(1+sw/M)\) or \(w^2/(M+sw)\) and repeating the
+same majorant argument. For \(s>0\),
+\begin{align}
+ |J_R'(s)|&\leq\min\left\{2Cs/M,\quad1+7L/4+L^2/4\right\},\\
+ |J_R''(s)|&\leq\min\left\{2C/M,\quad(5/4+L/2)/s\right\}.
+\end{align}
+At \(s=0\), use the continuous bound \(2C/M\); also
+\(J_R(0)=J_R'(0)=0\). In vector momentum variables,
+\[
+ |\nabla_p J_R|\leq4CP^3/m_0^2,\qquad
+ \|\nabla_p^2J_R\|\leq12CP^2/m_0^2
+ \quad (|p|\leq P,\ m^2\geq m_0^2).
+\]
+
+\subsection{A separate momentum-space absolute-convergence proof}
+The parameter \(L^1\) norm need not equal the momentum \(L^1\) norm.
+We therefore prove absolute convergence of the original twelve-dimensional
+subtracted expression independently. Write
+\(\langle r\rangle=\sqrt{r^2+m^2}\). For a unit direction,
+\[
+ |\partial^nD(r)|\leq c_n\langle r\rangle^{-2-n},\qquad
+ (c_0,c_1,c_2,c_3)=(1,2,10,72).
+\]
+Taylor's integral remainder applied to \(\bar R I\) gives \(P^3/6\) times
+a supremum of its third directional derivative for \(|p|\leq P\).
+
+First consider \(|k|\geq2(|q|+P+m)\). Put
+\(h=D(k)D(k-p)D(k-q)\), \(a_q=D(q)D(q-p)\), and
+\(\Lambda=1+P/m\). Pair before estimating:
+\[
+ \bar R I=(h-D(k)^3)a_q-D(q)^3D(k)D(k-p).
+\]
+The mean value theorem, shifted-bracket comparison, and the derivative bounds
+give
+\begin{align}
+ |h-D(k)^3|&\leq64(P+|q|)\langle k\rangle^{-7},\\
+ |\partial^nh|&\leq(64,640,9216)_n\langle k\rangle^{-6-n},
+       && n=1,2,3,\\
+ |\partial^ja_q|&\leq c_j\Lambda^{2+j}\langle q\rangle^{-4-j}.
+\end{align}
+Leibniz's formula then yields
+\[
+ |RI|\leq\frac{P^3C_h(\Lambda)}6
+        \langle k\rangle^{-7}\langle q\rangle^{-6},
+ \quad
+ C_h(\Lambda)=4608\Lambda^6+1920\Lambda^4+3840\Lambda^3
+                  +9216\Lambda^2+2304.
+\]
+The normalized radial angular factor is one, and
+\[
+ \int_{|k|\geq2(|q|+P+m)}\langle k\rangle^{-7}\,d\mu(k)
+ \leq\frac1{2\langle q\rangle},\qquad
+ \int\langle q\rangle^{-7}\,d\mu(q)=\frac8{15m}.
+\]
+Both symmetric hierarchy regions together therefore have absolute integral
+at most
+\[\frac{4C_h(\Lambda)P^3}{45m}.\]
+
+Outside these regions, let \(K=\max(|k|,|q|)\geq K_0=8(P+m)\).
+Then both loop momenta are at least \(K/4\), and their external shifts at
+least \(K/8\). After three derivatives, the bare term is bounded by
+\(264\,8^{11}K^{-11}D(k-q)\), and both counterterms together by
+\(144\,8^{13}K^{-13}\). This does not assume that \(k-q\) is hard.
+On a dyadic shell \(K\in[K_n,2K_n]\), \(K_n=2^nK_0\),
+\[
+ \int_{|k-q|\leq4K_n}D(k-q)\,d\mu(q)\leq64K_n^4,
+ \qquad\operatorname{vol}\{|k|\leq2K_n\}=\frac{64K_n^6}{6}.
+\]
+The shell integrals are thus bounded by constants times \(P^3/K_n\), whose
+sum is finite. One explicit bound for this comparable region is
+\[
+ \frac{P^3}{3K_0}
+ \left[264\,8^{11}\frac{2048}{3}
+              +144\,8^{13}\frac{1024}{9}\right].
+\]
+Finally \(K\leq K_0\) is compact. The third derivative is bounded by
+\(408m^{-13}\), so \(|RI|\leq68P^3m^{-13}\); the product-ball volume is
+\(K_0^{12}/36\). These three regions prove a finite momentum \(L^1\) norm.
+They also give uniform control for \(|p|\leq P\), \(m\geq m_0>0\).
+
+The same estimates hold uniformly for \(D_\eta\). Indeed, after differentiating
+its Schwinger representation, the absolute values of the positive
+\(\alpha\)-moment contributions from \(\eta\) to infinity are bounded by
+their integrals from zero to infinity, giving the same constants
+\(1,2,10,72\). The propagator-difference estimates are uniform as well.
+Momentum-space dominated convergence proves
+\(\int RI_\eta\to\int RI_0\); parameter-space dominated convergence proves
+that the same limit is \eqref{eq:finite-overlap}. This establishes their
+equality without a termwise exchange of unregulated divergent integrals.
+
+\subsection{Interpretation}
+The bounds concern this graph with a common positive mass. The explicit constant
+\(C\) controls the parameter norm and amplitude magnitude; the separate,
+much rougher momentum \(L^1\) estimate has different constants. Neither is a
+quadrature error estimate. At \(s=M=1\), the computed benchmark is approximately
+\(J_R=0.00277755520593736\); multiplying only the graph weight \(1/S=1/2\)
+halves it. Couplings, standard loop-measure factors and any effective-action
+sign convention remain separate. The construction follows the recursive
+framework of Kennedy's BPH treatment; it does not establish a general
+arbitrary-loop theorem from this representative example.

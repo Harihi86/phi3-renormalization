@@ -1,0 +1,6 @@
+{
+  "scope": "Installed public CLI, source manifests, saved-path corruption and local HTTP verification",
+  "mac_compute_resumed": false,
+  "command": "python -m pytest -q tests/test_counterterms_public.py",
+  "exit_code": 0
+}

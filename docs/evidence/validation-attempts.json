@@ -1,0 +1,21 @@
+{
+  "packaging_initial_nonisolated_attempt": {
+    "exit_code": 1,
+    "reason": "Fresh venv had no setuptools build backend for --no-build-isolation. Normal isolated installation succeeded; requirements unchanged."
+  },
+  "public_api_initial_run": {
+    "passed": 7,
+    "warnings": 3,
+    "warning_context": "pytest attempted cleanup of unrelated old shared temporary directories and received PermissionError. Final tests use a new repository-local scratch directory.",
+    "raw_log_sha256": "4ea979d919d26ceb8fb56f9e23b1d3bdf8d8c14e6ed316b240f3d604233ff1d2",
+    "published_log_changes": "Absolute Windows user paths redacted; scientific results and warnings retained."
+  },
+  "mac_compute_resumed": false,
+  "isolated_temp_initial_run": {
+    "passed": 55,
+    "fixture_errors": 4,
+    "reason": "Explicit pytest basetemp parent was absent. Fixed by creating only the repository-local parent before configuring a fresh unique directory.",
+    "raw_log_sha256": "bd6b81fdee516e828f26f781e529bf815a6815289af8a5c6db2f6de6f24a5a89",
+    "public_log_changes": "Absolute local paths redacted."
+  }
+}

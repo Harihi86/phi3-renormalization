@@ -1,0 +1,4 @@
+{
+  "exit_code": 0,
+  "command": "phi3-ct verify --input examples/counterterms"
+}

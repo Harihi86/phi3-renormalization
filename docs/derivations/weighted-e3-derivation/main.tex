@@ -1,0 +1,281 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\title{Common-scale integration for bubble-weighted three-point graphs}
+\author{Phi3Lab: L4E3G39, G63, G202, G394}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+Use unit mass and loop measure \(d^6k/\pi^3\). Coupling and symmetry factors are excluded. The original thirty-two forests form eight groups of four bubble subtraction states. All parent projections and boundary momenta remain those of the original routed graph.
+
+\paragraph{Two external momenta.}
+With \(G=\left(\begin{smallmatrix}1&-1/2\\-1/2&1\end{smallmatrix}\right)\), the effective two-loop Gaussian matrix is a \(4\times4\) matrix. Its upper \(2\times2\) block determines \(U\), and
+\[
+ F=\sum_{i,j=0}^1G_{ij}\det Q_{(0,1,2+i),(0,1,2+j)}.
+\]
+For each three-edge subset, let \(a,b\) be the route minors with external column \(0,1\), respectively. Its positive coefficient in \(F\) is \(a^2+b^2-ab\). Thus both external directions and their cross term are retained.
+
+\paragraph{Overall zero-order subtraction.}
+For \(M=\sum\alpha_e\), \(z=F/U\), the ordinary common-scale remainder is
+\[
+ R(M,z)=-\log(1+z/M),\qquad
+ R_M=\frac{z}{M(M+z)},\qquad
+ R_{MM}=-\frac{z(2M+z)}{M^2(M+z)^2}.
+\]
+These signs differ from the degree-two two-point remainder. The local bubble subtraction remains degree two.
+
+Let \(B(s)\) be the renormalized one-loop bubble, and \(A'(s)=B(s)/(1+s)^2\), \(A(0)=0\). For one weighted edge,
+\[
+ t_0=\frac{M-d}{d},\quad t_1=t_0+\frac zd,\quad
+ J(M,d,z)=-A(t_1)+A(t_0),
+\]
+\[
+ J_M=-\frac1d\left[\frac{B(t_1)}{(1+t_1)^2}
+                        -\frac{B(t_0)}{(1+t_0)^2}\right].
+\]
+The initial condition is \(J(M,d,0)=0\), and
+\(J_z=-B(t_1)/[d(1+t_1)^2]\).
+
+\paragraph{Two distinct weighted edges: G63 and G202.}
+Set
+\[
+ c_\tau=\frac{\tau-2}{(1-\tau)^2},\quad
+ h_\tau=\frac1{1-\tau},\quad
+ k_\tau=\frac1{(1-\tau)^2},\qquad
+ \rho(\tau)=\frac{(1-4\tau)^{3/2}}6 .
+\]
+The complete scalar kernel is
+\[
+ K=c_\tau J(M,d,z)-h_\tau e J_M(M,d,z)
+ +\frac{k_\tau}{\tau}J(M+e(\tau^{-1}-1),d,z),
+\]
+integrated with \(\rho(\tau)\,d\tau\) on the full interval \([0,1/4]\).
+An independent reference retains the full nine-term product of the two rational spectral decompositions, using \(R,R_M,R_{MM}\) above.
+For \(r=1-u^2\), \(\tau=(1-r^2)/4\), the positive measure is
+\(u r^4\,du/6\).
+
+\paragraph{A shared triple propagator: G39 and G394.}
+Here the effective edge is \(W(s)=B(s)^2/(1+s)^3\). Its scale primitive obeys
+\[
+ K_z=-\frac1d W\!\left(\frac{M+z-d}{d}\right),\qquad K(0)=0,
+\]
+and therefore
+\[
+ K(M,d,z)=-d^2z\int_0^1
+ \frac{B((M+vz-d)/d)^2}{(M+vz)^3}\,dv .
+\]
+There is no factor \(1-v\) and no \(z^2\). Those would implement a different overall Taylor order. Five exact spectral partial fractions independently establish this first-derivative identity, including the \(1/2\) coefficient of the second mass derivative for the triple propagator.
+
+\paragraph{Measure and actual proof scope.}
+The signed forest sum \(K/U^3\) is homogeneous of degree \(-6\). Sum all six sectors with one \(\alpha_e=1\) maximal and five other parameters in \([0,1]\). The normalized simplex Jacobian cancels that homogeneity; do not multiply by \(5!\). The sixth variable is the full shared-edge remainder coordinate \(v\), or the distinct-edge spectral coordinate \(u\).
+
+The graph proof rebuilds all thirty-two forests, all 16380 nonempty edge subsets, the original Gaussian and independent positive polynomials, and both inner Schur eliminations. Scalar tests check four complete shared spectral integrals, three complete nine-term integrals, three independent mass derivatives and three complete single-edge integrals at 200-digit arithmetic with 120-digit relative agreement. These checks do not assert complete-integral numerical acceptance.
+
+The four targets overlap the earlier cohort40. Reconcile its actual outcomes before new production; use this alternative only for targets that remain unresolved. Arithmetic interval validation, fixed diagnostics, fresh production and independent stored-request auditing remain mandatory stages.
+\paragraph{Complete rational sector transport (cohort 66).}
+The four graphs remain unresolved in accounting index 59. For each original
+paired state, let \(\nu_P(S)\) be the smallest number of edges of \(S\) in a
+monomial of \(P\). The proposal uses
+\[
+ \gamma(S)=\min_{\text{paired states}}
+ \{ |S|+\nu_F(S)-4\nu_U(S)\},\qquad
+ \beta(S)=\begin{cases}\gamma(S),&\gamma(S)\ge1,\\1/P,&\gamma(S)<1,\end{cases}
+ \quad P\in\{2,4\}.
+\]
+These scores define a positive proposal; they are not a proof of absolute
+integrability or a variance bound for the signed forest.
+For every nonempty proper subset of the six effective edges, define
+\[
+ H(\varnothing)=1,\qquad
+ H(S)=\frac{1}{\beta(S)}\sum_{e\in S}H(S\setminus\{e\}),\qquad
+ Z=\sum_{e\in E}H(E\setminus\{e\}).
+\]
+At each step choose the next edge with probability proportional to
+\(H(S\setminus\{e\})\). All \(6!=720\) orders occur, and for the order
+\(\pi=(\pi_0,\ldots,\pi_5)\), with \(S_j=\{\pi_j,\ldots,\pi_5\}\),
+\[
+ p_\pi=\frac1Z\prod_{j=1}^5\frac1{\beta(S_j)}.
+\]
+Set \(\alpha_{\pi_0}=1\), \(\alpha_{\pi_j}=r_1\cdots r_j\). For each
+\(j\), use
+\[
+ r_j=\begin{cases}
+ \displaystyle\frac{c_j u_j}{1+(c_j-1)u_j},&c_j=\gamma(S_j)\ge1,\\
+ u_j^P,&\gamma(S_j)<1,
+ \end{cases}
+ \qquad
+ J_\pi=\prod_{j=1}^5\frac{dr_j}{du_j}r_j^{5-j}.
+\]
+If \(y\) is the independent order selector, average its six translations
+\((y+k/6)\bmod1\). The complete density is
+\[
+ \frac16\sum_{k=0}^5\frac{J_{\pi_k}}{p_{\pi_k}}
+ \rho_v(v)\sum_f\operatorname{sign}(f)
+ \frac{K_f(M,d,e,F_f/U_f;v)}{U_f^3}.
+\]
+Here \(\rho_v=1\) for the shared-edge kernel and
+\(\rho_v=v(1-v^2)^4/6\) for the distinct-edge kernel. The auxiliary
+coordinate \(v\) remains unchanged: the input has one selector, five ratios
+and one auxiliary coordinate, while the physical integral has six dimensions.
+There is no additional factorial or primary-chart multiplicity.
+
+The exact measure verifier rebuilds all 32 original forests and checks eight
+tables, 720 orders per table, 63 conditional partitions, 41 complete-chart
+moments, 35 ratio identities, and 160 boundary or selector-seam cases.
+The generic eight-edge specialization also reproduces 240 previously verified
+two-point orbit sectors exactly. These are actual algebraic checks; they add
+no accepted complete integrals. The native implementation evaluates both
+original Gaussian determinants and independently generated positive minors
+over exact rationals before conversion to interval arithmetic. The independent
+reference instead solves the original two-column Schur system at high
+precision, retaining both external directions and their cross term.
+\paragraph{One bubble and vertex forests: twenty-two further graphs.}
+Inspection of the unresolved original programs finds 22 graphs with exactly
+one primitive two-point bubble and only vertex-type remaining proper parts.
+The new factor proof actually reconstructs 148 original forests and 74 paired
+states, and exhaustively examines \(22(2^{12}-1)=90090\) nonempty edge subsets.
+Every original divergent 1PI part and local Taylor order agrees.
+All original-to-Schur and positive-polynomial identities pass; three
+deliberate forest or Taylor-order corruptions are rejected.
+
+Write \(\ell=\alpha_a+\alpha_b\) for the two bubble edges, and let
+\(H\) be the \(5\times5\) host Gaussian matrix after a recorded affine
+unimodular change of the four original loop momenta. The two independent
+physical external columns remain. If \(\zeta\) is the bubble's local Taylor
+variable (or one when this Taylor operator is absent), then
+\[
+ Q=\ell H+\alpha_a\alpha_b\zeta^2 e_1e_1^T,\qquad
+ U_{\rm original}=\frac{\det Q_{\rm loop}}{\ell^2},\qquad
+ F_{\rm original}=\frac1{\ell^3}
+       \sum_{i,j=0}^1G_{ij}\det Q_{(0,1,2,3+i),(0,1,2,3+j)}.
+\]
+These equalities are checked symbolically before the bubble integration.
+The two duplicated host propagators are identified in the bare graph and
+kept by their original edge identities in every forest. A parent projection
+that makes a different edge momentum equal does not merge that edge.
+
+After pairing the bubble subtraction, there are three host loops and nine
+effective parameters. The positive four-edge coefficients of \(F\) are
+again \(a^2+b^2-ab\); \(U\) has degree three and \(F\) degree four.
+With \(M=\sum_{e=1}^9\alpha_e\), \(d=\alpha_{\rm weighted}\),
+and \(z_f=F_f/U_f\), the original common-scale identity gives
+\[
+ J(M,d,z)=A\!\left(\frac{M-d}{d}\right)
+          -A\!\left(\frac{M+z-d}{d}\right),\qquad
+ J_z=-\frac{B((M+z-d)/d)}{d[1+(M+z-d)/d]^2},\qquad J(M,d,0)=0.
+\]
+The negative derivative implements the overall three-point \(T^0\)
+remainder. The bubble still has its own \(T^2\) subtraction. Retain the full
+sum \(\sum_f\operatorname{sign}(f)J(M,d,z_f)/U_f^3\) before integration.
+
+This density has degree \(-9\). The nine largest-parameter charts have
+normalized-simplex Jacobian \((1+\sum_{j=1}^8x_j)^{-9}\), with no extra
+\(8!\). The physical integral is eight-dimensional. The proposed exact
+transport has one order selector and eight ratios, all \(9!=362880\)
+orders, and nine selector translations. Replace six by nine in the earlier
+conditional-mass recurrence and use
+\(J_\pi=\prod_{j=1}^8r_j' r_j^{8-j}\). The score remains
+\(\min_f\{|S|+\nu_{F_f}(S)-4\nu_{U_f}(S)\}\), solely as proposal design.
+An independent integer enumeration checks the normalization of every order
+without floating-point probabilities. The measure and subsequent numerical
+stages have separate actual completion records; the successful 148-forest
+factor proof does not imply acceptance of these 22 complete integrals.
+\section{Closed primitives for two bubbles on a shared edge}
+Define normalized primitives
+\[
+ A_2'(t)=\frac{B(t)^2}{(1+t)^3},\qquad
+ C_2'(t)=\frac{tB(t)^2}{(1+t)^3},\qquad A_2(0)=C_2(0)=0.
+\]
+The complete shared-edge auxiliary integrals, with
+$t_0=(M-d)/d$ and $t_1=(M+z-d)/d$, are
+\[
+ J_{\mathrm{E3}}=A_2(t_0)-A_2(t_1),\qquad
+ J_{\mathrm{E2}}=d\{t_1[A_2(t_1)-A_2(t_0)]-[C_2(t_1)-C_2(t_0)]\}.
+\]
+In particular, the three-point sign is negative for $z>0$ before the
+remaining forest signs are applied. These expressions integrate the
+entire auxiliary coordinate; they are not approximations at a selected
+external momentum.
+
+The rationalizing substitution
+\[
+ w=\frac{4}{(\sqrt{t+4}+\sqrt t)^2},\qquad
+ t=\frac{(1-w)^2}{w},\qquad 0<w\leq1
+\]
+gives
+\[
+ B(t)=-\frac{(1+w)^3}{6w(1-w)}\log w
+       -\frac{4(w^2+w+1)}{9w}.
+\]
+Consequently each primitive differential is
+$R_2(w)\log^2w+R_1(w)\log w+R_0(w)$ with exact rational $R_k$.
+Starting at $k=2$, rational Hermite reduction writes
+$R_k=H_k'+S_k$, where $S_k$ has only simple poles. Integration by
+parts transfers $-kH_k/w$ into $R_{k-1}$. The final expression is
+$\sum_k H_k\log^kw+\sum_k\int S_k\log^kw\,dw$.
+All rational derivative reconstructions are checked exactly.
+
+For $a\ne0$ set
+\begin{align*}
+ \Phi_0(w,a)&=\log(1-w/a),\\
+ \Phi_1(w,a)&=\log w\log(1-w/a)+\operatorname{Li}_2(w/a),\\
+ \Phi_2(w,a)&=\log^2w\log(1-w/a)
+       +2\log w\operatorname{Li}_2(w/a)-2\operatorname{Li}_3(w/a).
+\end{align*}
+Then $\partial_w\Phi_k=\log^kw/(w-a)$. At the zero pole the primitive
+is $\log^{k+1}w/(k+1)$. The non-real poles
+$\rho_\pm=(1\pm i\sqrt3)/2$ are combined as conjugates, making the
+answer explicitly real. Only the log-squared simple pole occurs at
+$w=1$, with $\Phi_2(1,1)=-2\zeta(3)$. Subtraction of the complete
+endpoint value normalizes both primitives.
+
+For a shared-edge E3 graph this removes one physical integration
+coordinate, leaving five physical projective coordinates and a separate
+discrete order selector. The original child $T^2$, overall $T^0$, full
+external Gram matrix and complete forest sum must remain unchanged.
+Exact derivative identities and independent hypergeometric quadrature
+are recorded separately from native tests and whole-integral acceptance.
+The primitive derivation alone does not certify either full graph.
+
+\section{Complete elimination of the discrete order selector}
+Write $K(\alpha)$ for the complete signed shared-edge forest kernel,
+including $U_f^{-3}$ and the endpoint difference above. An ordered
+projective chart $\pi$ sets $\alpha_{\pi_1}=1$ and
+$\alpha_{\pi_{j+1}}=r_1\cdots r_j$, $j=1,\ldots,5$. Its Jacobian is
+\[
+ J_\pi(u)=\prod_{j=1}^{5} r_j^{5-j}\frac{dr_j}{du_j}.
+\]
+If a selector chooses $\pi$ with exact probability $p_\pi$, its
+importance-weighted contribution is $J_\pi K/p_\pi$. Integrating that
+selector exactly gives the five-variable density
+\[
+ \mathcal K(u)=\sum_{\pi\in S_6}J_\pi(u)K(\alpha_\pi(u)).
+\]
+There is no factor $1/720$ or $1/6$, and no remaining probability
+divisor. The constant chart moment is $720/5!=6$.
+
+Let $G$ be a group of edge permutations preserving the entire signed
+forest polynomial multiset, the weighted edge, and every transport
+table. At the declared external Gram matrix, exact invariance permits
+\[
+ \mathcal K(u)=\sum_{[\pi]\in S_6/G}|[\pi]|\,
+ J_\pi(u)K(\alpha_\pi(u)).
+\]
+Every orbit is checked for disjointness and complete coverage. This
+invariance is asserted at the declared kinematics; it is not a claim
+about graph automorphisms at arbitrary external momenta.
+
+The native implementation combines the coefficients of equal rational
+arguments of $A_2$ before evaluating special functions. The sum of all
+argument coefficients is checked to be exactly zero, so the common
+primitive normalization cancels algebraically. A separate reference
+traverses all $720$ orders without quotienting, solves the original
+Gaussian blocks by rational elimination, and compares every resulting
+argument and coefficient exactly.
+
+When second moments exist, complete conditional averaging obeys
+$\operatorname{Var}(\mathbb E[Y\mid u])\leq\operatorname{Var}(Y)$.
+This does not guarantee improvement for every finite scrambled net.
+New fixed diagnostics, independent-kernel production, and stored-record
+auditing are still required before accepting a complete integral.
+\end{document}

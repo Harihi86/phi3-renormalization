@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,geometry}
+\geometry{margin=25mm}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\T}{\mathcal T}
+\title{A disjoint two-point bubble and triangle with two host loops}
+\author{Phi3Lab: exact original-forest derivation}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent Graphs: \(G12,G70,G95,G235\), all at four loops and three
+external legs. The measure is \(\dd^6k/\pi^3\) per loop, mass squared
+is one, and \(p_1^2=p_2^2=(p_1+p_2)^2=1\).
+Symmetry factors and powers of the coupling are not included in these
+scalar integrals.
+
+\section*{Exact local subtractions}
+Let \(\ell=x(1-x)\). The complete subtracted bubble is
+\[
+ B(s)=\int_0^1[(1+\ell s)\log(1+\ell s)-\ell s]\,\dd x,
+ \qquad B(0)=B'(0)=0.
+\]
+The two zero conditions encode the mass and kinetic Taylor terms.
+Set \(E(s)=\int_0^1\log(1+\ell s)\,\dd x\). Then
+\[
+ B(s)=\frac{s+4}{6}E(s)-\frac{s}{9},\qquad
+ J(s)=\frac{B(s)}{1+s}.
+\]
+The denominator in \(J\) is exactly one retained host propagator.
+The independent reference keeps all seven original host propagators
+and uses \(B\); the native kernel uses six hosts and \(J\).
+This equality holds for every physical momentum, before expansion.
+
+The complete triangle is
+\[
+ -L(a,b,c)=-\int_{\substack{x,y\geq0\\x+y\leq1}}
+ \log\{1+ax+by-ax^2-by^2+(c-a-b)xy\}\,\dd x\,\dd y .
+\]
+Its simplex volume is \(1/2\). Every graph has the four original
+forests \(\varnothing,\{\gamma_2\},\{\gamma_3\},\{\gamma_2,\gamma_3\}\),
+with signs \(+,-,-,+\). The bubble retains its independent degree-two
+Taylor variable. The original Gaussian, positive-polynomial, and
+Schur-complement constructions of both \(U\) and \(F\) agree exactly.
+
+\section*{Two-loop coordinates}
+A recorded integer matrix of determinant \(\pm1\) transforms only the
+two remaining loop variables. After absorbing the one bubble
+propagator, the zero-external-momentum host channels are \(q,r,q+r\),
+each twice. Let \(t=q^2,v=r^2,w=(q+r)^2\).
+The physical overall \(\T^0\) sets \(p_1,p_2\) to zero and retains
+both \(q,r\). In particular, it does not set the bubble boundary
+momentum to zero.
+
+Three unimodular charts use
+\[
+ (q,r)=(u,v_0),\quad (u,v_0-u),\quad (v_0-u,u),
+ \qquad
+ \omega_j=\frac{D_j^3}{D_q^3+D_r^3+D_{q+r}^3},\quad D_k=1+k^2 .
+\]
+The excluded channels are respectively \(q+r,r,q\).
+At fixed host Gram matrix, common-orientation density in four unit
+coordinates is \(3(1-z)\sqrt{1-Z}\), normalized to one.
+The relative-angle density is \((8/3)\sin^4(\pi u_\psi)\).
+The radial measure is \(t^2v^2\,\dd t\,\dd v/4\).
+The two predeclared alternatives use
+\(t=[s/(1-s)]^2,v=[h/(1-h)]^2\), or
+\(t=\rho h,v=\rho(1-h),\rho=[s/(1-s)]^2\).
+
+\section*{Quadratic zero-integral control}
+Scale only physical external momenta by \(\lambda\), and write
+\[
+ F(\lambda)=
+ \prod_{e=1}^{6}\frac{D_e(0)}{D_e(\lambda)}
+ J(s_\gamma(\lambda))
+ [-L(a(\lambda),b(\lambda),c(\lambda))].
+\]
+The antipodal remainder is
+\[
+ A=\frac{F(1)+F(-1)}2-F(0),\qquad C=\frac{F''(0)}2.
+\]
+The native density evaluates \(A-C\) and returns the exact rotation
+mean \(\langle C\rangle\) uniformly over common-orientation
+coordinates. Thus it integrates to the original \(A\). This control
+does not add any physical counterterm or change a local Taylor order.
+
+For an invariant \(s(\lambda)=s_0+\lambda l+\lambda^2c\),
+the bubble jet is
+\[
+ [J(s_0),\,J'(s_0)l,\,J'(s_0)c+\tfrac12J''(s_0)l^2].
+\]
+The triangle uses its exact invariant gradient and Hessian, including
+the same \(1/2!\). The product uses ordinary coefficient convolution.
+The control is constant plus a quadratic polynomial in
+\((q\cdot p_1,q\cdot p_2,r\cdot p_1,r\cdot p_2)\), with
+\[
+ \langle(u_i\cdot p_a)(u_j\cdot p_b)\rangle
+ =\frac{(u_i\cdot u_j)(p_a\cdot p_b)}6.
+\]
+An independent reference uses all seven original hosts, separate
+derivatives of \(B\), scalar chain-rule triangle derivatives, and
+24 six-dimensional frames. It does not reuse the native covariance
+calculation or the six-host regrouping.
+
+\section*{Absolute integrability}
+For \(s\geq0\),
+\[
+ 0\leq B(s)\leq \frac{s\log(1+s)}6,\quad
+ B'(s)\leq\frac{\log(1+s)}6,\quad B''(s)\leq\frac1{6(1+s)}.
+\]
+Consequently
+\[
+ |J_s|\leq\frac{\log(1+s)}{3(1+s)},\qquad
+ |J_{ss}|\leq
+ \frac{1/6+(2/3)\log(1+s)}{(1+s)^2}.
+\]
+For \(s=|u+\lambda p|^2, |p|\leq1,|\lambda|\leq1\), put
+\(D=1+|u|^2\) and \(L=\log(1+D)\). Since
+\(D/3\leq1+s\leq3D\), the physical derivative bounds are
+\[
+ |J|\leq L/3,\quad |J_\lambda|\leq3L/\sqrt D,\quad
+ |J_{\lambda\lambda}|\leq23L/D.
+\]
+They fit the previously verified common triangle bound
+\(M=256\log(2+\max(t,v,w))\).
+The eight-factor quadratic control obeys
+\[
+ |C|,\ |\langle C\rangle|\leq116M^2/D_{\min},
+ \qquad D_{\min}=1+\min(t,v,w).
+\]
+The complete constant \(294748\) is below the established
+ordered-sector majorant \(883548\), preserving absolute integrability.
+These bounds do not certify numerical integration error.
+
+\section*{Evidence and acceptance}
+Proofs and tests have separate recorded exits and immutable source
+hashes. Only successful fixed production followed by independent
+stored-request replay may update the empirical ledger.
+The exact thresholds, independent seeds, arithmetic interval gates,
+and all five prefix statistics remain unchanged.
+Older failed methods remain failed, and empirical acceptance is
+distinct from a rigorous quadrature certificate.
+\end{document}

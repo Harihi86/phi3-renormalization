@@ -1,48 +1,57 @@
-# Declared scientific conventions
+# Executable subtraction conventions
 
-## Theory and power counting
+## Action, signs and graph classes
 
-The reference interaction is `-g φ³ / 3!` in the Minkowski Lagrangian, with kinetic
-term `+(∂φ)²/2` and mass term `-m²φ²/2`. The metric is `(+,-,...,-)` in d dimensions;
-in four dimensions this is `(+,-,-,-)`. The graph algorithms themselves are metric
-independent. Power counting uses Euclidean UV scaling of a scalar propagator
-`1/(k²+m²)`, with `m > 0` when future zero-momentum subtractions require infrared
-control. The current executable does not evaluate a Minkowski or Euclidean integral.
+All subtraction/numerical formulas use six-dimensional Euclidean signature,
+`D(q)=1/(q²+m²)`, `m²>0`, and one `d⁶q/π³` measure per loop. The action contains
+`+gφ³/3!`, `+δm²φ²/2!`, `+δZ(∂φ)²/2`, `+δgφ³/3!` and a linear term `aφ`.
+Expansion of `exp(−S_int)` gives vertices `−g`, `−δm²`, `−δZ P²`, `−δg` and `−a`.
+The positive weight `1/S` excludes coupling, signs, propagators and measure.
 
-The demonstrated dimension is `d=6`, where `[φ]=(d-2)/2`, `[g]=(6-d)/2` and
-`ω=dL-2I=6-2E` for connected bare trivalent graphs. Numerator insertions or typed
-counterterm vertices require different power counting and are outside this demo.
+The older bare demo's Minkowski description does not insert factors of `i`
+into this Euclidean implementation; its graph operations are metric-independent.
 
-## Graphs and weights
+`Z[J]=exp(−Σ_r λ_r/r! ∫(δ/δJ)^r) exp(JDJ/2)` is normalized by `Z[0]`.
+Connected functions come from `W[J]=log(Z[J]/Z[0])`; differentiate sources before
+setting `J=0`. Amputation removes external free propagators. 1PI additionally
+excludes internal bridges. Functional audits retain direct source pairings and
+vacuum components before these restrictions.
 
-Internal edges are an indexed multiset. Subgraphs are sets of edge indices, not
-induced vertex subsets. Every omitted incident half-edge becomes a separate
-boundary port. Two-point and three-point external legs are amputated, distinctly
-labelled and held fixed in canonicalization and symmetry calculations. All
-external momenta are incoming with sum zero; no source-J attachments are counted.
+Edges are indexed multisets; divergent subgraphs are edge subsets, not induced
+vertex subsets. Every omitted incident half-edge supplies a boundary port.
+External labels are fixed pointwise, with all momenta incoming and summing to
+zero. Self-loops and tadpoles are retained. No normal-ordering/zero-VEV condition
+is imposed. The finite linear term is unspecified; one-point insertion hosts
+have bridges and do not enter the target amputated 1PI three-point family.
 
-The generator attaches each external leg to a distinct vertex in the supported
-1PI scope. Parallel edges are retained; self-loops are allowed. Vacuum graphs are
-excluded. A self-loop can contribute to the one-vertex one-point case, while
-bridges are excluded by the 1PI test.
+For connected bare trivalent graphs, `3V=2I+E`, `L=I−V+1` and `ω=6−2E`.
+Typed counterterm graphs use their own valences and coupling orders.
 
-`weight = 1 / |Aut(G)|` is a positive rational combinatorial weight, with vertex,
-parallel-edge and self-loop half-edge automorphisms included. It excludes powers
-of g, factors of i, propagators and integration normalization. A fixed-label
-bubble has weight 1/2; a fixed-label triangle has weight 1. Unfixed-label factors
-must not be substituted into the fixed-label demonstration.
+## Projectors and independent generation
 
-## Renormalization boundary
+Two-point Taylor subtraction is total vector degree ≤2 at independent boundary
+momentum `P=0`, with local basis `1,P²`. It is not degree two in `P²`.
+Three-point subtraction is degree zero in two independent boundary vectors.
+The third vector is minus their sum.
 
-No subtraction prescription is executed by this release. A future massive
-Euclidean momentum-subtraction implementation will need to declare Taylor
-expansion points, subtraction degrees, overall versus proper-subgraph terms,
-local operator basis and counterterm signs explicitly. A formal statement
-`R(G)=(1-t_G) Rbar(G)` is a definition under a declared prescription, not an
-implemented numerical result here. A graph-level UV degree is not evidence that
-a subtracted integral converges.
+Inside each selected subgraph, retain its inner loop variables and replace
+boundary vectors by `tP`; extract powers through `t^ω`. Boundary momenta can
+contain host loop variables. Host propagators are not scaled by this operation.
 
-BPH recursion, Henge decompositions and Zimmermann forest representations must
-be compared under matched conventions. Henge components need not all be UV
-divergent. Claims about all-loop finiteness require scale bounds uniform in
-subgraph external momenta; they cannot follow from a finite list of computations.
+Path A recursively constructs `C(γ)=−T_γ R̄(γ)` and applies
+`R(G)=(1−T_G)R̄(G)`. Nested operators act inside out; disjoint subgraphs may be
+multiplied, overlapping subgraphs may not. Henge and forest checks audit this
+actual recursion.
+
+Path B independently enumerates typed action sectors and Wick pairings,
+constructs its own lower-loop counterterm sources and glues their ports.
+No target catalogue, contracted insertion column or target coefficient is
+supplied by A. Graph representation and canonicalization helpers are shared.
+
+Every comparison cell is an exact rational operator polynomial. Signs, vertex
+types, fixed labels, half-edge bijections and loop-momentum changes are checked.
+Structural zeros remain explicit; numerical tolerances are not used.
+
+Local divergent integrals remain symbolic under a common UV regulator until
+subtractions are combined. Table equality is neither a numerical evaluation of
+those separate divergent terms nor a general all-loop convergence proof.

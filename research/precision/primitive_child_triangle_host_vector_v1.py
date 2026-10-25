@@ -1,0 +1,49 @@
+"""Floating diagnostics for the complete primitive-child radial forest kernel."""
+from itertools import permutations
+import numpy as np
+import primitive_host_grouped_stratified_vector_v1 as V
+
+
+def norm(v):return (v[...,0]-v[...,1]/2)**2+3*v[...,1]**2/4
+def dot(v,w):return (v[...,0]-v[...,1]/2)*(w[...,0]-w[...,1]/2)+3*v[...,1]*w[...,1]/4
+
+
+def evaluate(points,binding,positive,proposal,control=True,radial_transport=True,simplex_orbit=6):
+    p=np.asarray(points,dtype=np.longdouble);n=len(p);table=binding['groups']
+    host=np.asarray(binding['host_routes'],dtype=np.longdouble)[:,1:];center=host.mean(axis=0)
+    root=np.sqrt(1-p[:,9]);simplex=np.stack((p[:,9]/(1+root),root*p[:,10],root*(1-p[:,10])),axis=1)
+    assert simplex_orbit in (1,6);orders=[(0,1,2)] if simplex_orbit==1 else list(permutations(range(3)))
+    total=np.zeros(n,dtype=np.longdouble)
+    for st in proposal['strata']:
+        a,x,t,tropical=V.parameters(p[:,:9],table,proposal,st);assert ((t>0)&(t<1)).all()
+        M=a.sum(axis=1);U=V.polynomial(table['U'],a);beta=np.zeros((n,9),dtype=np.longdouble)
+        for g,edges in enumerate(table['groups']):
+            if len(edges)==1:beta[:,edges[0]]=a[:,g]
+            else:
+                j=next(row['index'] for row in table['fractions'] if row['group']==g)
+                beta[:,edges[0]]=a[:,g]*x[:,j];beta[:,edges[1]]=a[:,g]*(1-x[:,j])
+        W=np.empty((n,3,3),dtype=np.longdouble)
+        for i in range(3):
+            for j in range(3):W[:,i,j]=V.polynomial(binding['child_variance_numerator'][i][j],beta)/(U*M)
+        ell=W[:,0,0];assert (ell>0).all()
+        ce=W[:,0,1:];energy=W[:,1,1]+W[:,2,2]-W[:,1,2]
+        Ge=V.polynomial(positive['child_five_minor_Gram'],beta)/(U*M*M);assert (Ge>0).all()
+        meanDe=energy-2*dot(center,ce)+ell*norm(center)+ell/12
+        value=np.zeros(n,dtype=np.longdouble)
+        for order in orders:
+            hostx=simplex[:,order];b=hostx@host;q0=hostx[:,0]*hostx[:,1]+hostx[:,0]*hostx[:,2]+hostx[:,1]*hostx[:,2]
+            De=energy-2*dot(b,ce)+ell*norm(b);assert (De>0).all()
+            for aux in (t,1-t):
+                radial=aux/(1-aux);jac=1/(aux*(1-aux))
+                if radial_transport:
+                    h=np.log(ell);mask=h!=0;ah=aux[mask]*h[mask];bh=(1-aux[mask])*h[mask]
+                    radial[mask]=np.expm1(ah)/(np.exp(ah)*np.expm1(bh))
+                    jac[mask]=h[mask]*np.expm1(h[mask])/(np.expm1(ah)*np.expm1(bh))
+                mass=1+radial;d=radial*ell;ratio=1+d;inverse=ratio**-3
+                one_minus=d*(3+3*d+d*d)*inverse;delta=radial*(De+radial*Ge)/ratio
+                result=one_minus*np.log1p(q0/mass)-inverse*np.log1p(delta/(mass+q0))
+                if control:result+=(one_minus*(np.longdouble(1)/4-q0)-inverse*radial*(meanDe-De)/ratio)/mass
+                value+=result*jac
+        factor=np.longdouble(str(float(st['probability']*table['normalization'])))
+        total+=factor*(tropical/U)**3*value/(4*len(orders))
+    assert np.isfinite(total).all();return total

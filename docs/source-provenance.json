@@ -6,5 +6,6 @@
   "excluded": "full active development tree, numerical jobs, counterterm-action implementation, private research notes and correspondence",
   "public_sha256": "5594b2fcab88654db539f9ba94e48a70de7d46a9384173bc8c9bb7bd516b1d67",
   "ast_equivalent_to_selected_source": false,
-  "function_and_class_ast_preserved": true
+  "function_and_class_ast_preserved": true,
+  "record_scope": "Historical provenance of the retained 0.1 bare-demo component only; current import is documented in source-import.json."
 }

@@ -1,0 +1,60 @@
+\section{Graph-derived importance sampling without factorial sectors}
+
+The primitive certificate also yields an executable importance distribution.
+This distribution is constructed from edge subsets of the input graph; it
+does not select an integration formula by topology name. For every nonempty
+proper subset put
+\[
+ d_+(A)=\max(1,|A|-3h(A)),\quad
+ D_+(\varnothing)=1,\quad
+ D_+(A)=\frac{\sum_{e\in A}D_+(A\setminus e)}{d_+(A)},\quad
+ B_+=\sum_{e\in E}D_+(E\setminus e).
+\]
+Choose the largest edge with probability $D_+(E\setminus e)/B_+$, then
+recursively choose the last edge of the remaining subset with probability
+$D_+(A\setminus e)/\sum_fD_+(A\setminus f)$. This samples all edge orderings
+without materializing $I!$ sectors. For its proper prefixes $A_r$ independently
+draw $t_r=u_r^{1/d_+(A_r)}$. Set
+\[
+ \widetilde\alpha_{e_j}=\prod_{r=j}^{I-1}t_r,\quad
+ \widetilde\alpha_{e_I}=1,\quad
+ T=\sum_e\widetilde\alpha_e,\quad\alpha_e=\widetilde\alpha_e/T.
+\]
+The ordering probability telescopes to
+$[B_+\prod_r d_+(A_r)]^{-1}$. Multiplying the conditional densities of the
+$t_r$ cancels the factors $d_+$, whereas the simplex Jacobian is
+$T^{-I}\prod_rt_r^{r-1}$. Therefore the complete, already combined BPH
+density $\mathcal K_G$ has the unbiased weighted sample
+\[
+ B_+ T^{-I}\!\left(\prod_{r=1}^{I-1}t_r^{r-d_+(A_r)}\right)
+ \mathcal K_G(\alpha).
+\]
+For primitive three-point graphs $d_+=d$ and $I=3L$. The proof in the
+preceding section gives the pointwise envelope
+\[
+ |\text{weighted sample}|\le B\log(1+S/M).
+\]
+For graphs with subdivergences the clipped gaps specify a valid sampling
+distribution only. They do not prove a bound on the combined recursive
+remainder. The default implementation uses Hepp sampling for primitive
+three-point inputs and Dirichlet sampling otherwise; both remain selectable
+for comparison.
+
+The independent alternative draws $z_e$ with a Gamma distribution of shape
+$\beta$ and sets $\alpha_e=z_e/\sum z$. Its inverse density in the simplex
+measure is
+\[
+ \frac{\Gamma(\beta)^I}{\Gamma(I\beta)}
+ \prod_e\alpha_e^{1-\beta}.
+\]
+Independent scrambled Sobol replicates provide numerical means, between-run
+standard errors and a nested half-power diagnostic. They are not rigorous
+quadrature enclosures. On this platform NumPy's long double has only 53
+effective binary bits; the explicit Decimal boundary recomputation is what
+repairs the demonstrated cancellation failures.
+
+The CDF implementation also has a recorded endpoint regression: every CDF
+entry after the last active edge must equal one, not merely its final array
+entry. Otherwise rounding can select an absent edge. Tests independently
+check the normalized-simplex Jacobian, volume, first moments and primitive
+weighted envelope, including the largest open-cube floating input.

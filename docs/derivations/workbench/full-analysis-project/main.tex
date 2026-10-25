@@ -1,0 +1,31 @@
+\documentclass[UTF8,a4paper,11pt,fontset=fandol]{ctexart}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable,array,xcolor,xurl,hyperref}
+\hypersetup{colorlinks=true,linkcolor=teal,urlcolor=teal,pdftitle={Phi3Lab: Complete Supported Two-Loop BPH Analysis}}
+\setlength{\parskip}{0.4em}
+\setlength{\emergencystretch}{3em}
+\title{全部支持两圈图的 BPH 递归分析\\\large 有限积分、原始动量绝对收敛与明确解析界}
+\author{MPhys 软件研究协作记录\quad Phi3Lab 3.0}
+\date{2026 年 10 月 19 日}
+\begin{document}
+\maketitle
+\begin{abstract}
+本稿在六维、有共同正质量的 Euclidean 单实标量 $\phi^3$ 理论中，覆盖固定外腿标签、截肢连通 1PI 的全部两圈一、二、三点图，共十张。统一采用 BPH 递归和完整零动量 Taylor 条件；本项目尚未核验的 Z 部分不作为证明前提，森林仅作显式展开及组合互校。每种非零拓扑分别给出有限参数积分、明确可积控制、原始十二维动量绝对收敛证明，以及共同 Schwinger 正则化极限的等价桥。数值程序、独立复算及现代上游工具证据与数学证明分开记录。本稿不以一张图的证明替代任意圈数的一般定理。
+\end{abstract}
+\paragraph{阅读顺序}
+先核对统一方案与图的物理腿映射，再读无真发散子图的原始三点图，随后比较 bubble 与 triangle 插入，最后阅读两个重叠三角子图的合并减除。参数绝对积分的常数不自动等于原始动量绝对积分的常数；数值阶数差与随机积分标准误也不是严格误差包络。
+\tableofcontents
+\clearpage
+\input{scheme}
+\clearpage
+\input{primitive}
+\clearpage
+\input{nested-bubble}
+\clearpage
+\input{nested-triangle}
+\input{triangle-reduction}
+\clearpage
+\input{overlap}
+\clearpage
+\input{verification}
+\end{document}

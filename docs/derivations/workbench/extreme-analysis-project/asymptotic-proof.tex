@@ -1,0 +1,187 @@
+\section{An independent scale-uniform asymptotic reference for the nested triangle}
+
+Write $s_i/M=\lambda\widehat s_i$, $\max_i\widehat s_i=1$, with a
+physical Euclidean shape and $\lambda>0$. All quantities below are
+dimensionless and use the same finite recursive BPH scheme. Put $L=\log
+\lambda$. For the parameter variables of the triangle chapter set
+\[
+ W=ab\widehat s_2+ac\widehat s_1+bc\widehat s_3,\quad
+ H=u(1-u),\quad D=A+(1-A)H,\quad C=1-A,
+\]
+and let $G$, $B=uvw$, and $\delta=C(AG+CB\widehat s_1)/D$ refer to that
+normalized shape. Define
+\[
+ P=\frac{1}{AC}-\frac{A^2}{CD^3},\qquad r=P-\frac1A.
+\]
+The exact paired density can be decomposed, without changing its finite
+counterterms, as
+\[
+ P\log(1+\lambda AW)
+ -\frac{A^2}{CD^3}
+       \log\left(1+\frac{\lambda\delta}{1+\lambda AW}\right).
+\]
+The $1/A$ part integrates exactly to $-\operatorname{Li}_2(-\lambda W)$.
+The change $x=A/D$ gives
+\[
+ P\,dA=(x^{-1}+1+x)\,dx,\qquad
+ \int_0^1r\,dA=\frac32+\log H=:f_H.
+\]
+The inner simplex integral is $\int_{\Delta_i}f_H=-1/4$. Consequently
+\[
+ J(\lambda\widehat s)=\frac18L^2+b(\widehat s)L+c(\widehat s)
+                      +R_\lambda,
+ \qquad b=\frac12\int_{\Delta_o}\log W-\frac18.
+\]
+This coefficient is derived from the finite BPH integral, not fitted from
+large-scale data.
+
+For a fully explicit constant put $I_k=\int_{\Delta_o}\log^kW$ and
+$g_H=\int_0^1r\log A\,dA$. For $h=H$, $g=1-h$, $l=\log h$, let
+\begin{align*}
+ J_0(h)&=-1-\frac{h}{g}l,\\
+ J_1(h)&=\frac{-3/4-(h-h^2/2)l+h-h^2/4}{g^2},\\
+ g_H&=\frac12l^2+\frac32l-\frac54-J_0(h)-J_1(h)
+                    +\operatorname{Li}_2(1-h),\\
+ G_*&=\int_{\Delta_i}g_H
+     =\frac12\int_0^1g_{u(1-u)}\,du.
+\end{align*}
+An exact constant representation is
+\[
+ c=\frac14I_2-\frac14I_1+\frac12G_*+\frac{\pi^2}{24}-\mathcal I,
+\quad
+ \mathcal I=\int_{\Delta_o}\int_{\Delta_i}\int_0^1
+   \frac{A^2}{CD^3}\log\left(1+\frac\delta{AW}\right)dA.
+\]
+All these integrals converge. In particular the final $A$ integral has an
+independent exact dilogarithmic reduction. Set
+\[
+ \eta=\frac{G}{HW},\qquad \xi=\frac{B\widehat s_1}{H^2W},
+ \qquad \eta\ge\xi\ge0.
+\]
+After $x=A/D$ and $y=1-x$, factor
+\[
+ 1+(\eta-1)y+(\xi-\eta)y^2=(1+\rho_+y)(1+\rho_-y),
+ \qquad \rho_+\ge0,\quad -1\le\rho_-\le0.
+\]
+The integrated kernel is
+\[
+ \mathcal I(\eta,\xi)=T(\rho_+)+T(\rho_-)-T(-1),
+ \quad
+ T(z)=\int_0^1\frac{(1-y)^2}{y}\log(1+zy)\,dy.
+\]
+In elementary functions and a real dilogarithm,
+\begin{align*}
+ T(z)&=-\operatorname{Li}_2(-z)-2f(z)+j(z),\\
+ f(z)&=(1+1/z)\log(1+z)-1,\\
+ j(z)&=\tfrac12(1-z^{-2})\log(1+z)-\tfrac14+\tfrac1{2z},\\
+ T(0)&=0,\qquad T(-1)=\tfrac54-\tfrac{\pi^2}{6}.
+\end{align*}
+Small-$z$ evaluation uses
+$T(z)=2\sum_{n\ge1}(-1)^{n+1}z^n/[n^2(n+1)(n+2)]$.
+For stable roots one may use
+\[
+ \eta-\xi=\frac{|k_0-(1-z)p_1|^2}{W},\qquad
+ \xi=\frac{z(1-z)\widehat s_1}{uW},\quad
+ v=(1-u)z,
+\]
+which avoids subtracting two large inner expressions. The remaining shape
+integral is four-dimensional, with no large scale. This differs from the
+production finite-scale exact-$A$ formula and is useful as an independent
+extreme-scale check.
+
+\subsection{An explicit uniform bound on the asymptotic remainder}
+
+The following controls the full integrated remainder, not a selected phase
+point. Take $0<\alpha<1/2$, and define
+\[
+ M_\beta=4^\beta B(1-\beta,2-\beta),\qquad
+ H_\alpha=B(1-\alpha,2-\alpha).
+\]
+Any physical normalized shape has its second largest invariant at least
+$1/4$. Two coefficients of $W$ are therefore at least $1/4$, giving
+$W\ge t(1-t)/4$ for an appropriate outer fraction $t$. Hence
+$\int_{\Delta_o}W^{-\beta}\le M_\beta$ for $\beta<1$.
+Use $\log(1+x)\le x^\alpha/\alpha$ and
+$|\operatorname{Li}_2(-x)|\le x^\alpha/\alpha^2$.
+
+There are three remainder terms. The inversion identity for the first
+dilogarithm gives an integrated bound
+$\lambda^{-\alpha}M_\alpha/(2\alpha^2)$.
+For the $r$ term, in the $x=A/D$ coordinate,
+\[
+ r\,dA=\left(1+x-\frac{1-H}{1-(1-H)x}\right)dx,
+\]
+so
+\[
+ \int_{\Delta_i}\int_0^1|r|A^{-\alpha}dA
+ \le H_\alpha\left\{\frac2{1-\alpha}+B(1-\alpha,\alpha)\right\}.
+\]
+The remaining logarithm in this term is
+$\log(1+1/(\lambda AW))$, giving the second contribution below.
+
+For the final positive-log difference, put $x_0=AW$. Its exact error is
+\[
+ \log\left(1+\frac\delta{x_0}\right)
+ -\log\left(1+\frac{\lambda\delta}{1+\lambda x_0}\right)
+ =\log\left(1+\frac\delta{x_0[1+\lambda(x_0+\delta)]}\right).
+\]
+Use $\delta\le C/3$ and the previous inner bound
+$\int_{\Delta_i}A^2/D^3\le\min(1/C,1/(2A))$. Splitting at $A=1/2$
+gives
+\[
+ \int_0^1 A^{-2\alpha}C^{\alpha-1}
+             \min\left(\frac1C,\frac1{2A}\right)dA
+ \le\frac{2^{1+\alpha}}{1-2\alpha}+\frac{2^\alpha}{\alpha}.
+\]
+Combining all three estimates proves
+\begin{align*}
+ |R_\lambda|\le\lambda^{-\alpha}\Bigg[&
+ \frac{M_\alpha}{2\alpha^2}
+ +\frac{M_\alpha H_\alpha}{\alpha}
+      \left\{\frac2{1-\alpha}+B(1-\alpha,\alpha)\right\}\\
+ &+\frac{M_{2\alpha}}{\alpha3^\alpha}
+       \left\{\frac{2^{1+\alpha}}{1-2\alpha}
+                                      +\frac{2^\alpha}{\alpha}\right\}\Bigg].
+\end{align*}
+In particular, choosing $\alpha=1/4$ yields the conservative exact-form
+constant $129.292152049$ rounded upward:
+\[
+ |R_\lambda|\le129.292152049\,\lambda^{-1/4}.
+\]
+At $\lambda=10^{308}$ this is less than $1.293\times10^{-75}$, uniformly
+over every legal normalized shape. This is a rigorous asymptotic truncation
+bound; it does not certify numerical quadrature errors in $b,c$.
+
+\subsection{An independent exact one-dimensional zero-inserted-leg check}
+
+For $\widehat s=(0,1,1)$ the inner subtraction is radial. At unit mass let
+\[
+ A_i(r)=\tfrac12\int_0^1\log(1+u(1-u)r)du
+       =\sqrt{1+4/r}\operatorname{arsinh}(\sqrt r/2)-1.
+\]
+If $R=1+r$, $\sigma=\lambda/R$, $\mu=1/R$, and
+$d=[\sigma-1+\sqrt{(1-\sigma)^2+4\mu\sigma}]/2$, the exact finite
+amplitude is
+\[
+ J(0,\lambda,\lambda)=\frac16\int_{-\infty}^{\infty}
+  \left(\frac r{1+r}\right)^3A_i(r)
+  \frac{\sigma+2d+3d^2}{(1+d)^2}\,dx,
+ \qquad r=e^x.
+\]
+Its density is nonnegative. This follows directly by angular averaging
+$D(k)^2[D(k)-D(k+p)]$ after the subtracted inner loop, without using the
+four-dimensional asymptotic shape calculation. The lower tail $x<-X$ is
+at most $e^{-4X}/64$. For $x>L+Y$, $Y\ge0$, an upper tail bound is
+$\tfrac12 e^{-Y}(L+Y+1+\log2)$.
+
+Here $I_1=-1$, $I_2=4-\pi^2/6$, and $\mathcal I=1/16$ exactly. For the
+last identity, integration by parts reduces
+$\tfrac12\int_0^\infty T(a)/(1+a)^3\,da$ to
+$\tfrac14\int_0^1(1-t+t\log t)dt=1/16$.
+Thus $b=-5/8$ and
+$c_0=19/16+G_*/2=1.285162801612060787108398428703\ldots$.
+High-precision numerical quadrature at 60 decimal digits gives
+$J(0,10^{308},10^{308})=62427.945326453101875853885079349825\ldots$,
+agreeing with the asymptotic expression through the reported precision.
+Source scripts, order refinements and actual results are in this directory;
+the numerical precision evidence is separate from the analytic remainder bound.

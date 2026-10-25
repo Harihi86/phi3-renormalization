@@ -1,0 +1,130 @@
+\section{Software, independent numerical checks and source attribution}
+\subsection{A fixed scheme, not a collection of unrelated finite parts}
+The software accepts the physical invariants in fixed external-label order.
+For a two-point graph the sole invariant is $s=p_E^2$. For a three-point
+graph they are $(s_1,s_2,s_3)=(p_{1,E}^2,p_{2,E}^2,p_{3,E}^2)$, with
+$p_1+p_2+p_3=0$. The topology registry derives the inserted physical leg or
+opposite physical leg from the generated graph itself.
+The proper bubble retains the finite kinetic Taylor term $-s/6$; the
+overall subtraction is then performed at fixed inserted-edge momentum.
+The definitions in the preceding sections determine the finite scheme.
+They must not be replaced by pole subtraction alone.
+
+Shared input validation evaluates the binary64 Gram determinant using exact
+rational arithmetic. A rounding tolerance is relative to the minimum of all
+three Cauchy product scales, and therefore commutes with external-leg
+permutations. An accepted near-boundary negative determinant is corrected by
+moving the largest invariant inward until the effective binary64 Gram
+determinant is nonnegative. Every kernel and analytic bound uses this same
+effective physical point; the requested values, effective values and number
+of correction steps are retained in the result. The larger of the first two
+physical vectors is used as a reconstruction axis to avoid amplifying a
+tiny-leg rounding error.
+
+\subsection{Reference point and normalization}
+At $M=1$, the two-point invariant is $s=1$ and the three-point invariants
+are $s_1=s_2=s_3=1$. The following are unweighted scalar integrals in the
+measure $d^6k/\pi^3\,d^6q/\pi^3$:
+\begin{center}
+\begin{tabular}{lr}
+\toprule Topology & $J_R$\\\midrule
+One-point graph & $0$ exactly\\
+Overlapping two-point graph & $+0.00277755520593736$\\
+Bubble-inserted two-point graph & $+0.000240153063424584$\\
+Primitive $K_{2,3}$ three-point graph & $-0.0830063381643418$\\
+Triangle-inserted three-point graph & $+0.0036834315027189$\\
+Bubble-inserted three-point graph & $-0.00617095361238479$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The three fixed-label placements in each insertion family coincide only at
+this symmetric point. Asymmetric points are used to check the physical-leg
+mapping. Graph weights $1/S$, vertex factors $(-g)^{E+2}$ and the ordinary
+two-loop measure conversion $(4\pi)^{-6}$ remain separate.
+
+\subsection{Independent numerical and upstream checks}
+The primitive Gaussian effective scale and the nested-triangle effective
+scale are checked against an independent exact spanning-tree/two-forest
+construction of the graph polynomials $U,F$. The projective period
+$\mathcal P=1/2$ of the primitive graph is integrated analytically and is
+also reproduced numerically. Bubble insertion is checked against direct
+six-dimensional angular averages, including a nonsymmetric physical point.
+The overlap integral has a separate three-chart five-dimensional rational
+Taylor-remainder oracle, distinct from its two-chart four-dimensional
+logarithmic core.
+
+The nested-triangle oracle first integrates the subtracted inner triangle
+and then performs an outer momentum integral using a radial coordinate,
+two angular coordinates and two inner simplex coordinates. Antithetic
+$k\leftrightarrow-k$ samples reduce odd angular contributions. Independent
+scrambled Sobol calculations use NumPy/SciPy only in the optional
+verification environment. Per-scramble estimates, seeds, sample counts and
+standard errors are retained. They are statistical diagnostics rather than
+strict integration-error enclosures.
+
+The official pySecDec~1.6.6 source was built in a separate environment and
+used to generate and compile the original six-edge primitive graph in
+$d=6-2\epsilon$. Twelve sectors remain after upstream symmetry finding.
+QMC evaluations at the zero point, symmetric point and an asymmetric point
+give a pole compatible with $1/(4\epsilon)$. Subtracting the zero-point
+finite Laurent coefficient gives the finite BPH value for this primitive
+graph, since it has no proper divergent subgraphs. In one recorded run,
+the symmetric finite difference differs from the local core by
+$5.37\times10^{-7}$ and the asymmetric difference by
+$4.05\times10^{-7}$, meeting the recorded five-standard-deviation and
+absolute-target criteria. These
+are genuine upstream numerical runs; the bare finite coefficient by itself
+is not called a BPH amplitude.
+
+The task-local native build includes two syntax compatibility corrections
+for the current Apple toolchain: FORM's historical \texttt{alignof} macro
+does not override the C++11 keyword, and dependent SecDecUtil member
+template calls supply an empty explicit template argument list. Neither
+correction changes the arithmetic algorithm. The original source archive,
+patch description, installed-file hashes and generated library hash are
+recorded in the build and comparison JSON files.
+
+The external feyncop source separately checks the generated graphs,
+fixed-label weights and embedded divergent subgraphs. pySecDec's Python
+graph interface checks all supported $U,F$ polynomials and dimensional
+normalizations. None of these finite checks replaces the analytic arguments
+in the preceding sections.
+
+\subsection{Precision and reproducibility}
+The core runs with Python's standard library. Optional array acceleration
+and external integrators are kept separate. Quadrature order differences,
+alternate coordinate maps and stochastic standard errors are explicitly
+distinguished from rigorous error bounds. Analytic amplitude bounds use
+outward numeric enclosures for the effective converted inputs. Inadequate
+refinement or unsupported floating-point scales must be reported, rather
+than inferred to be accurate from a finite return value.
+
+The release records exact source hashes, output hashes, independently
+executed tests and the freshness of each external check. A changed source
+fingerprint makes previous external evidence stale until it is rerun. The
+iteration ledger records substantive changes and feedback, rather than
+counting repeated passing commands as new iterations. The authoritative
+current counts and raw results accompany the software in \path{results/}.
+
+\subsection{Sources and authorship}
+The recursive framework follows A.~D.~Kennedy, \emph{A Simple Proof of the
+BPH Theorem}, arXiv:hep-th/9612113, especially the treatment of recursive
+subtraction, Taylor remainders and scale control. The explicit constants,
+coordinate maps and implementation in this document were derived during
+this collaboration; they are not attributed to that paper as published
+results.
+
+Modern context includes O.~Schnetz, \emph{$\phi^3$ theory at six loops},
+arXiv:2505.15485, and G.~Heinrich et al., \emph{Numerical Scattering
+Amplitudes with pySecDec}, arXiv:2305.19768. The former concerns minimal
+subtraction renormalization functions, which are not numerically identical
+to the massive finite Taylor scheme here. Exact primary-source links,
+versions and the availability or execution status of published code are
+retained in \path{docs/two-loop-current-sources.json} and
+\path{docs/modern-references.json}.
+
+Software, proofs and checks were produced in this collaboration. A student
+report should distinguish independently understood and reproduced work,
+software assistance and externally verified statements. This document
+establishes the declared finite two-loop cases, not an arbitrary-loop
+renormalization theorem, a massless limit or a Minkowski continuation.

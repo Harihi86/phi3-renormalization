@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,geometry}
+\geometry{margin=25mm}
+\title{Frozen rational importance maps for the complete G371 density}
+\author{Phi3Lab development record}
+\date{25 October 2026}
+\begin{document}
+\maketitle
+\noindent The graph, its four original forest terms, the exact soft-propagator
+rotation control and the three unimodular charts are unchanged. Only the
+sampling coordinates change. Numerical acceptance is recorded separately.
+
+\section*{An exact finite representation}
+Each of the seven coordinates has \(B=16\) equal cells in the original
+coordinate \(x\), with positive masses
+\[
+ m_j=\frac{n_j}{N},\qquad N=65536,\quad n_j\in\mathbb Z_{>0},
+ \qquad \sum_{j=0}^{B-1}n_j=N.
+\]
+Set \(c_0=0\), \(c_{j+1}=c_j+m_j\).
+For \(c_j\le y<c_{j+1}\), define
+\[
+ x(y)=\frac jB+\frac{N}{Bn_j}(y-c_j),
+ \qquad J(y)=\frac{N}{Bn_j}.
+\]
+Cell endpoints match exactly:
+\(x(c_j)=j/B\), \(x(c_{j+1})=(j+1)/B\).
+Each slope is strictly positive and every original cell is covered once.
+Hence for any integrable \(f\),
+\[
+ \int_0^1 f(x(y))J(y)\,\mathrm dy
+ =\sum_j\int_{j/B}^{(j+1)/B}f(x)\,\mathrm dx
+ =\int_0^1 f(x)\,\mathrm dx.
+\]
+For seven coordinates the transformed density is
+\[
+ \widetilde f(y_1,\ldots,y_7)
+ =f(x_1(y_1),\ldots,x_7(y_7))\prod_{a=1}^7J_a(y_a).
+\]
+The same substitution preserves the absolute integral. No domain tail is
+discarded and no graph coefficient is altered. At an internal boundary the
+implementation consistently chooses the right cell. Arithmetic that cannot
+classify a cell is rejected.
+
+\section*{Training and validation are distinct}
+The completed soft-kernel diagnostic supplies 128 authenticated requests
+and 32768 stored nodes. Repeats zero and one fit candidate histograms;
+all fourteen models are saved and hash-sealed before repeats two and three
+are read. The candidate family contains uniform maps and 4, 8 or 16 cells
+with uniform mixtures of \(1/10\) or \(1/4\).
+Fitted masses are quantized to positive integer units and normalized exactly.
+
+The holdout comparison uses the second-moment expression
+\[
+ \operatorname{Var}_{\rho}(f/\rho)
+ =\int\frac{f(x)^2}{\rho(x)}\,\mathrm dx
+     -\left(\int f(x)\,\mathrm dx\right)^2.
+\]
+Its estimates select a prospective method; they do not establish precision.
+The frozen models must pass native mapping checks and fresh fixed diagnostics
+before independent production is considered. Production and stored replay
+retain the existing acceptance gates.
+
+\section*{Independent checks}
+Exact rational checks verify normalization, every cell endpoint and polynomial
+moments through degree four. Native map tests cover all 210 internal
+coordinate boundaries across the two models, at the boundary and on both
+sides, plus a base point for each model: 632 points and 5056 scalar interval
+checks. The reference computes the map with rational arithmetic.
+
+Full graph checks then use the independent original-routing reference:
+formal Taylor products, conditional rotation frames and direct angular
+integrals. These checks include the complete Jacobian and do not substitute
+numerical proximity for the original exact forest identities. Source hashes,
+actual exits and precision results are stored in the recovery checkpoint.
+\end{document}
